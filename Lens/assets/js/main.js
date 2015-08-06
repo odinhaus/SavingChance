@@ -624,7 +624,7 @@ var main = (function($) { var _ = {
 						        _.scrolling = true;
 						        var scrollTop = $(this).scrollTop();
 						        var newScroll = scrollTop - Math.round(event.wheelDelta);
-						        $(this).animate({ scrollTop: newScroll + "px" }, 100, function () { _.scrolling = false; });
+						        $(this).animate({ scrollTop: newScroll + "px" }, 100, 'linear', function () { _.scrolling = false; });
 						    }
 						});
 
