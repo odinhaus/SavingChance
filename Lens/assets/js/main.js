@@ -77,6 +77,12 @@ var main = (function($) { var _ = {
 	 */
 	$navPrevious: null,
 
+    /**
+    * Nav (down)
+    * @var {jQuery}
+    */
+    //$navDown: null,
+    
 	/**
 	 * Slides.
 	 * @var {array}
@@ -94,6 +100,12 @@ var main = (function($) { var _ = {
 	 * @var {bool}
 	 */
 	locked: false,
+
+    /**
+	 * Body is scrolling.
+	 * @var {bool}
+	 */
+    scrolling: false,
 
 	/**
 	 * Keyboard shortcuts.
@@ -145,20 +157,22 @@ var main = (function($) { var _ = {
 		// Thumbnails.
 			_.$thumbnails = $('#thumbnails');
 
-		// Viewer.
-			_.$viewer = $(
-				'<div id="viewer">' +
-					'<div class="inner">' +
-						'<div class="nav-next"></div>' +
-						'<div class="nav-previous"></div>' +
-						'<div class="toggle"></div>' +
-					'</div>' +
-				'</div>'
-			).appendTo(_.$body);
+	    // Viewer.
+			//var viewer = $(
+			//	'<div id="viewer">' +
+			//		'<div class="inner">' +
+			//			'<div class="nav-next"></div>' +
+			//			'<div class="nav-previous"></div>' +
+			//			'<div class="toggle"></div>' +
+			//		'</div>' +
+			//	'</div>');
+	    //).appendTo(_.$body);
+			_.$viewer = $('#viewer');
 
 		// Nav.
 			_.$navNext = _.$viewer.find('.nav-next');
 			_.$navPrevious = _.$viewer.find('.nav-previous');
+			//_.$navDown = _.$viewer.find('.nav-down');
 
 		// Main wrapper.
 			_.$main = $('#main');
@@ -362,6 +376,10 @@ var main = (function($) { var _ = {
 			_.$navPrevious.on('click', function() {
 				_.previous();
 			});
+
+			//_.$navDown.on('click', function () {
+			//    _.scrollDown();
+			//})
 
 		// Keyboard shortcuts.
 
@@ -596,6 +614,19 @@ var main = (function($) { var _ = {
 
 					// Attach new slide.
 						newSlide.$slide.appendTo(_.$viewer);
+						_.$viewer.find('.slide').bind("mousewheel", function (ev, delta) {
+						    if (_.scrolling) {
+						        event.stopPropagation();
+						        event.preventDefault();
+						    }
+						    else
+						    {
+						        _.scrolling = true;
+						        var scrollTop = $(this).scrollTop();
+						        var newScroll = scrollTop - Math.round(event.wheelDelta);
+						        $(this).animate({ scrollTop: newScroll + "px" }, 100, function () { _.scrolling = false; });
+						    }
+						});
 
 					// New slide not yet loaded?
 						if (!newSlide.loaded) {
@@ -787,6 +818,13 @@ var main = (function($) { var _ = {
 
 	},
 
+    /**
+    * Scrolls Viewer Down One Section
+    */
+	scrollDown: function () {
+	    var inner = _.$viewer.find('.slide');
+	    inner.scrollTop(inner.height() + inner.scrollTop());
+	}
 };
 return _;
 })(jQuery);

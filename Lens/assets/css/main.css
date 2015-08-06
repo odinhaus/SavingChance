@@ -722,7 +722,7 @@
 		background: #F37226;
 		outline: 0;
 		overflow-x: hidden;
-		overflow-y: auto;
+		overflow-y: hidden;
 		text-align: right;
 		visibility: visible;
 		z-index: 10000;
@@ -1038,6 +1038,7 @@
 				background-position: calc(100% - 0.75em) 0.75em;
 			}
 
+            #viewer .inner .nav-down,
 			#viewer .inner .nav-next,
 			#viewer .inner .nav-previous {
 				-webkit-tap-highlight-color: transparent;
@@ -1065,6 +1066,17 @@
 				right: 0;
 			}
 
+            #viewer .inner .nav-down
+            {
+                right: 0;
+                top: auto;
+                bottom: 0;
+                -moz-transform: rotate(90deg);
+				-webkit-transform: rotate(90deg);
+				-ms-transform: rotate(90deg);
+				transform: rotate(90deg);
+            }
+
 		#viewer .slide {
 			-moz-transition: opacity 0.5s ease-in-out;
 			-webkit-transition: opacity 0.5s ease-in-out;
@@ -1077,7 +1089,7 @@
 			height: 100%;
 			opacity: 1;
 			z-index: 1;
-            overflow-y: auto;
+            overflow-y: hidden;
 		}
 
 			#viewer .slide .caption {
