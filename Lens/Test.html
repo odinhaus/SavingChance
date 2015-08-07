@@ -3,29 +3,28 @@
 <head>
     <title></title>
 	<meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="ng/main.js"></script>
+    <script src="assets/js/ng_infiniteScroll.js"></script>
 </head>
 <body style="margin: 0; padding: 0;">
-    <div style="background-image: url(https://c1.staticflickr.com/9/8438/7892937702_d84a1f7646_b.jpg); 
-                position: absolute; 
-                height:100%; 
-                width:100%;
-                ">
-
+    <div ng-app='myApp' ng-controller='DemoController' style="position: relative; width: 100%; padding: 0; margin: 0;" resize>
+        <div infinite-scroll='loadMore()' infinite-scroll-distance='2' 
+             style="width: {{bodyWidth}}px;
+                    margin: 0 auto;">
+            <!--<img ng-repeat='tile in tiles' ng-src='http://placehold.it/225x250&text={{image}}'>-->
+            <div ng-repeat="tile in tiles" 
+                 style="display: inline-block; 
+                 height:250px; 
+                 width: 225px; 
+                 background-image:url('http://placehold.it/225x250&text={{tile.image}}');
+                 margin: 2px;">
+                <div>
+                    {{tile.title}}
+                </div>
+            </div>
+        </div>
     </div>
-    <div style="position:absolute;
-                height: 4em;
-                width: 100%;
-                color: #fff;
-                background-image: url(https://c1.staticflickr.com/9/8438/7892937702_d84a1f7646_b.jpg);
-                opacity: 0.9;
-                -webkit-filter: sepia() blur(3px);">
-    </div>
-    <div style="position:absolute;
-                height: 4em;
-                width: 100%;
-                color: #fff;
-                font-family: non-serif;
-                font-size: 3em;
-                border-bottom: 1px solid #ff6a00;">Some overlay</div>
 </body>
 </html>
