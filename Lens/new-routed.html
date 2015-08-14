@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Start Page</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+    <style type="text/css">
+        /* ANIMATIONS ============================================================================= */
+
+        /* leaving animations ----------------------------------------- */
+        /* rotate and fall */
+        @keyframes rotateFall {
+            0%      { transform: rotateZ(0deg); }
+            20%     { transform: rotateZ(10deg); animation-timing-function: ease-out; }
+            40%     { transform: rotateZ(17deg); }
+            60%     { transform: rotateZ(16deg); }
+            100%    { transform: translateY(100%) rotateZ(17deg); }
+        }
+
+        /* slide in from the bottom */
+        @keyframes slideOutLeft {
+            to      { transform: translateX(-100%); }
+        }
+
+        /* rotate out newspaper */
+        @keyframes rotateOutNewspaper {
+            to      { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+        }
+
+        /* entering animations --------------------------------------- */
+        /* scale up */
+        @keyframes scaleUp {
+            from    { opacity: 0.3; -webkit-transform: scale(0.8); }
+        }
+
+        /* slide in from the right */
+        @keyframes slideInRight {
+            from    { transform:translateX(100%); }
+            to      { transform: translateX(0); }
+        }
+
+        /* slide in from the bottom */
+        @keyframes slideInUp {
+            from    { transform:translateY(100%); }
+            to      { transform: translateY(0); }
+        }
+
+        /* make our pages be full width and full height */
+        /* positioned absolutely so that the pages can overlap each other as they enter and leave */
+        .page        {
+            bottom:0; 
+            padding-top:200px;
+            position:absolute; 
+            text-align:center;
+            top:0;  
+            width:100%; 
+        }
+
+        .page h1    { font-size:60px; }
+        .page a     { margin-top:50px; }
+
+        /* PAGES (specific colors for each page)
+        ============================================================================= */
+        .page-browse    { background:#00D0BC; color:#00907c; }
+        .page-detail    { background:#E59400; color:#a55400; }
+        .page-contact   { background:#ffa6bb; color:#9e0000; }
+
+        .ng-enter       { z-index: 8888; }
+        .ng-leave       { z-index: 9999; }
+
+        /* page specific animations ------------------------ */
+
+        /* home -------------------------- */
+        .page-browse.ng-enter         { animation: scaleUp 0.5s both ease-in; }
+        .page-browse.ng-leave         { transform-origin: 0% 0%; animation: rotateFall 1s both ease-in; }
+
+        /* about ------------------------ */
+        .page-detail.ng-enter        { animation:slideInRight 0.5s both ease-in; }
+        .page-detail.ng-leave        { animation:slideOutLeft 0.5s both ease-in; }
+
+        /* contact ---------------------- */
+        .page-contact.ng-leave      { transform-origin: 50% 50%; animation: rotateOutNewspaper .5s both ease-in; }
+        .page-contact.ng-enter      { animation:slideInUp 0.5s both ease-in; }
+
+    </style>
+</head>
+<body ng-app='app' ng-controller='MainController as main'>
+
+    <h1>{{title}}</h1>
+    <div ng-viewport='title'></div>
+    <div ng-viewport='content' animClass class="page-{{ state.page }}"></div>
+
+    <script src='js/angular.min.js'></script>
+    <script src='js/router.es5.js'></script>
+    
+    <script src="components/browse/browse.js"></script>
+    <script src="components/title/title.js"></script>
+    <script src="components/detail/detail.js"></script>
+
+    <script>
+        angular.module('app', ['app.title', 'app.detail', 'app.browse', 'ngNewRouter'])
+               .controller('MainController', ['$scope', '$router', 'pageState', function ($scope, $router, state) {
+                   $scope.title = 'This is demo of application';
+                   $scope.state = state;
+                   $router.config([
+                       { path: '/', component: { title: 'title', content: 'browse' } },
+                       { path: '/:id', component: { title: 'title', content: 'detail' } }
+                   ]);
+                   $scope.$on('$routeChangeStart', function(next, current) { 
+                       this.state.next = next;
+                       this.state.current = current;
+                   });
+                   $scope.$on('$routeChangeSuccess', function (angularEvent, current, previous) {
+                       this.state.current = current;
+                       this.state.previous = previous;
+                   });
+               }])
+               .config(componentLoaderConfig)
+               .factory('pageState', function () {
+                   this.page = 'main';
+                   return this;
+               })
+               .directive('animClass', function ($route) {
+                   return {
+                       link: function (scope, elm, attrs) {
+                           var enterClass = $route.current.animate;
+                           elm.addClass(enterClass);
+                           scope.$on('$destroy', function () {
+                               elm.removeClass(enterClass);
+                               elm.addClass($route.current.animate);
+                           })
+                       }
+                   }
+               });
+        
+
+        function componentLoaderConfig($componentLoaderProvider) {
+            $componentLoaderProvider.setTemplateMapping(function (name) {
+                var dashName = dashCase(name);
+                // customized to use app prefix
+                return './components/' + dashName + '/' + dashName + '.html';
+            });
+        }
+    </script>
+
+    
+
+</body>
+</html>

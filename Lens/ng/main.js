@@ -32,21 +32,11 @@ myApp.directive('resize', function ($window) {
         };
 
         scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
-            scope.windowHeight = newValue.h;
-            scope.windowWidth = newValue.w;
-
-            scope.style = function () {
-                return {
-                    'height': (newValue.h - 100) + 'px',
-                    'width': (newValue.w - 100) + 'px'
-                };
-            };
-
+            var rowCount = Math.floor((newValue.w - 2 * scope.gutterWidth) / scope.tileWidth);
+            scope.bodyWidth = rowCount * scope.tileWidth;
         }, true);
 
         w.bind('resize', function () {
-            var rowCount = Math.floor(($window.innerWidth - 2 * scope.gutterWidth) / scope.tileWidth);
-            scope.bodyWidth = rowCount * scope.tileWidth;
             scope.$apply();
         });
     }
