@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <style type="text/css">
+        .grid
+        {
+            width: 100%;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .item
+        {
+            margin: 0;
+            border: 1px solid red;
+            width: 400px;
+            height: 400px;
+            z-index: 0;
+            background: white;
+            -webkit-transition: width 1s, height 1s, z-index 1s;
+        }
+        .item.wide
+        {
+            width: 800px;
+        }
+        .item.tall
+        {
+            height: 800px;
+        }
+        .item.selected
+        {
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            -webkit-transition: width 1s, height 1s;
+        }
+    </style>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.js"></script>
+</head>
+<body style="margin:0">
+    <div class="grid js-masonry" data-masonry-options='{ "itemSelector": ".item", "columWidth": 400 }'>
+        <div id="1" class="item">
+            <a href="#" onclick="$('#1').toggleClass('selected');">select me</a>
+        </div>
+        <div id="2" class="item">
+
+        </div>
+        <div id="3" class="item wide">
+
+        </div>
+        <div id="4" class="item">
+
+        </div>
+        <div id="5" class="item tall">
+
+        </div>
+        <div id="6" class="item">
+
+        </div>
+    </div>
+</body>
+</html>
