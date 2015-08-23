@@ -1,12 +1,14 @@
 ﻿<section id="thumbnails" infinite-scroll='loadMore()' infinite-scroll-distance='4'>
-    <article style="width: {{tile.width}}px; height: {{tile.height}}px;" ng-repeat="tile in tiles">
-        <a class="thumbnail" href="#{{tile.href}}"  style="background-image: url('https://c1.staticflickr.com/9/8438/7892937702_d84a1f7646_b.jpg');">
-            <div>
-                {{tile.title}}
-            </div>
-            <div>
+    <div class="wrapper" ng-repeat="tile in tiles" tile-rendered>
+        <article id="{{tile.id}}">
+            <a class="thumbnail initializing" ng-click="show(tile)" style="background-image: url('{{tile.img}}');">
+                <div>
+                    {{tile.title}}
+                </div>
+                <div>
 
-            </div>
-        </a>
-    </article>
+                </div>
+            </a>
+        </article>
+    </div>
 </section>
