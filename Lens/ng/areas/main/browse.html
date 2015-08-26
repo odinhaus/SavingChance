@@ -1,14 +1,16 @@
 ﻿<section id="thumbnails" infinite-scroll='loadMore()' infinite-scroll-distance='4'>
     <div class="wrapper" ng-repeat="tile in tiles" tile-rendered>
         <article id="{{tile.id}}">
-            <a class="thumbnail initializing" ng-click="show(tile)" style="background-image: url('{{tile.img}}');">
-                <div>
-                    {{tile.title}}
-                </div>
-                <div>
+            <div class="closeButton hidden"></div>
+            <img class="thumbnail initializing" ng-click="show(tile)" src="{{tile.img}}"/>
+            <h1 class="title" style="position: absolute; top:0; left:0;">
+                {{tile.title}}
+            </h1>
 
-                </div>
-            </a>
+            <div class="content" style="display: none; width: 100%; height: 1000px; background: #000;">
+
+            </div>
+                
         </article>
     </div>
 </section>

@@ -3,12 +3,29 @@
     $scope.grid = [];
     $scope.columnCount = 8;
 
+    var $selected = null;
     var w = angular.element($window);
+    w[0].onpopstate = function (event) {
+        var pageState = event.state;
+        if (pageState)
+        {
+
+        }
+    };
+
     updateWindowDimensions(w);
-   
+    var resizing = false;
     w.bind('resize', function () {
-        $scope.updateTiles(updateWindowDimensions(w));
-        $scope.$apply();
+        if (!resizing) {
+            resizing = true;
+            $scope.updateTiles(updateWindowDimensions(w));
+            $scope.$apply();
+            //setTimeout(function () {
+            //    $scope.updateTiles(updateWindowDimensions(w));
+            //    $scope.$apply();
+            //}, 2000);
+            resizing = false;
+        }
     });
 
     function updateWindowDimensions(w)
@@ -31,8 +48,8 @@
         }
         var columnsChanged = $scope.columnCount != columnCount;
         $scope.columnCount = columnCount;
-        $scope.columnWidth = Math.floor($scope.bodyWidth / $scope.columnCount);
-        $scope.rowHeight = Math.floor($scope.columnWidth * (768 / 1024));
+        $scope.columnWidth = $scope.bodyWidth / $scope.columnCount;// Math.floor($scope.bodyWidth / $scope.columnCount);
+        $scope.rowHeight = $scope.columnWidth * (768 / 1024);//Math.floor($scope.columnWidth * (768 / 1024));
         return columnsChanged;
     }
 
@@ -75,6 +92,8 @@
                 }
             }
         }
+
+
     };
 
     function getScrollBarWidth() {
@@ -131,6 +150,7 @@
         } while (col == -1); // -1 means it won't fit on this row, try the next row
 
         var i = 0;
+        var $section = $('#thumbnails');
         for(i; i < tile.size; i++)
         {
             j = col; // start at the open column
@@ -155,6 +175,10 @@
                     tile.left = column.left;
                     tile.height = row.height * tile.size;
                     tile.width = column.width * tile.size;
+                    if ($section.height() < tile.top + tile.height)
+                    {
+                        $section.height(tile.top + tile.height);
+                    }
                 }
                 column.isOccupied = true; // mark it full
             }
@@ -282,10 +306,10 @@
                 size: size,
                 id: last + i,
                 img: i % 3 == 0 
-                    ? 'https://c1.staticflickr.com/9/8438/7892937702_d84a1f7646_b.jpg'
+                    ? 'http://www.prestonspeaks.com/wp-content/uploads/2012/11/Lucian-the-awesome-Husky.jpg'
                     : i % 5 == 0
-                        ? 'http://files2.coloribus.com/files/adsarchive/part_1496/14966255/bud-light-beer-rescue-dog-600-89469.jpg'
-                        : 'http://i.ytimg.com/vi/fV9FjBBf1K8/maxresdefault.jpg'
+                        ? 'https://dogsinmind.files.wordpress.com/2015/08/dove.jpg'
+                        : 'http://dustytrailshorserescue.org/wp-content/uploads/2011/07/Stella-before.jpg'
             };
 
             tiles.push(tile);
@@ -311,20 +335,24 @@
             rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
         );
     }
-    var $selected = null;
+
     $scope.show = function(tile)
     {
+        if (tile.isOpen) return;
+
+        tile.isOpen = true;
         var $element = $('#' + tile.id).parent();
 
         var $clone = $($element.clone()[0].outerHTML).insertAfter($element);
         $clone.attr('id', tile.id + '_clone_wrapper');
+        $clone.addClass('active');
         var $article = $($clone.children()[0]);
         $article.attr('id', tile.id + '_clone');
         $clone.tile = tile;
         $selected = $clone;
 
-        var yOffset = window.pageYOffset;
-        var width = window.innerWidth - getScrollBarWidth();
+        var yOffset = window.pageYOffset - $('#header').height();
+        var width = window.innerWidth;
         var scale = width / tile.width;
         var height = tile.height * scale;
         var settings = {
@@ -332,7 +360,17 @@
             duration: 0,
             complete: function () {
                 $('body').css({ overflowY: 'hidden' });
-                $clone.click(function () {
+                $clone.find('.content').css('display', 'block');
+                var $closeButton = $clone.find('.closeButton');
+                $closeButton.toggleClass('hidden');
+                setTimeout(function () {
+                    $clone.absPos = $clone.position();
+                    $clone.absSize = { width: $clone.width(), height: $clone.height() };
+                    $clone.addClass('notrans');
+                    $clone.css({ position: 'fixed', left: 0, right: 0, bottom: 0, top: 0, width: '', height: '' });
+                    setTimeout(function () { $clone.removeClass('notrans');}, 400);
+                },800); // hack to allow animation to complete prior to removing clone
+                $closeButton.click(function () {
                     var $clone = $selected;
                     var settings = {
                         queue: false,
@@ -341,22 +379,38 @@
                             $selected = null;
                             $('body').css({ overflowY: 'auto' });
                             $clone.css({ zindex: 0 });
+                            tile.isOpen = false;
                             setTimeout(function () {
                                 $clone.remove();
-                            }, 200);
+                            }, 600); // hack to allow animation to complete prior to removing clone
                         }
                     };
-                    $clone.animate({
-                        top: $clone.tile.top,
-                        left: $clone.tile.left,
-                        width: $clone.tile.width,
-                        height: $clone.tile.height
-                    }, settings);
+                    $clone.addClass('notrans');
+                    $clone.find('.content').css('display', 'none');
+                    $clone.css({
+                        position: 'absolute',
+                        left: $clone.absPos.left,
+                        right: '',
+                        bottom: '',
+                        top: $clone.absPos.top,
+                        width: $clone.absSize.width,
+                        height: $clone.absSize.height
+                    });
+                    setTimeout(function () {
+                        $clone.removeClass('notrans');
+                        $clone.animate({
+                            top: $clone.tile.top,
+                            left: $clone.tile.left,
+                            width: $clone.tile.width,
+                            height: $clone.tile.height
+                        }, settings);
+                    }, 200);
+                    
                 });
             }
         };
 
-        $clone.css({ zIndex: 1000 });
+        $clone.css({ zIndex: 1000000 });
         $clone.animate({
             top: yOffset,
             left: 0,

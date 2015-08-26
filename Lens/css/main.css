@@ -11,10 +11,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     vertical-align: baseline;
 }
 
-body {
+body, .bg {
     background: #121760;
     /* Safari 4-5, Chrome 1-9 */
-    background: -webkit-gradient(linear, left top, right top, from(#1a82f7), to(#121760));
+    background: -webkit-gradient(linear, left top, right top, from(#000), to(#121760));
 
     /* Safari 5.1, Chrome 10+ */
     background: -webkit-linear-gradient(left, #000, #121760);
@@ -140,6 +140,14 @@ html
     }
 }
 
+.notrans {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+}
+
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
 {
     display: block;
@@ -147,6 +155,27 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 .ng-scope{
     width: 100%;
+}
+
+#thumbnails .wrapper .closeButton
+{
+    -webkit-tap-highlight-color: transparent;
+    position: absolute;
+    top: 0;
+    width: 4em;
+    height: 4em;
+    background-image: url("images/close.svg");
+    background-repeat: no-repeat;
+    background-size: 64px 64px;
+    cursor: pointer;
+    z-index: 1;
+    right: 0;
+    background-position: calc(100% - 0.75em) 0.75em;
+}
+
+.hidden
+{
+    visibility:hidden;
 }
 
 #thumbnails
@@ -160,7 +189,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     padding: 0;
-    position: absolute;
+    position: relative;
     width: 100%;
     top: 0px;
     left: 0px;
@@ -171,13 +200,27 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 #thumbnails .wrapper
 {
     position: absolute;
-    padding: 4px;
+    padding: 2px;
 
     -webkit-transition: all 0.75s ease;
     -moz-transition: all 0.75s ease;
     -o-transition: all 0.75s ease;
     -ms-transition: all 0.75s ease;
     transition: all 0.75s ease;
+
+    overflow-y: auto;
+}
+
+.clearfix
+{
+    float: left;
+    width: 100%;
+    clear: both;
+}
+
+#thumbnails .wrapper.active
+{
+    padding: 0px;
 }
 
 #thumbnails .wrapper:hover
@@ -201,12 +244,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 #thumbnails .wrapper article .thumbnail
 {
     display: block;
-    height: 100%;
     width: 100%;
-    background-size: cover;
     border: 1px solid #8F93C9;
     position: relative;
     opacity: 1;
+    top: 0;
+    left: 0;
 
     -webkit-filter: sepia(75%);
     -moz-filter: sepia(75%);
@@ -239,6 +282,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     z-index: 1;
 }
 
+#thumbnails .wrapper article.active,
+#thumbnails .wrapper article.active:hover,
+#thumbnails .wrapper article.active:focus,
 #thumbnails .wrapper article .thumbnail:hover,
 #thumbnails .wrapper article .thumbnail.active
 {

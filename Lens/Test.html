@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/main.css" />
 </head>
 <body style="margin: 0; padding: 0;">
-    <div style="width: 100%; padding: 0; margin: 0;" resize>
+    <div id="header" class="bg" style="height: 4em; padding: 0; margin: 0; position: fixed; top: 0px; left: 0px; right: 0px; z-index:100000;" resize>
         <div class="fb-like"
              data-share="true"
              data-width="450"
@@ -26,9 +26,8 @@
         <!--<div class="fb-login-button" data-max-rows="5" data-size="xlarge" data-show-faces="true" data-auto-logout-link="false"></div>
         <div id="status"></div>-->
         <a id="login" href="#" onclick="fb_login();">Login With Facebook</a>
-        
-        <div ng-view></div>
     </div>
+    <div id="main" class="bg" ng-view style="position:relative; top: 4em;"></div>
     <script src="js/fb.js"></script>
 </body>
 </html>
