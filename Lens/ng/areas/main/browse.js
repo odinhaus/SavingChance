@@ -1,4 +1,4 @@
-﻿sc.controller('sc.Browse', ['$scope', '$window', function ($scope, $window, windowState) {
+﻿sc.controller('sc.Browse', ['$scope', '$window', 'appState', '$rootScope', function ($scope, $window, appState, $rootScope) {
     $scope.tiles = [];
     $scope.grid = [];
     $scope.columnCount = 8;
@@ -13,6 +13,16 @@
         }
     };
 
+    var isNavigating = false;
+    $rootScope.$on('$locationChangeStart', function () {
+        isNavigating = true;
+    });
+    $(window).scroll(function () {
+        if (!isNavigating) {
+            appState['browse'].windowState.scrollY = window.scrollY;
+        }
+    });
+
     updateWindowDimensions(w);
     var resizing = false;
     w.bind('resize', function () {
@@ -20,10 +30,6 @@
             resizing = true;
             $scope.updateTiles(updateWindowDimensions(w));
             $scope.$apply();
-            //setTimeout(function () {
-            //    $scope.updateTiles(updateWindowDimensions(w));
-            //    $scope.$apply();
-            //}, 2000);
             resizing = false;
         }
     });
@@ -48,8 +54,8 @@
         }
         var columnsChanged = $scope.columnCount != columnCount;
         $scope.columnCount = columnCount;
-        $scope.columnWidth = $scope.bodyWidth / $scope.columnCount;// Math.floor($scope.bodyWidth / $scope.columnCount);
-        $scope.rowHeight = $scope.columnWidth * (768 / 1024);//Math.floor($scope.columnWidth * (768 / 1024));
+        $scope.columnWidth = $scope.bodyWidth / $scope.columnCount;
+        $scope.rowHeight = $scope.columnWidth * (768 / 1024);
         return columnsChanged;
     }
 
@@ -92,8 +98,6 @@
                 }
             }
         }
-
-
     };
 
     function getScrollBarWidth() {
@@ -317,6 +321,7 @@
         }
 
         $scope.addTiles(tiles);
+        appState['browse'].pageState.tiles = $scope.tiles;
     };
 
     function isElementInViewport(el) {
@@ -336,6 +341,7 @@
         );
     }
 
+    /*
     $scope.show = function(tile)
     {
         if (tile.isOpen) return;
@@ -359,6 +365,7 @@
             queue: false,
             duration: 0,
             complete: function () {
+                
                 $('body').css({ overflowY: 'hidden' });
                 $clone.find('.content').css('display', 'block');
                 var $closeButton = $clone.find('.closeButton');
@@ -368,7 +375,7 @@
                     $clone.absSize = { width: $clone.width(), height: $clone.height() };
                     $clone.addClass('notrans');
                     $clone.css({ position: 'fixed', left: 0, right: 0, bottom: 0, top: 0, width: '', height: '' });
-                    setTimeout(function () { $clone.removeClass('notrans');}, 400);
+                    setTimeout(function () { $clone.removeClass('notrans'); window.history.pushState({ page: tile.id }, "Details", "?" + tile.id); }, 400);
                 },800); // hack to allow animation to complete prior to removing clone
                 $closeButton.click(function () {
                     var $clone = $selected;
@@ -416,8 +423,9 @@
             left: 0,
             width: width,
             height: height
-        }, settings);
+        }, settings, 1200);
     }
+    */
 
     function addRow(columnCount)
     {

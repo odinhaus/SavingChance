@@ -148,6 +148,34 @@ html
   transition: none !important;
 }
 
+
+.fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    opacity: 1;
+}
+.fade.ng-enter,
+.fade.ng-leave {
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.fade.ng-enter {
+    opacity: 0;
+}
+.fade.ng-enter-active {
+    opacity: 1;
+}
+.fade.ng-leave {
+    opacity: 1;
+}
+.fade.ng-leave-active {
+    opacity: 0;
+}
+
+
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
 {
     display: block;
@@ -157,7 +185,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     width: 100%;
 }
 
-#thumbnails .wrapper .closeButton
+.wrapper .closeButton
 {
     -webkit-tap-highlight-color: transparent;
     position: absolute;
@@ -202,11 +230,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     position: absolute;
     padding: 2px;
 
-    -webkit-transition: all 0.75s ease;
-    -moz-transition: all 0.75s ease;
-    -o-transition: all 0.75s ease;
-    -ms-transition: all 0.75s ease;
-    transition: all 0.75s ease;
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
 
     overflow-y: auto;
 }
@@ -218,18 +246,26 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     clear: both;
 }
 
+#thumbnails .wrapper.selected,
 #thumbnails .wrapper.active
 {
     padding: 0px;
 }
 
+#thumbnails .wrapper.selected
+{
+    left: 0;
+    top: 0;
+    right: 0;
+}
+
 #thumbnails .wrapper:hover
 {
-    -webkit-transition: all 0.75s ease;
-    -moz-transition: all 0.75s ease;
-    -o-transition: all 0.75s ease;
-    -ms-transition: all 0.75s ease;
-    transition: all 0.75s ease;
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
 }
 
 
@@ -241,7 +277,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 
-#thumbnails .wrapper article .thumbnail
+.wrapper article .thumbnail
 {
     display: block;
     width: 100%;
@@ -261,6 +297,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     transition: opacity 1.25s ease;
 }
 
+.wrapper.selected article .thumbnail
+{
+    -webkit-filter: sepia(0%);
+    -moz-filter: sepia(0%);
+    filter: sepia(0%);
+}
+
 
 #thumbnails .wrapper article .thumbnail:before
 {
@@ -268,10 +311,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     -webkit-box-shadow: inset 16px 21px 59px 7px rgba(234,114,38,1);
     -moz-box-shadow: inset 16px 21px 59px 7px rgba(234,114,38,1);
     box-shadow: inset 16px 21px 59px 7px rgba(234,114,38,1);
-    -moz-transition: opacity 0.75s ease;
-    -webkit-transition: opacity 0.75s ease;
-    -ms-transition: opacity 0.75s ease;
-    transition: opacity 0.75s ease;
+    -moz-transition: opacity 0.25s ease;
+    -webkit-transition: opacity 0.25s ease;
+    -ms-transition: opacity 0.25s ease;
+    transition: opacity 0.25s ease;
     content: '';
     position: absolute;
     left: 0;
@@ -291,11 +334,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     -webkit-filter: sepia(0%);
     -moz-filter: sepia(0%);
     filter: sepia(0%);
-    -webkit-transition: all 0.75s ease;
-    -moz-transition: all 0.75s ease;
-    -o-transition: all 0.75s ease;
-    -ms-transition: all 0.75s ease;
-    transition: all 0.75s ease;
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
 }
 
 
@@ -303,11 +346,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 #thumbnails .wrapper article .thumbnail:hover:before,
 #thumbnails .wrapper article.active .thumbnail:before
 {
-    -webkit-transition: all 0.75s ease;
-    -moz-transition: all 0.75s ease;
-    -o-transition: all 0.75s ease;
-    -ms-transition: all 0.75s ease;
-    transition: all 0.75s ease;
+    -webkit-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
     opacity: 0.0;
 }
 

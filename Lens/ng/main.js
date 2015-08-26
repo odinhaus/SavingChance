@@ -1,4 +1,4 @@
-﻿var sc = angular.module('sc', ['infinite-scroll', 'ngRoute']);
+﻿var sc = angular.module('sc', ['infinite-scroll', 'ngRoute', 'ngAnimate']);
 var $masonry = null;
 
 sc.config(['$routeProvider',
@@ -14,10 +14,8 @@ sc.config(['$routeProvider',
         });
   }]);
 
-//sc.factory('windowState', function($window)
-//{
-//    this.bodyWidth = $window.innerWidth;
-//    this.columnCount = 5;
-//    this.gutterWidth = 0;
-//    return this;
-//})
+sc.factory('appState', function ($window) {
+    this['browse'] = { windowState: {}, pageState: {} };
+    this['detail'] = { windowState: {}, pageState: {} };
+    return this;
+});
