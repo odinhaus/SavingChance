@@ -14,19 +14,19 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 body, .bg {
     background: #121760;
     /* Safari 4-5, Chrome 1-9 */
-    background: -webkit-gradient(linear, left top, right top, from(#000), to(#121760));
+    background: -webkit-gradient(linear, left top, right top, from(#000), to(#F37227));
 
     /* Safari 5.1, Chrome 10+ */
-    background: -webkit-linear-gradient(left, #000, #121760);
+    background: -webkit-linear-gradient(left, #000, #F37227);
 
     /* Firefox 3.6+ */
-    background: -moz-linear-gradient(left, #000, #121760);
+    background: -moz-linear-gradient(left, #000, #F37227);
 
     /* IE 10 */
-    background: -ms-linear-gradient(left, #000, #121760);
+    background: -ms-linear-gradient(left, #000, #F37227);
 
     /* Opera 11.10+ */
-    background: -o-linear-gradient(left, #000, #121760);
+    background: -o-linear-gradient(left, #000, #F37227);
 }
 
 *, *:before, *:after
