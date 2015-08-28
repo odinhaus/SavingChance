@@ -12,7 +12,8 @@
     <script src="ng/areas/main/browse.js"></script>
     <script src="ng/areas/details/details.js"></script>
     <script src="js/ng_infiniteScroll.js"></script>
-    
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Coustard"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/main.css" />
 </head>
 <body style="margin: 0; padding: 0;">
@@ -20,22 +21,14 @@
         <div class="logo">
             SavingChance
         </div>
-        <div class="tool loginButton logged-out tooltip">
-            <span>
-                <img class="callout" src="/images/callout.gif" />
-                <strong>Username:</strong><input name="username" style="width:100%" /><br />
-                <strong>Password:</strong><input name="password" style="width:100%" /><br />
-                <a href="#">Sign Up</a>
-                <button style="position:absolute; right: 0; bottom: 0; margin: 2em;">Sign In</button><br/>
-                <a href="#" onclick="fb_login();">Login With Facebook</a>
-            </span>
+        <div class="tool">
+            <a href="help" title="Questions & Help"><i class="fa fa-question"></i></a>
         </div>
-        <div class="tool loginButton logged-in tooltip">
-            <span>
-                <img class="callout" src="/images/callout.gif" />
-                <strong>Most Light-weight Tooltip</strong><br />
-                This is the easy-to-use Tooltip driven purely by CSS.
-            </span>
+        <div class="tool">
+            <a href="help" title="Like us on Facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+        <div class="tool">
+            <a href="help" title="Like us on Twitter"><i class="fa fa-twitter"></i></a>
         </div>
         <!--<div class="fb-like"
              data-share="true"

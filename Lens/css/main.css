@@ -1,7 +1,4 @@
-﻿@import url("http://fonts.googleapis.com/css?family=Coustard");
-@import url(font-awesome.min.css);
-
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+﻿html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
 {
     margin: 0;
     padding: 0;
@@ -347,9 +344,9 @@ input{
     top: 0;
     left: 0;
 
-    -webkit-filter: sepia(75%);
+    /*-webkit-filter: sepia(75%);
     -moz-filter: sepia(75%);
-    filter: sepia(75%);
+    filter: sepia(75%);*/
 
     -moz-transition: opacity 1.25s ease;
     -webkit-transition: opacity 1.25s ease;
@@ -423,27 +420,59 @@ input{
 #header .tool
 {
     display: inline-block;
-    margin-right: 5px;
-}
-
-#header .loginButton
-{
-    height: 3.8em;
-    width: 3.8em;
     position: relative;
-    top: 0.125em;
-    left: 0.125em;
+    /*top: 0.125em;
+    left: 0.125em;*/
     background-size: cover;
+    font-size: 2.2em;
+    margin-left: 0.25em;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
-#header .loginButton.logged-out
+.wrapper .toolbar a.tool,
+#header .tool a
 {
-     background-image: url('../images/logged-out.png');
+    text-decoration: none;
+    opacity: 0.6;
+    text-shadow: 0px 0px 0px #a33207;
+    -moz-transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
 }
 
-#header .loginButton.logged-in
+.wrapper .toolbar a.tool:hover,
+#header .tool a:hover
 {
-     background-image: url('../images/logged-in.png');
+    text-shadow: 0px 0px 10px #999;
+    opacity: 1;
+    -moz-transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.wrapper .toolbar
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2em;
+}
+
+.wrapper .toolbar .tool
+{
+    position: relative;
+    top: 0;
+    font-size: 2em;
+    display: inline-block;
+    float: left;
+    margin-left: 0.25em;
+    cursor: pointer;
 }
 
 .wrapper article h2.title
@@ -506,6 +535,7 @@ input{
     -webkit-filter: sepia(0%);
     -moz-filter: sepia(0%);
     filter: sepia(0%);
+    opacity: 1;
     -webkit-transition: all 0.25s ease;
     -moz-transition: all 0.25s ease;
     -o-transition: all 0.25s ease;
