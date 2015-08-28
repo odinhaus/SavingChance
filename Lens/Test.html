@@ -16,18 +16,38 @@
     <link rel="stylesheet" href="css/main.css" />
 </head>
 <body style="margin: 0; padding: 0;">
-    <div id="header" class="bg" style="height: 4em; padding: 0; margin: 0; position: fixed; top: 0px; left: 0px; right: 0px; z-index:100000;" resize>
-        <div class="fb-like"
+    <header id="header" resize>
+        <div class="logo">
+            SavingChance
+        </div>
+        <div class="tool loginButton logged-out tooltip">
+            <span>
+                <img class="callout" src="/images/callout.gif" />
+                <strong>Username:</strong><input name="username" style="width:100%" /><br />
+                <strong>Password:</strong><input name="password" style="width:100%" /><br />
+                <a href="#">Sign Up</a>
+                <button style="position:absolute; right: 0; bottom: 0; margin: 2em;">Sign In</button><br/>
+                <a href="#" onclick="fb_login();">Login With Facebook</a>
+            </span>
+        </div>
+        <div class="tool loginButton logged-in tooltip">
+            <span>
+                <img class="callout" src="/images/callout.gif" />
+                <strong>Most Light-weight Tooltip</strong><br />
+                This is the easy-to-use Tooltip driven purely by CSS.
+            </span>
+        </div>
+        <!--<div class="fb-like"
              data-share="true"
              data-width="450"
              data-show-faces="true">
         </div>
         <div id="fb-root"></div>
         
-        <!--<div class="fb-login-button" data-max-rows="5" data-size="xlarge" data-show-faces="true" data-auto-logout-link="false"></div>
-        <div id="status"></div>-->
-        <a id="login" href="#" onclick="fb_login();">Login With Facebook</a>
-    </div>
+        <div class="fb-login-button" data-max-rows="5" data-size="xlarge" data-show-faces="true" data-auto-logout-link="false"></div>
+        <div id="status"></div>
+        <a id="login" href="#" onclick="fb_login();">Login With Facebook</a>-->
+    </header>
     <div id="main" class="fade" ng-view style="position:relative; top: 4em;"></div>
     <script src="js/fb.js"></script>
 </body>

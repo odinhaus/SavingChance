@@ -9,6 +9,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font-size: 100%;
     font-family: 'Coustard', sans-serif;
     vertical-align: baseline;
+    color: #fff;
+}
+
+textarea:focus, input:focus{
+    outline: 0;
+    padding: 5px;
 }
 
 body, .bg {
@@ -127,7 +133,7 @@ html
 
     html
     {
-        font-size: 12pt;
+        font-size: 14pt;
     }
 }
 
@@ -136,7 +142,7 @@ html
 
     html
     {
-        font-size: 11pt;
+        font-size: 12pt;
     }
 }
 
@@ -181,6 +187,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     display: block;
 }
 
+input{
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+
 .ng-scope{
     width: 100%;
 }
@@ -204,6 +216,54 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .hidden
 {
     visibility:hidden;
+}
+
+#header
+{
+    height: 4em; 
+    padding: 0; 
+    margin: 0; 
+    position: fixed; 
+    top: 0px; 
+    left: 0px; 
+    right: 0px; 
+    z-index:100000;
+    border-bottom: 1px solid white;
+    background: #F37227;
+    background-image: url('../images/header-bg.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#header .logo
+{
+    background-image: url('../images/logo-86.png');
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    position: absolute;
+    right: 0;
+    height: 1.25em;
+    padding-right: 2em;
+    font-size: 3em;
+    text-shadow: 1px 1px 6px #a33207;
+}
+
+@media screen and (max-width: 480px)
+{
+    #header .logo
+    {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    #header
+    {
+        position: absolute;
+    }
 }
 
 #thumbnails
@@ -281,9 +341,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 {
     display: block;
     width: 100%;
-    border: 1px solid #8F93C9;
+    border: 1px solid #FFF;
     position: relative;
-    opacity: 1;
+    opacity: 0.7;
     top: 0;
     left: 0;
 
@@ -295,6 +355,118 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     -webkit-transition: opacity 1.25s ease;
     -ms-transition: opacity 1.25s ease;
     transition: opacity 1.25s ease;
+}
+
+.tooltip 
+{
+    outline:none; 
+}
+
+.tooltip:hover 
+{
+    text-decoration:none;
+} 
+
+.tooltip strong, .tooltip p, .tooltip span, .tooltip input, .tooltip h1, .tooltip h2, .tooltip h3, .tooltip h4, .tooltip button
+{
+    color: #111;
+    font-family: sans-serif;    
+    font-size: 0.85em;    
+    line-height: 2em;
+    margin-bottom: 5px;
+}
+.tooltip span
+{
+    z-index:100;
+    display:none; 
+    padding: 1em 1.5em;
+    margin-left: 4.1em;
+    width: 30em; 
+    color: #000 !important;
+    position:absolute; 
+    color:#111;
+    border:1px solid #DCA; 
+    background:#fffAF0;
+    font-size: 0.75em;   
+}
+
+.tooltip a
+{
+     color: #F37227;
+}
+
+.tooltip input:active
+{
+    border: 0px solid #fff;
+}
+
+.tooltip:hover span
+{
+    display:block; 
+}
+.callout 
+{
+    z-index:100;
+    position:absolute;
+    top:2em;
+    border:0;
+    left:-12px;
+}
+    
+/*CSS3 extras*/
+.tooltip span
+{
+    border-radius:4px;
+    box-shadow: 5px 5px 8px #333;
+}
+
+#header .tool
+{
+    display: inline-block;
+    margin-right: 5px;
+}
+
+#header .loginButton
+{
+    height: 3.8em;
+    width: 3.8em;
+    position: relative;
+    top: 0.125em;
+    left: 0.125em;
+    background-size: cover;
+}
+
+#header .loginButton.logged-out
+{
+     background-image: url('../images/logged-out.png');
+}
+
+#header .loginButton.logged-in
+{
+     background-image: url('../images/logged-in.png');
+}
+
+.wrapper article h2.title
+{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    text-shadow: 0px 0px 5px #000;
+}
+
+.wrapper article h1.title
+{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    font-size: 4em;
+    text-shadow: 0px 0px 5px #000;
 }
 
 .wrapper.selected article .thumbnail

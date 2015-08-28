@@ -5,13 +5,6 @@
 
     var $selected = null;
     var w = angular.element($window);
-    w[0].onpopstate = function (event) {
-        var pageState = event.state;
-        if (pageState)
-        {
-
-        }
-    };
 
     var isNavigating = false;
     $rootScope.$on('$locationChangeStart', function () {
