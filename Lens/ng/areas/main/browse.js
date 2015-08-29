@@ -293,7 +293,8 @@
             {
                 size = 4;
             }
-
+            var expires = new Date(Date.now() + Math.random() * 10);
+            var created = new Date(Date.now() - Math.random() * 10);
             var tile = {
                 image: last + i,
                 title: 'Lorem epsum salts or something',
@@ -302,6 +303,10 @@
                 href: '/' + i,
                 size: size,
                 id: last + i,
+                expires: expires,
+                created: created,
+                goal: Math.random() * 10000,
+                total: Math.random() * 10000,
                 img: i % 3 == 0 
                     ? 'http://www.prestonspeaks.com/wp-content/uploads/2012/11/Lucian-the-awesome-Husky.jpg'
                     : i % 5 == 0
@@ -450,6 +455,8 @@
         maxRow = rowIndex;
         return row;
     }
+
+    
 }])
 .directive('tileRendered', function () {
     return function (scope, element, attrs) {
@@ -462,5 +469,73 @@
             width: tile.width,
             height: tile.height
         });
+        updateStatus(tile, $element);
     };
 });
+
+function updateStatus(tile, $wrapper) {
+    var $canvas = $wrapper.find('.status.radial');
+    
+    var ctx = $canvas[0].getContext("2d");
+    var size = { width: $canvas.width(), height: $canvas.height() };
+    $canvas.attr('width', size.width + 'px');
+    $canvas.attr('height', size.height + 'px');
+
+    var timespanMS = tile.expires - tile.created;
+    var currentTimeSpanMS = Date.now() - tile.created;
+    var timePercent = 0.3;// currentTimeSpanMS / timespanMS;
+    var fundingPercent = 0.42;//tile.total / tile.goal;
+
+    //var gradient = ctx.createLinearGradient(
+    //    0, 
+    //    size.height,
+    //    size.width, 
+    //    0);
+
+    //gradient.addColorStop("0", "#fff");
+    //gradient.addColorStop("0.5", "#fff");
+    //gradient.addColorStop("0.9", "#b00");
+    //gradient.addColorStop("1.0", "#700");
+
+    var outerThickness = 25;
+    var outerInnerThickness = 17;
+    var innerThickness = 25;
+    var innerInnerThickness = 17;
+    var outerRadius = size.width - outerThickness / 2;
+    var innerRadius = outerRadius - outerThickness / 2 - innerThickness / 2 - 3;
+    var center = { top: size.height, left: size.width };
+    var fullBar = Math.PI / 2;
+    var outerBar = fullBar * timePercent;
+    var innerBar = fullBar * fundingPercent;
+
+    
+    //ctx.beginPath();
+    //ctx.arc(center.left, center.top, (outerRadius + innerRadius) / 2, Math.PI, Math.PI + Math.PI / 2);
+    //ctx.strokeStyle = "#333";
+    //ctx.lineWidth = outerThickness + innerThickness + 4;
+    //ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(center.left, center.top, outerRadius, Math.PI, Math.PI + Math.PI / 2);
+    ctx.strokeStyle = "#fffdfc";
+    ctx.lineWidth = outerThickness;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(center.left, center.top, outerRadius, Math.PI, Math.PI + outerBar );
+    ctx.strokeStyle = "#F37227";
+    ctx.lineWidth = outerInnerThickness;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "#fffdfc";
+    ctx.lineWidth = innerThickness;
+    ctx.arc(center.left, center.top, innerRadius, Math.PI, Math.PI + Math.PI / 2 );
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(center.left, center.top, innerRadius, Math.PI, Math.PI + innerBar);
+    ctx.strokeStyle = "#648f64";
+    ctx.lineWidth = innerInnerThickness;
+    ctx.stroke();
+}

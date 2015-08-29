@@ -293,7 +293,7 @@ input{
     -ms-transition: all 0.25s ease;
     transition: all 0.25s ease;
 
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 .clearfix
@@ -432,11 +432,13 @@ input{
     transform: translateY(-50%);
 }
 
+.wrapper .carousel-right a,
+.wrapper .carousel-left a,
 .wrapper .toolbar a.tool,
 #header .tool a
 {
     text-decoration: none;
-    opacity: 0.6;
+    opacity: 0.8;
     text-shadow: 0px 0px 0px #a33207;
     -moz-transition: all 0.25s ease;
     -webkit-transition: all 0.25s ease;
@@ -444,6 +446,8 @@ input{
     transition: all 0.25s ease;
 }
 
+.wrapper .carousel-right a:hover,
+.wrapper .carousel-left a:hover,
 .wrapper .toolbar a.tool:hover,
 #header .tool a:hover
 {
@@ -458,10 +462,9 @@ input{
 .wrapper .toolbar
 {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    height: 2em;
 }
 
 .wrapper .toolbar .tool
@@ -473,13 +476,38 @@ input{
     float: left;
     margin-left: 0.25em;
     cursor: pointer;
+    padding: 1px;
+}
+
+.wrapper .carousel-right,
+.wrapper .carousel-left
+{
+    position: absolute;
+    top: 50%;
+    font-size: 2em;
+    font-weight: lighter;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.wrapper .carousel-left
+{
+    left: 0;
+    margin-left: 0.125em;
+}
+
+.wrapper .carousel-right
+{
+    right: 0;
+    margin-right: 0.125em;
 }
 
 .wrapper article h2.title
 {
     position: absolute;
     width: 100%;
-    bottom: 0;
+    top: 0;
     text-align: center;
     color: #fff;
     font-weight: 300;
@@ -503,6 +531,18 @@ input{
     -webkit-filter: sepia(0%);
     -moz-filter: sepia(0%);
     filter: sepia(0%);
+}
+
+.wrapper canvas.status.radial
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 4em;
+    width: 4em;
+    margin-right: 3px;
+    margin-bottom: 1px;
+    opacity: 0.85;
 }
 
 
