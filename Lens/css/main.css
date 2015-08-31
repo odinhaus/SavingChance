@@ -241,7 +241,7 @@ input{
     background-position-x: right;
     position: absolute;
     right: 0;
-    height: 1.25em;
+    height: 1.31em;
     padding-right: 2em;
     font-size: 3em;
     text-shadow: 1px 1px 6px #a33207;
@@ -285,7 +285,6 @@ input{
 #thumbnails .wrapper
 {
     position: absolute;
-    padding: 2px;
 
     -webkit-transition: all 0.25s ease;
     -moz-transition: all 0.25s ease;
@@ -293,7 +292,8 @@ input{
     -ms-transition: all 0.25s ease;
     transition: all 0.25s ease;
 
-    overflow-y: hidden;
+    overflow: hidden;
+    border: 1px solid #fff;
 }
 
 .clearfix
@@ -338,7 +338,6 @@ input{
 {
     display: block;
     width: 100%;
-    border: 1px solid #FFF;
     position: relative;
     opacity: 0.7;
     top: 0;
@@ -466,7 +465,7 @@ input{
     left: 0;
     right: 0;
     display: table;
-    height: 2.5em;
+    height: 2em;
     overflow: hidden;
 }
 
@@ -477,7 +476,7 @@ input{
     left: 0;
     right: 0;
     display: table;
-    height: 2.75em;
+    height: 2.25em;
     width: 100%;
     background: #000;
     padding: 2px;
@@ -501,7 +500,7 @@ input{
 {
     position: relative;
     top: 0;
-    font-size: 2em;
+    font-size: 1.5em;
     display: table-cell;
     padding-left: 0.25em;
     cursor: pointer;
@@ -523,37 +522,81 @@ input{
     display: inline-block;
     position: absolute;
     font-size: .4em;
+    width: 1em;
+    text-align: center;
+    margin-right: 5px;
 }
 
 .wrapper .toolbar .tool.status .status_group .status_bar
 {
     display: inline-block;
     position: absolute;
-    margin-left: .4em;
+    margin-left: .5em;
 }
+
 
 .wrapper .carousel-right,
 .wrapper .carousel-left
 {
+    -webkit-tap-highlight-color: transparent;
     position: absolute;
     top: 50%;
-    font-size: 2em;
-    font-weight: lighter;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
+    width: 3em;
+    height: 3em;
+    background-image: url("images/arrow.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
     transform: translateY(-50%);
+    opacity: 0.7;
+    -moz-transition: opacity 0.25s ease;
+    -webkit-transition: opacity 0.25s ease;
+    -ms-transition: opacity 0.25s ease;
+    transition: opacity 0.25s ease;
 }
+
+.wrapper .carousel-right:hover,
+.wrapper .carousel-left:hover
+{
+    opacity: 1.0;
+    -moz-transition: opacity 0.25s ease;
+    -webkit-transition: opacity 0.25s ease;
+    -ms-transition: opacity 0.25s ease;
+    transition: opacity 0.25s ease;
+}
+
 
 .wrapper .carousel-left
 {
+    -moz-transform: scaleX(-1) translateY(-50%);
+    -webkit-transform: scaleX(-1) translateY(-50%);
+    -ms-transform: scaleX(-1) translateY(-50%);
+    transform: scaleX(-1) translateY(-50%);
     left: 0;
-    margin-left: 0.125em;
 }
 
 .wrapper .carousel-right
 {
     right: 0;
-    margin-right: 0.125em;
+}
+
+.wrapper .carousel .carousel-page
+{
+    background: #000;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: none;
+}
+
+.wrapper .carousel .carousel-page.selected
+{
+    display: inline-block;
+    -moz-transition: left 0.45s ease;
+    -webkit-transition: left 0.45s ease;
+    -ms-transition: left 0.45s ease;
+    transition: left 0.45s ease;
 }
 
 .wrapper article h2.title
@@ -565,6 +608,14 @@ input{
     color: #fff;
     font-weight: 300;
     text-shadow: 0px 0px 5px #000;
+}
+
+@media screen and (max-width: 525px)
+{
+    .wrapper article h2.title
+    {
+        display: none;
+    }
 }
 
 .wrapper article h1.title

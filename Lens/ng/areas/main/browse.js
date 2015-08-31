@@ -17,15 +17,29 @@
     });
 
     updateWindowDimensions(w);
-    var resizing = false;
+    
     w.bind('resize', function () {
+        updateTileSizes();
+    });
+
+    var resizing = false;
+    function updateTileSizes()
+    {
         if (!resizing) {
             resizing = true;
             $scope.updateTiles(updateWindowDimensions(w));
             $scope.$apply();
+            setTimeout(function () {
+                if (!resizing) {
+                    resizing = true;
+                    $scope.updateTiles(updateWindowDimensions(w));
+                    $scope.$apply();
+                    resizing = false;
+                }
+            }, 700);
             resizing = false;
         }
-    });
+    }
 
     function updateWindowDimensions(w)
     {
@@ -53,6 +67,66 @@
     }
 
     var maxRow = 0, lastRow = 0;
+
+    $scope.scrollRight = function(tile)
+    {
+        scrollCarousel(tile, -1);
+    }
+
+    $scope.scrollLeft = function (tile)
+    {
+        scrollCarousel(tile , 1);
+    }
+
+    var isScrolling = false;
+    function scrollCarousel(tile, modifier)
+    {
+        if (isScrolling) return;
+        isScrolling = true;
+        var $article = $("#" + tile.id);
+        var size = { width: $article.width(), height: $article.height() };
+        var $pages = $article.find('.carousel .carousel-page');
+        var length = $pages.length;
+        var current = 0;
+        $pages.each(function (index, page) {
+            if ($(page).hasClass('selected'))
+            {
+                current = index;
+                return false; // break the each loop
+            }
+        });
+        var next = modifier > 0 
+            ? current - modifier < 0 ? length -1 : current - modifier
+            : current - modifier >= length ? 0 : current - modifier;
+
+        var $current = $($pages[current]);
+        var $next = $($pages[next]);
+        var startLeft = $current.position().left - modifier * size.width;
+        var endLeftCurrent = $current.position().left + modifier * size.width;
+        var endLeftNext = $current.position().left;
+
+        $next.css({
+            height: size.height + 'px',
+            width: size.width + 'px',
+            top: $current.position().top + 'px',
+            left: startLeft + 'px',
+            zindex: 0,
+            display: 'inline-block'
+        });
+
+        $next.toggleClass('selected');
+
+        setTimeout(function () {
+            $next.css({ left: endLeftNext });
+            $current.css({ left: endLeftCurrent, zindex: -1 });
+
+            setTimeout(function () {
+                $current.toggleClass('selected');
+                $current.css({ display: 'none' });
+                isScrolling = false;
+            }, 250);
+        }, 250);
+    }
 
     $scope.updateTiles = function (columnsChanged) {
         if (columnsChanged) {

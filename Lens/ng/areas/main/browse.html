@@ -2,11 +2,26 @@
     <div class="wrapper" ng-repeat="tile in tiles" tile-rendered>
         <a href="#{{tile.href}}">
             <article id="{{tile.id}}">
-                <div class="closeButton hidden"></div>
-                <img class="thumbnail initializing" src="{{tile.img}}" />
-                <h2 class="title">
-                    {{tile.title}}
-                </h2>
+                <div class="carousel">
+                    <div class="carousel-page selected">
+                        <img class="thumbnail initializing" src="{{tile.img}}" />
+                        <h2 class="title">
+                            {{tile.title}}
+                        </h2>
+                    </div>
+                    <div class="carousel-page" style="background: #95c095">
+                        <h2>Page 2</h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </div>
+                    <div class="carousel-page" style="background: #8c99a3">
+                        <h2>Page 3</h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </div>
+                </div>
             </article>
         </a>
         <div id="toolbar_{{tile.id}}_bg" class="toolbar_bg"></div>
@@ -30,8 +45,8 @@
                 </div>
             </div>
         </div>
-        <div id="next_{{tile.id}}" class="carousel-right"><a href="#"><i class="fa fa-chevron-right" /></a></div>
-        <div id="prev_{{tile.id}}" class="carousel-left"><a href="#"><i class="fa fa-chevron-left" /></a></div>
-        <!--<canvas id="status_{{tile.id}}" class="status radial" height="64" width="64" title="Orange = time left, Green = current funding"></canvas>-->
-    </div>
+        <a href="#" ng-click='scrollRight(tile)'><div id="next_{{tile.id}}" class="carousel-right"></div></a>
+        <a href="#" ng-click='scrollLeft(tile)'><div id="prev_{{tile.id}}" class="carousel-left" ></div></a>
+            <!--<canvas id="status_{{tile.id}}" class="status radial" height="64" width="64" title="Orange = time left, Green = current funding"></canvas>-->
+</div>
 </section>
