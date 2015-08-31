@@ -87,6 +87,7 @@
                             width: col.tile.width,
                             height: col.tile.height
                         });
+                        updateStatus(col.tile);
                     }
                 }
             }
@@ -474,68 +475,119 @@
 });
 
 function updateStatus(tile, $wrapper) {
-    var $canvas = $wrapper.find('.status.radial');
-    
-    var ctx = $canvas[0].getContext("2d");
-    var size = { width: $canvas.width(), height: $canvas.height() };
-    $canvas.attr('width', size.width + 'px');
-    $canvas.attr('height', size.height + 'px');
+    updateStatusLinear(tile, $wrapper);
+}
+
+function updateStatusLinear(tile, $wrapper)
+{
+    if (!$wrapper)
+    {
+        $wrapper = $('#' + tile.id).parent().parent();
+    }
+    var $goalCanvas = $wrapper.find('.status_bar.goal');
+    var $timeCanvas = $wrapper.find('.status_bar.time');
+    var goalCtx = $goalCanvas[0].getContext("2d");
+    var timeCtx = $timeCanvas[0].getContext("2d");
+
+    goalCtx.clearRect(0, 0, $goalCanvas[0].width, $goalCanvas[0].height);
+    timeCtx.clearRect(0, 0, $timeCanvas[0].width, $timeCanvas[0].height);
+
+    var goalSize = { width: $goalCanvas.parent().width() - 30, height: $goalCanvas.parent().height() };
+    var timeSize = { width: $timeCanvas.parent().width() - 30, height: $timeCanvas.parent().height() };
+
+    $goalCanvas.attr('width', goalSize.width);
+    $goalCanvas.attr('height', goalSize.height);
+    $timeCanvas.attr('width', timeSize.width);
+    $timeCanvas.attr('height', timeSize.height);
 
     var timespanMS = tile.expires - tile.created;
     var currentTimeSpanMS = Date.now() - tile.created;
     var timePercent = 0.3;// currentTimeSpanMS / timespanMS;
     var fundingPercent = 0.42;//tile.total / tile.goal;
 
-    //var gradient = ctx.createLinearGradient(
-    //    0, 
-    //    size.height,
-    //    size.width, 
-    //    0);
+    var outerH_Time = timeSize.height - 4;
+    var outerH_Goal = goalSize.height - 4;
 
-    //gradient.addColorStop("0", "#fff");
-    //gradient.addColorStop("0.5", "#fff");
-    //gradient.addColorStop("0.9", "#b00");
-    //gradient.addColorStop("1.0", "#700");
+    var innerH_Time = outerH_Time - 4;
+    var innerH_Goal = outerH_Goal - 4;
 
-    var outerThickness = 25;
-    var outerInnerThickness = 17;
-    var innerThickness = 25;
-    var innerInnerThickness = 17;
-    var outerRadius = size.width - outerThickness / 2;
-    var innerRadius = outerRadius - outerThickness / 2 - innerThickness / 2 - 3;
-    var center = { top: size.height, left: size.width };
-    var fullBar = Math.PI / 2;
-    var outerBar = fullBar * timePercent;
-    var innerBar = fullBar * fundingPercent;
+    goalCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    timeCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
 
-    
-    //ctx.beginPath();
-    //ctx.arc(center.left, center.top, (outerRadius + innerRadius) / 2, Math.PI, Math.PI + Math.PI / 2);
-    //ctx.strokeStyle = "#333";
-    //ctx.lineWidth = outerThickness + innerThickness + 4;
-    //ctx.stroke();
+    goalCtx.fillRect(0, (goalSize.height - outerH_Goal) / 2, goalSize.width, outerH_Goal);
+    timeCtx.fillRect(0, (timeSize.height - outerH_Time) / 2, timeSize.width, outerH_Time);
 
-    ctx.beginPath();
-    ctx.arc(center.left, center.top, outerRadius, Math.PI, Math.PI + Math.PI / 2);
-    ctx.strokeStyle = "#fffdfc";
-    ctx.lineWidth = outerThickness;
-    ctx.stroke();
 
-    ctx.beginPath();
-    ctx.arc(center.left, center.top, outerRadius, Math.PI, Math.PI + outerBar );
-    ctx.strokeStyle = "#F37227";
-    ctx.lineWidth = outerInnerThickness;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.strokeStyle = "#fffdfc";
-    ctx.lineWidth = innerThickness;
-    ctx.arc(center.left, center.top, innerRadius, Math.PI, Math.PI + Math.PI / 2 );
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(center.left, center.top, innerRadius, Math.PI, Math.PI + innerBar);
-    ctx.strokeStyle = "#648f64";
-    ctx.lineWidth = innerInnerThickness;
-    ctx.stroke();
+    goalCtx.fillStyle = 'rgba(100, 143, 100, 0.9)';
+    timeCtx.fillStyle = 'rgba(247, 114, 36, 0.9)';
+    goalCtx.fillRect(2, (goalSize.height - innerH_Goal) / 2, goalSize.width * fundingPercent - 4, innerH_Goal);
+    timeCtx.fillRect(2, (timeSize.height - innerH_Time) / 2, timeSize.width * timePercent - 4, innerH_Time);
 }
+
+//function updateStatusRadial(tile, $wrapper)
+//{
+//    var $canvas = $wrapper.find('.status.radial');
+
+//    var ctx = $canvas[0].getContext("2d");
+//    var size = { width: $canvas.width(), height: $canvas.height() };
+//    $canvas.attr('width', size.width + 'px');
+//    $canvas.attr('height', size.height + 'px');
+
+//    var timespanMS = tile.expires - tile.created;
+//    var currentTimeSpanMS = Date.now() - tile.created;
+//    var timePercent = 0.3;// currentTimeSpanMS / timespanMS;
+//    var fundingPercent = 0.42;//tile.total / tile.goal;
+
+//    //var gradient = ctx.createLinearGradient(
+//    //    0, 
+//    //    size.height,
+//    //    size.width, 
+//    //    0);
+
+//    //gradient.addColorStop("0", "#fff");
+//    //gradient.addColorStop("0.5", "#fff");
+//    //gradient.addColorStop("0.9", "#b00");
+//    //gradient.addColorStop("1.0", "#700");
+
+//    var outerThickness = 25;
+//    var outerInnerThickness = 17;
+//    var innerThickness = 25;
+//    var innerInnerThickness = 17;
+//    var outerRadius = size.width - outerThickness / 2;
+//    var innerRadius = outerRadius - outerThickness / 2 - innerThickness / 2 - 3;
+//    var center = { top: size.height, left: size.width };
+//    var fullBar = Math.PI / 2;
+//    var outerBar = fullBar * timePercent;
+//    var innerBar = fullBar * fundingPercent;
+
+
+//    //ctx.beginPath();
+//    //ctx.arc(center.left, center.top, (outerRadius + innerRadius) / 2, Math.PI, Math.PI + Math.PI / 2);
+//    //ctx.strokeStyle = "#333";
+//    //ctx.lineWidth = outerThickness + innerThickness + 4;
+//    //ctx.stroke();
+
+//    ctx.beginPath();
+//    ctx.arc(center.left, center.top, outerRadius, Math.PI, Math.PI + Math.PI / 2);
+//    ctx.strokeStyle = "#fffdfc";
+//    ctx.lineWidth = outerThickness;
+//    ctx.stroke();
+
+//    ctx.beginPath();
+//    ctx.arc(center.left, center.top, outerRadius, Math.PI, Math.PI + outerBar);
+//    ctx.strokeStyle = "#F37227";
+//    ctx.lineWidth = outerInnerThickness;
+//    ctx.stroke();
+
+//    ctx.beginPath();
+//    ctx.strokeStyle = "#fffdfc";
+//    ctx.lineWidth = innerThickness;
+//    ctx.arc(center.left, center.top, innerRadius, Math.PI, Math.PI + Math.PI / 2);
+//    ctx.stroke();
+
+//    ctx.beginPath();
+//    ctx.arc(center.left, center.top, innerRadius, Math.PI, Math.PI + innerBar);
+//    ctx.strokeStyle = "#648f64";
+//    ctx.lineWidth = innerInnerThickness;
+//    ctx.stroke();
+//}

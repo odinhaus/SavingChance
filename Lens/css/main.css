@@ -465,6 +465,36 @@ input{
     bottom: 0;
     left: 0;
     right: 0;
+    display: table;
+    height: 2.5em;
+    overflow: hidden;
+}
+
+.wrapper .toolbar_bg
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: table;
+    height: 2.75em;
+    width: 100%;
+    background: #000;
+    padding: 2px;
+    opacity: 0.3;
+    -moz-transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.wrapper .toolbar_bg:hover
+{
+    opacity: 0.8;
+    -moz-transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
+    -ms-transition: all 0.25s ease;
+    transition: all 0.25s ease;
 }
 
 .wrapper .toolbar .tool
@@ -472,11 +502,34 @@ input{
     position: relative;
     top: 0;
     font-size: 2em;
-    display: inline-block;
-    float: left;
-    margin-left: 0.25em;
+    display: table-cell;
+    padding-left: 0.25em;
     cursor: pointer;
-    padding: 1px;
+}
+
+.wrapper .toolbar .tool.status
+{
+    width: 100%;
+    vertical-align: middle;
+}
+
+.wrapper .toolbar .tool.status .status_group
+{
+    height:0.5em
+}
+
+.wrapper .toolbar .tool.status .status_group .status_label
+{
+    display: inline-block;
+    position: absolute;
+    font-size: .4em;
+}
+
+.wrapper .toolbar .tool.status .status_group .status_bar
+{
+    display: inline-block;
+    position: absolute;
+    margin-left: .4em;
 }
 
 .wrapper .carousel-right,

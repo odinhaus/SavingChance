@@ -9,6 +9,7 @@
                 </h2>
             </article>
         </a>
+        <div id="toolbar_{{tile.id}}_bg" class="toolbar_bg"></div>
         <div id="toolbar_{{tile.id}}" class="toolbar">
             <a id="share_{{tile.id}}" class="tool share" title="Share...">
                 <i class="fa fa-share-alt"></i>
@@ -16,9 +17,21 @@
             <a id="donate_{{tile.id}}" class="tool donate" title="Donate...">
                 <i class="fa fa-credit-card"></i>
             </a>
+            <div class="status tool">
+                <div>
+                    <div class="status_group">
+                        <i class="fa fa-clock-o status_label"></i>
+                        <canvas class="status_bar time" width="16" height="16" id="time_status_{{tile.id}}"></canvas>
+                    </div>
+                    <div class="status_group">
+                        <i class="fa fa-usd status_label"></i>
+                        <canvas class="status_bar goal" width="16" height="16" id="goal_status_{{tile.id}}"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="next_{{tile.id}}" class="carousel-right"><a href="#"><i class="fa fa-chevron-right" /></a></div>
         <div id="prev_{{tile.id}}" class="carousel-left"><a href="#"><i class="fa fa-chevron-left" /></a></div>
-        <canvas id="status_{{tile.id}}" class="status radial" height="64" width="64" title="Orange = time left, Green = current funding"></canvas>
+        <!--<canvas id="status_{{tile.id}}" class="status radial" height="64" width="64" title="Orange = time left, Green = current funding"></canvas>-->
     </div>
 </section>
