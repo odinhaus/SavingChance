@@ -593,10 +593,10 @@ input{
 .wrapper .carousel .carousel-page.selected
 {
     display: inline-block;
-    -moz-transition: left 0.45s ease;
-    -webkit-transition: left 0.45s ease;
-    -ms-transition: left 0.45s ease;
-    transition: left 0.45s ease;
+    -moz-transition: left 0.25s ease;
+    -webkit-transition: left 0.25s ease;
+    -ms-transition: left 0.25s ease;
+    transition: left 0.25s ease;
 }
 
 .wrapper article h2.title

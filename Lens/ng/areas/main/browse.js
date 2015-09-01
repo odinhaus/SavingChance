@@ -105,6 +105,8 @@
         var endLeftCurrent = $current.position().left + modifier * size.width;
         var endLeftNext = $current.position().left;
 
+        initializePage($next, tile);
+
         $next.css({
             height: size.height + 'px',
             width: size.width + 'px',
@@ -126,6 +128,76 @@
                 isScrolling = false;
             }, 250);
         }, 250);
+    }
+
+    function initializePage($page, tile)
+    {
+        if ($page.hasClass('map'))
+        {
+            var setLocation = function (location) {
+                var latLng = new google.maps.LatLng(location.latitude, location.longitude);
+                var mapProp = {
+                    center: latLng,
+                    zoom: 10,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = tile.map;
+                if (!map) {
+                    tile.map = new google.maps.Map($page[0], mapProp);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: tile.map,
+                        title: tile.title + '\r\n' + tile.address + '\r\n' + 'lat: ' + location.latitude + ', long: ' + location.longitude
+                    });
+                    var contentString = '<div id="content" style="color: #000">' +
+                                          '<div id="siteNotice"></div>' +
+                                          '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+                                              '<div id="bodyContent">' +
+                                                '<p style="color: #000"><b style="color: #000">Uluru</b>, also referred to as <b style="color: #000">Ayers Rock</b>, is a large ' +
+                                                'sandstone rock formation in the southern part of the ' +
+                                                'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
+                                                'south west of the nearest large town, Alice Springs; 450&#160;km ' +
+                                                '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
+                                                'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
+                                                'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
+                                                'Aboriginal people of the area. It has many springs, waterholes, ' +
+                                                'rock caves and ancient paintings. Uluru is listed as a World ' +
+                                                'Heritage Site.</p>' +
+                                                '<p style="color: #000">Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+                                                'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
+                                                '(last visited June 22, 2009).</p>' +
+                                              '</div>' +
+                                          '</div>';
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+                    marker.addListener('click', function () {
+                        infowindow.open(tile.map, marker);
+                    });
+                    
+                    tile.location = location;
+                }
+                else {
+                    tile.map.setCenter(latLng);
+                }
+                google.maps.event.addDomListenerOnce(tile.map, 'idle', function () {
+                    google.maps.event.addDomListener(window, 'resize', function () {
+                        tile.map.setCenter(latLng);
+                    });
+                });
+            };
+
+            if (!tile.location)
+            {
+                getLocation(tile.address, setLocation);
+            }
+            else
+            {
+                setLocation(tile.location);
+            }
+        }
     }
 
     $scope.updateTiles = function (columnsChanged) {
@@ -380,6 +452,7 @@
                 id: last + i,
                 expires: expires,
                 created: created,
+                address: '22503 Bergman Drive, Magnolia TX 77355',
                 goal: Math.random() * 10000,
                 total: Math.random() * 10000,
                 img: i % 3 == 0 
@@ -556,7 +629,7 @@ function updateStatusLinear(tile, $wrapper)
 {
     if (!$wrapper)
     {
-        $wrapper = $('#' + tile.id).parent().parent();
+        $wrapper = $('#' + tile.id).parent();
     }
     var $goalCanvas = $wrapper.find('.status_bar.goal');
     var $timeCanvas = $wrapper.find('.status_bar.time');
