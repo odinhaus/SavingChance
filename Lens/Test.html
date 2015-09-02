@@ -9,15 +9,26 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHcaXbboAjuHvwt9uz7P3Hz67Om5M429g"></script>
+    <script src="js/fb.js"></script>
     <script src="ng/main.js"></script>
     <script src="ng/areas/main/browse.js"></script>
     <script src="ng/areas/details/details.js"></script>
     <script src="js/ng_infiniteScroll.js"></script>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Coustard"/>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/main.css" />
 </head>
 <body style="margin: 0; padding: 0;">
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1516907565266690";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <header id="header" resize>
         <div class="logo">
         </div>
@@ -30,16 +41,10 @@
         <div class="tool">
             <a href="help" title="Like us on Twitter"><i class="fa fa-twitter"></i></a>
         </div>
-        <!--<div class="fb-like"
-             data-share="true"
-             data-width="450"
-             data-show-faces="true">
-        </div>
-        <div id="fb-root"></div>
-        
-        <div class="fb-login-button" data-max-rows="5" data-size="xlarge" data-show-faces="true" data-auto-logout-link="false"></div>
-        <div id="status"></div>
-        <a id="login" href="#" onclick="fb_login();">Login With Facebook</a>-->
+        <form>
+            <label for="search" class="search"><i class="fa fa-search"></i></label>
+            <input class="search" id="search"/>
+        </form>
     </header>
     <div id="main" class="fade" ng-view style="position:relative; top: 4em;"></div>
     <script src="js/fb.js"></script>

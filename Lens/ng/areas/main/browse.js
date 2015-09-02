@@ -78,9 +78,58 @@
         scrollCarousel(tile , 1);
     }
 
-    var isScrolling = false;
-    function scrollCarousel(tile, modifier)
+    $scope.updateTiles = function (columnsChanged) {
+        if (columnsChanged) {
+            var tiles = $scope.tiles;
+            $scope.grid = []; // dump the current layout, and re-layout the entire list
+            maxRow = 0;
+            lastRow = 0;
+            $scope.addTiles(tiles);
+        }
+        else {
+            var i = 0;
+            // update layout grid
+            for (i; i < $scope.grid.length; i++) {
+                var j = 0;
+                var row = $scope.grid[i];
+                row.height = $scope.rowHeight;
+                row.top = i * $scope.rowHeight;
+                for (j; j < row.columnCount; j++) {
+                    var col = row.columns[j];
+                    col.top = row.top;
+                    col.width = $scope.columnWidth;
+                    col.left = j * $scope.columnWidth;
+                    col.height = row.height;
+                    if (col.tile) {
+                        col.tile.top = col.top;
+                        col.tile.left = col.left;
+                        col.tile.height = col.height * col.tile.size;
+                        col.tile.width = col.width * col.tile.size;
+                        col.tile.element.css({
+                            top: col.tile.top,
+                            left: col.tile.left,
+                            width: col.tile.width,
+                            height: col.tile.height
+                        });
+                        updateStatus(col.tile);
+                    }
+                }
+            }
+        }
+    };
+
+    $scope.addTiles = function(tiles)
     {
+        var i = 0;
+        
+        for(i; i < tiles.length; i++)
+        {
+            placeTile(tiles[i]);
+        }
+    }
+
+    var isScrolling = false;
+    function scrollCarousel(tile, modifier) {
         if (isScrolling) return;
         isScrolling = true;
         var $article = $("#" + tile.id);
@@ -89,14 +138,13 @@
         var length = $pages.length;
         var current = 0;
         $pages.each(function (index, page) {
-            if ($(page).hasClass('selected'))
-            {
+            if ($(page).hasClass('selected')) {
                 current = index;
                 return false; // break the each loop
             }
         });
-        var next = modifier > 0 
-            ? current - modifier < 0 ? length -1 : current - modifier
+        var next = modifier > 0
+            ? current - modifier < 0 ? length - 1 : current - modifier
             : current - modifier >= length ? 0 : current - modifier;
 
         var $current = $($pages[current]);
@@ -125,15 +173,15 @@
             setTimeout(function () {
                 $current.toggleClass('selected');
                 $current.css({ display: 'none' });
+                $next.css('height', '');
+                $next.css('width', '');
                 isScrolling = false;
             }, 250);
         }, 250);
     }
 
-    function initializePage($page, tile)
-    {
-        if ($page.hasClass('map'))
-        {
+    function initializePage($page, tile) {
+        if ($page.hasClass('map')) {
             var setLocation = function (location) {
                 var latLng = new google.maps.LatLng(location.latitude, location.longitude);
                 var mapProp = {
@@ -176,7 +224,7 @@
                     marker.addListener('click', function () {
                         infowindow.open(tile.map, marker);
                     });
-                    
+
                     tile.location = location;
                 }
                 else {
@@ -189,56 +237,14 @@
                 });
             };
 
-            if (!tile.location)
-            {
+            if (!tile.location) {
                 getLocation(tile.address, setLocation);
             }
-            else
-            {
+            else {
                 setLocation(tile.location);
             }
         }
     }
-
-    $scope.updateTiles = function (columnsChanged) {
-        if (columnsChanged) {
-            var tiles = $scope.tiles;
-            $scope.grid = []; // dump the current layout, and re-layout the entire list
-            maxRow = 0;
-            lastRow = 0;
-            $scope.addTiles(tiles);
-        }
-        else {
-            var i = 0;
-            // update layout grid
-            for (i; i < $scope.grid.length; i++) {
-                var j = 0;
-                var row = $scope.grid[i];
-                row.height = $scope.rowHeight;
-                row.top = i * $scope.rowHeight;
-                for (j; j < row.columnCount; j++) {
-                    var col = row.columns[j];
-                    col.top = row.top;
-                    col.width = $scope.columnWidth;
-                    col.left = j * $scope.columnWidth;
-                    col.height = row.height;
-                    if (col.tile) {
-                        col.tile.top = col.top;
-                        col.tile.left = col.left;
-                        col.tile.height = col.height * col.tile.size;
-                        col.tile.width = col.width * col.tile.size;
-                        col.tile.element.css({
-                            top: col.tile.top,
-                            left: col.tile.left,
-                            width: col.tile.width,
-                            height: col.tile.height
-                        });
-                        updateStatus(col.tile);
-                    }
-                }
-            }
-        }
-    };
 
     function getScrollBarWidth() {
         var inner = document.createElement('p');
@@ -265,16 +271,6 @@
 
         return (w1 - w2);
     };
-
-    $scope.addTiles = function(tiles)
-    {
-        var i = 0;
-        
-        for(i; i < tiles.length; i++)
-        {
-            placeTile(tiles[i]);
-        }
-    }
 
     function placeTile(tile) {
         var rowIndex = lastRow;
@@ -459,7 +455,19 @@
                     ? 'http://www.prestonspeaks.com/wp-content/uploads/2012/11/Lucian-the-awesome-Husky.jpg'
                     : i % 5 == 0
                         ? 'https://dogsinmind.files.wordpress.com/2015/08/dove.jpg'
-                        : 'http://dustytrailshorserescue.org/wp-content/uploads/2011/07/Stella-before.jpg'
+                        : 'http://dustytrailshorserescue.org/wp-content/uploads/2011/07/Stella-before.jpg',
+                sponsor: 'Houston Boxer Rescue',
+                sponsorHandle: '@HBR',
+                lastUpdate: {
+                    date: Date.now(),
+                    value: 'I rescued this female Saint Bernard from the middle of no where off '
+                           + 'the I-15 & Nicholas rd in a very rural part of the area. When I arrived '
+                           + 'on seen than the dog was laying there dying with no one & nothing. '
+                           + 'She has extensive wounds to her back side & full of maggots. Thousands '
+                           + 'of ticks all over her body. She is at the Arlington Animal Hospital In Riverside, Ca. '
+                           + 'She is a critical situation rite now & needs a village of help. The bill is already '
+                           + 'at $3,115.91 to preform current life saving services. Please Help..'
+                }
             };
 
             tiles.push(tile);
@@ -639,15 +647,16 @@ function updateStatusLinear(tile, $wrapper)
     goalCtx.clearRect(0, 0, $goalCanvas[0].width, $goalCanvas[0].height);
     timeCtx.clearRect(0, 0, $timeCanvas[0].width, $timeCanvas[0].height);
 
-    var goalSize = { width: $goalCanvas.parent().width() - 30, height: $goalCanvas.parent().height() };
-    var timeSize = { width: $timeCanvas.parent().width() - 30, height: $timeCanvas.parent().height() };
+    var goalSize = { width: $goalCanvas.parent().width() - 80, height: $goalCanvas.parent().height() };
+    var timeSize = { width: $timeCanvas.parent().width() - 80, height: $timeCanvas.parent().height() };
 
-    $goalCanvas.attr('width', goalSize.width);
+    $goalCanvas.attr('width', goalSize.width + 50);
     $goalCanvas.attr('height', goalSize.height);
-    $timeCanvas.attr('width', timeSize.width);
+    $timeCanvas.attr('width', timeSize.width + 50);
     $timeCanvas.attr('height', timeSize.height);
 
     var timespanMS = tile.expires - tile.created;
+    var timespanDays = Math.ceil(timespanMS / (1000 * 60 * 60 * 24));
     var currentTimeSpanMS = Date.now() - tile.created;
     var timePercent = 0.3;// currentTimeSpanMS / timespanMS;
     var fundingPercent = 0.42;//tile.total / tile.goal;
@@ -669,6 +678,14 @@ function updateStatusLinear(tile, $wrapper)
     timeCtx.fillStyle = 'rgba(247, 114, 36, 0.9)';
     goalCtx.fillRect(2, (goalSize.height - innerH_Goal) / 2, goalSize.width * fundingPercent - 4, innerH_Goal);
     timeCtx.fillRect(2, (timeSize.height - innerH_Time) / 2, timeSize.width * timePercent - 4, innerH_Time);
+
+    goalCtx.fillStyle = '#fff';
+    timeCtx.fillStyle = '#fff';
+    goalCtx.font = outerH_Goal + "px sans serif";
+    timeCtx.font = outerH_Time + "px sans serif";
+    goalCtx.fillText('$' + tile.goal.toFixed(0), goalSize.width + 4, outerH_Goal);
+    var days = timespanDays + ' Day' + (timespanDays > 1 ? 's' : '');
+    timeCtx.fillText(days, timeSize.width + 4, outerH_Time);
 }
 
 //function updateStatusRadial(tile, $wrapper)

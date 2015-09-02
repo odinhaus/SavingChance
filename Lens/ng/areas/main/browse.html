@@ -1,31 +1,52 @@
 ﻿<section id="thumbnails" infinite-scroll='loadMore()' infinite-scroll-distance='4'>
     <div class="wrapper" ng-repeat="tile in tiles" tile-rendered>
         
-            <article id="{{tile.id}}">
-                <div class="carousel">
-                    <a href="#{{tile.href}}">
-                        <div class="carousel-page selected">
-                            <img class="thumbnail initializing" src="{{tile.img}}" />
-                            <h2 class="title">
-                                {{tile.title}}
-                            </h2>
-                        </div>
-                    </a>
-                    <div class="carousel-page details" style="background: #95c095">
-                        <h2>Page 2</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+        <article id="{{tile.id}}">
+            <div class="carousel">
+                <a href="#{{tile.href}}">
+                    <div class="carousel-page main selected">
+                        <img class="thumbnail initializing" src="{{tile.img}}" />
+                        <h2 class="title">
+                            {{tile.title}}
+                        </h2>
                     </div>
-                    <div class="carousel-page map" style="background: #8c99a3">
+                </a>
 
+                <div class="carousel-page details" style="background: #95c095">
+                    <div class="content">
+                        <p>
+                            <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
+                            <a href="?q={{tile.sponsorHandle}}">Other Posts</a> by {{tile.sponsorHandle}}
+                        </p>
+                        <a href="#{{tile.href}}" class="no-underline">
+                            <div class="update">
+                                <h3 class="date">
+                                    <span ng-bind="tile.lastUpdate.date | date:'MM/dd/yyyy HH:mm'"></span>
+                                </h3>
+                                {{tile.lastUpdate.value}}
+                            </div>
+                        </a>
+                        <div ng-if="tile.size >= 4">
+                            more content
+                        </div>
                     </div>
                 </div>
-            </article>
+
+                <div class="carousel-page map" style="background: #8c99a3">
+
+                </div>
+            </div>
+        </article>
 
         <div id="toolbar_{{tile.id}}_bg" class="toolbar_bg"></div>
         <div id="toolbar_{{tile.id}}" class="toolbar">
-            <a id="share_{{tile.id}}" class="tool share" title="Share...">
+            <a id="donate_{{tile.id}}" class="tool like" title="Love...">
+                <i class="fa fa-heart"></i>
+            </a>
+            <a id="share_{{tile.id}}" class="tool share" 
+               title="Share..." 
+               href="https://www.facebook.com/sharer/sharer.php?app_id=1516907565266690&amp;sdk=joey&amp;u=http%3A%2F%2Fbeta-001.savingchance.com%2FTest.html%23{{tile.href}}&amp;display=popup&amp;ref=plugin&amp;src=share_button" 
+               target="_blank">
                 <i class="fa fa-share-alt"></i>
             </a>
             <a id="donate_{{tile.id}}" class="tool donate" title="Donate...">
@@ -47,5 +68,5 @@
         <a href="#" ng-click='scrollRight(tile)'><div id="next_{{tile.id}}" class="carousel-right"></div></a>
         <a href="#" ng-click='scrollLeft(tile)'><div id="prev_{{tile.id}}" class="carousel-left" ></div></a>
             <!--<canvas id="status_{{tile.id}}" class="status radial" height="64" width="64" title="Orange = time left, Green = current funding"></canvas>-->
-</div>
+    </div>
 </section>
