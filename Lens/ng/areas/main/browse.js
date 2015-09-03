@@ -467,7 +467,13 @@
                            + 'of ticks all over her body. She is at the Arlington Animal Hospital In Riverside, Ca. '
                            + 'She is a critical situation rite now & needs a village of help. The bill is already '
                            + 'at $3,115.91 to preform current life saving services. Please Help..'
-                }
+                },
+                images: [{ url: 'http://cutepuppydog.net/wallpapers/cute-puppies9.jpg' },
+                    { url: 'http://thedogwallpaper.com/wp-content/uploads/2014/02/siberian-husky-wide-wallpaper-hd-38.jpg' },
+                    { url: 'http://www.dogwallpapers.net/wallpapers/winter-siberian-husky-dog-wallpaper.jpg' }
+                ],
+                tags: ['@HBR', '#' + last + i, '#husky', '#houston', '#desparate'],
+                isLiked: (i % 13 == 0)
             };
 
             tiles.push(tile);

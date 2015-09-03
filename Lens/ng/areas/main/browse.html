@@ -14,20 +14,23 @@
 
                 <div class="carousel-page details" style="background: #95c095">
                     <div class="content">
-                        <p>
-                            <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
-                            <a href="?q={{tile.sponsorHandle}}">Other Posts</a> by {{tile.sponsorHandle}}
-                        </p>
-                        <a href="#{{tile.href}}" class="no-underline">
-                            <div class="update">
-                                <h3 class="date">
-                                    <span ng-bind="tile.lastUpdate.date | date:'MM/dd/yyyy HH:mm'"></span>
-                                </h3>
-                                {{tile.lastUpdate.value}}
-                            </div>
-                        </a>
-                        <div ng-if="tile.size >= 4">
-                            more content
+                        <div class="update">
+                            <p>
+                                <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
+                                <a href="?q={{tile.sponsorHandle}}">Other Posts</a> by {{tile.sponsorHandle}}
+                            </p>
+
+                            <h3 class="date">
+                                <span ng-bind="tile.lastUpdate.date | date:'MM/dd/yyyy HH:mm'"></span>
+                            </h3>
+                            {{tile.lastUpdate.value}}
+
+                        </div>
+                        <div ng-class="{'images inline': tile.size < 4, 'images carousel': tile.size >= 4}">
+                            <img ng-repeat="image in tile.images" src="{{image.url}}"/>
+                        </div>
+                        <div class="tags">
+                            <span data-scroll-reveal="enter left and move 50px over 1.6s" ng-repeat="tag in tile.tags"><a href="?q={{tag}}">{{tag}}</a>&nbsp;</span>
                         </div>
                     </div>
                 </div>
@@ -40,7 +43,7 @@
 
         <div id="toolbar_{{tile.id}}_bg" class="toolbar_bg"></div>
         <div id="toolbar_{{tile.id}}" class="toolbar">
-            <a id="donate_{{tile.id}}" class="tool like" title="Love...">
+            <a id="donate_{{tile.id}}" ng-class="{'tool like': !tile.isLiked, 'tool like selected': tile.isLiked}" title="Love...">
                 <i class="fa fa-heart"></i>
             </a>
             <a id="share_{{tile.id}}" class="tool share" 

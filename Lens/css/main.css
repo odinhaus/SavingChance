@@ -615,6 +615,13 @@ input{
     cursor: pointer;
 }
 
+.wrapper .toolbar .tool.selected,
+.wrapper .toolbar .tool.selected i
+{
+    color: #F37227;
+    opacity: 1;
+}
+
 .wrapper .toolbar .tool.status
 {
     width: 100%;
@@ -716,16 +723,12 @@ input{
 
 .wrapper .carousel .carousel-page .content
 {
-    padding-left: 2.2em;
-    padding-right: 2.2em;
-    overflow: hidden;
+    overflow-Y: auto;
     left: 0;
     right: 0;
     top: 0;
-    bottom: 2.4em;
+    bottom: 2.3em;
     position: absolute;
-    text-overflow: ellipsis;
-    font-family: sans-serif;
 }
 
 .no-underline
@@ -741,6 +744,53 @@ input{
 .wrapper .carousel .carousel-page .content div.update
 {
     font-size: 0.75em;
+    margin-left: 2.9em;
+    margin-right: 1.2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.wrapper .carousel .carousel-page .content div.images.inline img
+{
+    display: block;
+    width: 100%;
+    border: 0px solid #000;
+    margin: 0;
+}
+
+.wrapper .carousel .carousel-page .content div.images.carousel img
+{
+    display: block;
+    width: 100%;
+    border: 0px solid #000;
+}
+
+.wrapper .carousel .carousel-page .content div.tags
+{
+    background: #3d3d3d;
+    font-size: 2em;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.wrapper .carousel .carousel-page .content div.tags span
+{
+    display: inline-block;
+}
+.wrapper .carousel .carousel-page .content div.tags span a
+{
+    text-decoration: none;
+}
+.wrapper .carousel .carousel-page .content div.tags span a:hover,
+.wrapper .carousel .carousel-page .content div.tags span a:focus,
+.wrapper .carousel .carousel-page .content div.tags span a:active
+{
+    color: #F37227;
+    -moz-transition: color 0.25s ease;
+    -webkit-transition: color 0.25s ease;
+    -ms-transition: color 0.25s ease;
+    transition: color 0.25s ease;
 }
 
 .wrapper .carousel .carousel-page.selected
