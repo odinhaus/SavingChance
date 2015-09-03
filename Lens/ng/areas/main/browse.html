@@ -3,40 +3,45 @@
         
         <article id="{{tile.id}}">
             <div class="carousel">
-                <a href="#{{tile.href}}">
-                    <div class="carousel-page main selected">
-                        <img class="thumbnail initializing" src="{{tile.img}}" />
-                        <h2 class="title">
-                            {{tile.title}}
-                        </h2>
-                    </div>
-                </a>
+
+                <div class="carousel-page main selected">
+                    <img class="thumbnail initializing" src="{{tile.img}}" />
+                    <h2 class="title">
+                        {{tile.title}}
+                    </h2>
+                </div>
 
                 <div class="carousel-page details" style="background: #95c095">
-                    <div class="content">
-                        <div class="update">
-                            <p>
-                                <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
-                                <a href="?q={{tile.sponsorHandle}}">Other Posts</a> by {{tile.sponsorHandle}}
-                            </p>
+                    <div ng-class="{content: tile.size < 4, 'content large': tile.size >= 4}">
+                        <div class="center">
+                            <div class="update">
+                                <p>
+                                    <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
+                                    <a href="?q={{tile.sponsorHandle}}">Other Posts</a> by {{tile.sponsorHandle}}
+                                </p>
 
-                            <h3 class="date">
-                                <span ng-bind="tile.lastUpdate.date | date:'MM/dd/yyyy HH:mm'"></span>
-                            </h3>
-                            {{tile.lastUpdate.value}}
+                                <h3 class="date">
+                                    <span ng-bind="tile.lastUpdate.date | date:'MM/dd/yyyy HH:mm'"></span>
+                                </h3>
+                                {{tile.lastUpdate.value}}
 
-                        </div>
-                        <div ng-class="{'images inline': tile.size < 4, 'images carousel': tile.size >= 4}">
-                            <img ng-repeat="image in tile.images" src="{{image.url}}"/>
-                        </div>
-                        <div class="tags">
-                            <span data-scroll-reveal="enter left and move 50px over 1.6s" ng-repeat="tag in tile.tags"><a href="?q={{tag}}">{{tag}}</a>&nbsp;</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="carousel-page images inline" ng-repeat="image in tile.images">
+                    <img src="{{image.url}}" />
+                </div>
+
                 <div class="carousel-page map" style="background: #8c99a3">
 
+                </div>
+
+                <div class="carousel-page tags">
+                    <div class="center">
+                        <span ng-repeat="tag in tile.tags"><a href="?q={{tag}}">{{tag}}</a>&nbsp;</span>
+                    </div>
                 </div>
             </div>
         </article>
@@ -70,6 +75,16 @@
         </div>
         <a href="#" ng-click='scrollRight(tile)'><div id="next_{{tile.id}}" class="carousel-right"></div></a>
         <a href="#" ng-click='scrollLeft(tile)'><div id="prev_{{tile.id}}" class="carousel-left" ></div></a>
+        <a href="#{{tile.href}}" class="maximize" title="Maximize">
+            <i class="max-icon">
+                <svg viewBox="0 0 100 100">
+                    <path d="M 10 10 L 90 10 L 90 90 M 90 10 L 10 90"/>
+                </svg>
+                <svg viewBox="0 0 100 100">
+                    <path d="M 10 10 L 10 90 L 90 90 M 10 90 L 90 10" />
+                </svg>
+            </i>
+        </a>
             <!--<canvas id="status_{{tile.id}}" class="status radial" height="64" width="64" title="Orange = time left, Green = current funding"></canvas>-->
     </div>
 </section>

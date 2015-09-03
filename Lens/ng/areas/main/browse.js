@@ -200,21 +200,13 @@
                     });
                     var contentString = '<div id="content" style="color: #000">' +
                                           '<div id="siteNotice"></div>' +
-                                          '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+                                          '<h1 id="firstHeading" style="color: #000">' + tile.title + '</h1>' +
                                               '<div id="bodyContent">' +
-                                                '<p style="color: #000"><b style="color: #000">Uluru</b>, also referred to as <b style="color: #000">Ayers Rock</b>, is a large ' +
-                                                'sandstone rock formation in the southern part of the ' +
-                                                'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-                                                'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-                                                '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-                                                'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-                                                'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-                                                'Aboriginal people of the area. It has many springs, waterholes, ' +
-                                                'rock caves and ancient paintings. Uluru is listed as a World ' +
-                                                'Heritage Site.</p>' +
-                                                '<p style="color: #000">Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-                                                'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-                                                '(last visited June 22, 2009).</p>' +
+                                                '<p style="color: #000"><b style="color: #000">' + tile.name + '</b></p><br />' +
+                                                '<p style="color: #000">' + tile.address + '</p>' +
+                                                '<p style="color: #000"><a style="color: #000" href="mailto:' + tile.sponsorEmail + '">' + tile.sponsorEmail + '</a></p>' +
+                                                '<p style="color: #000">' + tile.sponsorPhone + '</p><br />' +
+                                                '<p style="color: #000"><a style="color: #000" target="_blank" href="https://www.google.com/maps/dir//' + tile.address + '/@' + location.latitude + ',' + location.longitude + '">Get Directions</a></p>'
                                               '</div>' +
                                           '</div>';
 
@@ -448,7 +440,7 @@
                 id: last + i,
                 expires: expires,
                 created: created,
-                address: '22503 Bergman Drive, Magnolia TX 77355',
+                address: 'Montgomery County Animal Shelter, 8535 Texas 242, Conroe, TX 77385',
                 goal: Math.random() * 10000,
                 total: Math.random() * 10000,
                 img: i % 3 == 0 
@@ -458,6 +450,8 @@
                         : 'http://dustytrailshorserescue.org/wp-content/uploads/2011/07/Stella-before.jpg',
                 sponsor: 'Houston Boxer Rescue',
                 sponsorHandle: '@HBR',
+                sponsorEmail: 'someone@hbr.com',
+                sponsorPhone: '(123) 456-7890',
                 lastUpdate: {
                     date: Date.now(),
                     value: 'I rescued this female Saint Bernard from the middle of no where off '
@@ -473,7 +467,8 @@
                     { url: 'http://www.dogwallpapers.net/wallpapers/winter-siberian-husky-dog-wallpaper.jpg' }
                 ],
                 tags: ['@HBR', '#' + last + i, '#husky', '#houston', '#desparate'],
-                isLiked: (i % 13 == 0)
+                isLiked: (i % 13 == 0),
+                name: 'Chance'
             };
 
             tiles.push(tile);
