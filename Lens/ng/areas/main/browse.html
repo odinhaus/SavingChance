@@ -13,22 +13,19 @@
 
                 <div class="carousel-page details" style="background: #95c095">
                     <div ng-class="{content: tile.size < 4, 'content large': tile.size >= 4}">
-                        <div class="center">
-                            <div class="update">
-                                <p>
-                                    <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
-                                    <a href="?q={{tile.sponsorHandle}}">Other Campaigns</a> by {{tile.sponsorHandle}}
-                                </p>
+                        <div class="update">
+                            <p>
+                                <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
+                                <a href="?q={{tile.sponsorHandle}}">Other Campaigns</a> by {{tile.sponsorHandle}}
+                            </p>
 
-                                <h3 class="date">
-                                    Expires: <span ng-bind="tile.expires | date:'MM/dd/yyyy HH:mm'"></span>
-                                </h3>
-                                <h3 class="goal">
-                                    Goal: <span ng-bind="tile.goal | currency"></span>
-                                </h3>
-                                {{tile.summary.value}}
-
-                            </div>
+                            <h3 class="date">
+                                Expires: <span ng-bind="tile.expires | date:'MM/dd/yyyy HH:mm'"></span>
+                            </h3>
+                            <h3 class="goal">
+                                Goal: <span ng-bind="tile.goal | currency"></span>
+                            </h3>
+                            {{tile.summary.value}}
                         </div>
                     </div>
                 </div>
@@ -54,10 +51,10 @@
             <a id="donate_{{tile.id}}" ng-class="{'tool like': !tile.isLiked, 'tool like selected': tile.isLiked}" title="Love...">
                 <i class="fa fa-heart"></i>
             </a>
-            <a id="share_{{tile.id}}" class="tool share" 
-               title="Share..." 
-               href="https://www.facebook.com/sharer/sharer.php?app_id=1516907565266690&amp;sdk=joey&amp;u=http%3A%2F%2Fbeta-001.savingchance.com%2FTest.html%23{{tile.href}}&amp;display=popup&amp;ref=plugin&amp;src=share_button" 
-               target="_blank">
+            <a id="share_{{tile.id}}" class="tool share"
+               title="Share..."
+               href="#"
+               ng-click="share(tile)">
                 <i class="fa fa-share-alt"></i>
             </a>
             <a id="donate_{{tile.id}}" class="tool donate" title="Donate...">

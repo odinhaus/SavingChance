@@ -51,7 +51,11 @@
         $scope.bodyWidth = w.innerWidth() - scrollbarAdjust;
         $scope.bodyHeight = w.innerHeight();
         var columnCount = 8;
-        if ($scope.bodyWidth <= 768)
+        if ($scope.bodyWidth <= 670)
+        {
+            columnCount = 2;
+        }
+        else if ($scope.bodyWidth <= 768)
         {
             columnCount = 4;
         }
@@ -62,7 +66,7 @@
         var columnsChanged = $scope.columnCount != columnCount;
         $scope.columnCount = columnCount;
         $scope.columnWidth = $scope.bodyWidth / $scope.columnCount;
-        $scope.rowHeight = $scope.columnWidth * (768 / 1024);
+        $scope.rowHeight = $scope.columnWidth * (375 / 667);
         return columnsChanged;
     }
 
@@ -151,6 +155,7 @@
                 subTitle: 'All for one',
                 href: '/' + i,
                 size: size,
+                actualSize: size,
                 id: last + i,
                 expires: expires,
                 created: created,
@@ -192,6 +197,18 @@
         $scope.addTiles(tiles);
         appState['browse'].pageState.tiles = $scope.tiles;
     };
+
+    $scope.share = function(tile)
+    {
+        FB.ui({
+            app_id: 1516907565266690,
+            method: 'feed',
+            link: 'http://beta-001.savingchance.com/Test.html#' + tile.href,
+            caption: tile.title,
+            picture: tile.img,
+            description: tile.summary.value
+        }, function (response) { });
+    }
 
     var isScrolling = false;
     function scrollCarousel(tile, modifier) {
@@ -334,6 +351,14 @@
         var row = null;
         var col = -1;
         // find next vacant top 
+        if (tile.size > $scope.columnCount)
+        {
+            tile.size = $scope.columnCount;
+        }
+        else
+        {
+            tile.size = tile.actualSize;
+        }
         do
         {
             row = $scope.grid[rowIndex]; // get the row
@@ -493,92 +518,6 @@
         );
     }
 
-    /*
-    $scope.show = function(tile)
-    {
-        if (tile.isOpen) return;
-
-        tile.isOpen = true;
-        var $element = $('#' + tile.id).parent();
-
-        var $clone = $($element.clone()[0].outerHTML).insertAfter($element);
-        $clone.attr('id', tile.id + '_clone_wrapper');
-        $clone.addClass('active');
-        var $article = $($clone.children()[0]);
-        $article.attr('id', tile.id + '_clone');
-        $clone.tile = tile;
-        $selected = $clone;
-
-        var yOffset = window.pageYOffset - $('#header').height();
-        var width = window.innerWidth;
-        var scale = width / tile.width;
-        var height = tile.height * scale;
-        var settings = {
-            queue: false,
-            duration: 0,
-            complete: function () {
-                
-                $('body').css({ overflowY: 'hidden' });
-                $clone.find('.content').css('display', 'block');
-                var $closeButton = $clone.find('.closeButton');
-                $closeButton.toggleClass('hidden');
-                setTimeout(function () {
-                    $clone.absPos = $clone.position();
-                    $clone.absSize = { width: $clone.width(), height: $clone.height() };
-                    $clone.addClass('notrans');
-                    $clone.css({ position: 'fixed', left: 0, right: 0, bottom: 0, top: 0, width: '', height: '' });
-                    setTimeout(function () { $clone.removeClass('notrans'); window.history.pushState({ page: tile.id }, "Details", "?" + tile.id); }, 400);
-                },800); // hack to allow animation to complete prior to removing clone
-                $closeButton.click(function () {
-                    var $clone = $selected;
-                    var settings = {
-                        queue: false,
-                        duration: 0,
-                        complete: function () {
-                            $selected = null;
-                            $('body').css({ overflowY: 'auto' });
-                            $clone.css({ zindex: 0 });
-                            tile.isOpen = false;
-                            setTimeout(function () {
-                                $clone.remove();
-                            }, 600); // hack to allow animation to complete prior to removing clone
-                        }
-                    };
-                    $clone.addClass('notrans');
-                    $clone.find('.content').css('display', 'none');
-                    $clone.css({
-                        position: 'absolute',
-                        left: $clone.absPos.left,
-                        right: '',
-                        bottom: '',
-                        top: $clone.absPos.top,
-                        width: $clone.absSize.width,
-                        height: $clone.absSize.height
-                    });
-                    setTimeout(function () {
-                        $clone.removeClass('notrans');
-                        $clone.animate({
-                            top: $clone.tile.top,
-                            left: $clone.tile.left,
-                            width: $clone.tile.width,
-                            height: $clone.tile.height
-                        }, settings);
-                    }, 200);
-                    
-                });
-            }
-        };
-
-        $clone.css({ zIndex: 1000000 });
-        $clone.animate({
-            top: yOffset,
-            left: 0,
-            width: width,
-            height: height
-        }, settings, 1200);
-    }
-    */
-
     function addRow(columnCount)
     {
         return newRow(maxRow++, columnCount);
@@ -695,71 +634,3 @@ function updateStatusLinear(tile, $wrapper)
         timeCtx.fillText(days, timeSize.width + 4, outerH_Time);
     }
 }
-
-//function updateStatusRadial(tile, $wrapper)
-//{
-//    var $canvas = $wrapper.find('.status.radial');
-
-//    var ctx = $canvas[0].getContext("2d");
-//    var size = { width: $canvas.width(), height: $canvas.height() };
-//    $canvas.attr('width', size.width + 'px');
-//    $canvas.attr('height', size.height + 'px');
-
-//    var timespanMS = tile.expires - tile.created;
-//    var currentTimeSpanMS = Date.now() - tile.created;
-//    var timePercent = 0.3;// currentTimeSpanMS / timespanMS;
-//    var fundingPercent = 0.42;//tile.total / tile.goal;
-
-//    //var gradient = ctx.createLinearGradient(
-//    //    0, 
-//    //    size.height,
-//    //    size.width, 
-//    //    0);
-
-//    //gradient.addColorStop("0", "#fff");
-//    //gradient.addColorStop("0.5", "#fff");
-//    //gradient.addColorStop("0.9", "#b00");
-//    //gradient.addColorStop("1.0", "#700");
-
-//    var outerThickness = 25;
-//    var outerInnerThickness = 17;
-//    var innerThickness = 25;
-//    var innerInnerThickness = 17;
-//    var outerRadius = size.width - outerThickness / 2;
-//    var innerRadius = outerRadius - outerThickness / 2 - innerThickness / 2 - 3;
-//    var center = { top: size.height, left: size.width };
-//    var fullBar = Math.PI / 2;
-//    var outerBar = fullBar * timePercent;
-//    var innerBar = fullBar * fundingPercent;
-
-
-//    //ctx.beginPath();
-//    //ctx.arc(center.left, center.top, (outerRadius + innerRadius) / 2, Math.PI, Math.PI + Math.PI / 2);
-//    //ctx.strokeStyle = "#333";
-//    //ctx.lineWidth = outerThickness + innerThickness + 4;
-//    //ctx.stroke();
-
-//    ctx.beginPath();
-//    ctx.arc(center.left, center.top, outerRadius, Math.PI, Math.PI + Math.PI / 2);
-//    ctx.strokeStyle = "#fffdfc";
-//    ctx.lineWidth = outerThickness;
-//    ctx.stroke();
-
-//    ctx.beginPath();
-//    ctx.arc(center.left, center.top, outerRadius, Math.PI, Math.PI + outerBar);
-//    ctx.strokeStyle = "#F37227";
-//    ctx.lineWidth = outerInnerThickness;
-//    ctx.stroke();
-
-//    ctx.beginPath();
-//    ctx.strokeStyle = "#fffdfc";
-//    ctx.lineWidth = innerThickness;
-//    ctx.arc(center.left, center.top, innerRadius, Math.PI, Math.PI + Math.PI / 2);
-//    ctx.stroke();
-
-//    ctx.beginPath();
-//    ctx.arc(center.left, center.top, innerRadius, Math.PI, Math.PI + innerBar);
-//    ctx.strokeStyle = "#648f64";
-//    ctx.lineWidth = innerInnerThickness;
-//    ctx.stroke();
-//}
