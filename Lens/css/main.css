@@ -147,26 +147,71 @@ form
 {
     display: inline-block;
     position: absolute;
-    left: 9em;
+    left: 11em;
     right: 4.5em;
     top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
     transform: translateY(-50%);
 }
 
-@media screen and (max-width: 460px)
+#nav
 {
-    form
-    {
-        width: 15em;
-    }
+    width: 12em;
+    position:fixed;
+    bottom: 0;
+    top: calc(2.5em + 1px);
+    font-size: 1.5em;
+    z-index: 10000;
+    background:#000;
+    left: -14em;
+    opacity: 0.9;
+    padding-top: 0.5em;
+    border-right: 1px solid #fff;
+    box-shadow: 5px 5px 8px #211;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
 }
 
-@media screen and (max-width: 385px)
+#nav.open
 {
-    form
-    {
-        width: 10em;
-    }
+    left: 0;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+}
+
+#nav a,
+#nav span.separator
+{
+    display:block;
+    margin-left: 1em;
+    text-decoration: none;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+}
+
+#nav span.separator
+{
+    height: 1em;
+}
+
+#nav a:hover,
+#nav a:focus,
+#nav a:active
+{
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+    color: #F37227;
 }
 
 input.search {
@@ -242,6 +287,10 @@ label.search
     width: 1.3em;
     margin-left: 0.65em;
     top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
     transform: translateY(-50%);
     opacity: 0.7;
     transition:         all .1s linear;
@@ -557,7 +606,8 @@ input{
 .wrapper .carousel-right a:hover,
 .wrapper .carousel-left a:hover,
 .wrapper .toolbar a.tool:hover,
-#header .tool a:hover
+#header .tool a:hover,
+#header .tool.active a
 {
     text-shadow: 0px 0px 10px #999;
     opacity: 1;
@@ -575,8 +625,8 @@ input{
     z-index: 5000;
     top: 3px;
     left: 3px;
-    height: 2.2em;
-    width: 2.2em;
+    height: 1.4em;
+    width: 1.4em;
     opacity:0.8;
     text-shadow: 0px 0px 0px #999;
     -moz-transition: all 0.25s ease;
@@ -601,22 +651,22 @@ input{
 .wrapper a.maximize i svg * {
     stroke: #fff;
     fill: transparent;
-    stroke-width: 10px;
+    stroke-width: 20px;
 }
 
 .wrapper a.maximize i.max-icon svg:first-child {
     position: absolute;
-    top: 2px;
-    left: 1em;
-    height: 1em;
-    width: 1em;
+    top: 1px;
+    left: 0.6em;
+    height: 0.6em;
+    width: 0.6em;
 }
 .wrapper a.maximize i.max-icon svg:last-child {
     position: absolute;
-    top: 1em;
-    left: 2px;
-    height: 1em;
-    width: 1em;
+    top: 0.6em;
+    left: 1px;
+    height: 0.6em;
+    width: 0.6em;
 }
 
 .wrapper .toolbar
@@ -724,13 +774,17 @@ input{
     -webkit-tap-highlight-color: transparent;
     position: absolute;
     top: 50%;
-    width: 2em;
-    height: 3em;
+    width: 1.5em;
+    height: 2em;
     background-image: url("images/arrow.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
     transform: translateY(-50%);
     opacity: 0.7;
     -moz-transition: opacity 0.25s ease;
@@ -808,6 +862,18 @@ input{
     margin-bottom: 0.5em;
 }
 
+.wrapper .carousel .carousel-page .content div.update .date,
+.wrapper .carousel .carousel-page .content div.update .goal
+{
+    display: inline-block;
+    width: 49%;
+}
+
+.wrapper .carousel .carousel-page .content div.update .goal
+{
+    text-align: right;
+}
+
 .wrapper .carousel .carousel-page.images.inline img
 {
     display: block;
@@ -831,6 +897,10 @@ input{
     position: absolute;
     width: 100%;
     top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
     transform: translateY(-50%);
 }
 
@@ -841,7 +911,24 @@ input{
 .wrapper .carousel .carousel-page.tags span a
 {
     text-decoration: none;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
 }
+
+.wrapper .carousel .carousel-page.tags span a:hover,
+.wrapper .carousel .carousel-page.tags span a:active,
+.wrapper .carousel .carousel-page.tags span a:focus
+{
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+    color: #F37227;
+}
+
+
 .wrapper .carousel .carousel-page .content div.tags span a:hover,
 .wrapper .carousel .carousel-page .content div.tags span a:focus,
 .wrapper .carousel .carousel-page .content div.tags span a:active

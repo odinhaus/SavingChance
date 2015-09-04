@@ -17,13 +17,16 @@
                             <div class="update">
                                 <p>
                                     <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
-                                    <a href="?q={{tile.sponsorHandle}}">Other Posts</a> by {{tile.sponsorHandle}}
+                                    <a href="?q={{tile.sponsorHandle}}">Other Campaigns</a> by {{tile.sponsorHandle}}
                                 </p>
 
                                 <h3 class="date">
-                                    <span ng-bind="tile.lastUpdate.date | date:'MM/dd/yyyy HH:mm'"></span>
+                                    Expires: <span ng-bind="tile.expires | date:'MM/dd/yyyy HH:mm'"></span>
                                 </h3>
-                                {{tile.lastUpdate.value}}
+                                <h3 class="goal">
+                                    Goal: <span ng-bind="tile.goal | currency"></span>
+                                </h3>
+                                {{tile.summary.value}}
 
                             </div>
                         </div>

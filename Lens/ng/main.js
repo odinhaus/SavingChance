@@ -32,3 +32,8 @@ function getLocation(address, callback)
         }
     });
 }
+
+$('#navButton').click(function () {
+    $('#nav').toggleClass('open');
+    $('#navTool').toggleClass('active');
+});

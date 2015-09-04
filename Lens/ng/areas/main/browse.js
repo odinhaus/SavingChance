@@ -128,6 +128,71 @@
         }
     }
 
+    $scope.loadMore = function () {
+        var tileCount = Math.ceil($scope.columnCount * ($scope.bodyHeight / $scope.rowHeight));
+        var last = $scope.tiles.length;
+        if (last > 0) {
+            var row = $scope.grid[lastRow];
+            if ($scope.bodyHeight + w[0].pageYOffset < row.top) return;
+        }
+        var tiles = [];
+        for (var i = 1; i <= tileCount; i++) {
+            var size = 2;
+
+            if (i % 7 == 0) {
+                size = 4;
+            }
+            var expires = new Date(Date.now() + Math.random() * 10);
+            var created = new Date(Date.now() - Math.random() * 10);
+            var tile = {
+                image: last + i,
+                title: 'Lorem epsum salts or something',
+                caption: 'E plurubus unum',
+                subTitle: 'All for one',
+                href: '/' + i,
+                size: size,
+                id: last + i,
+                expires: expires,
+                created: created,
+                address: 'Montgomery County Animal Shelter, 8535 Texas 242, Conroe, TX 77385',
+                goal: Math.random() * 10000,
+                total: Math.random() * 10000,
+                img: i % 3 == 0
+                    ? 'http://www.prestonspeaks.com/wp-content/uploads/2012/11/Lucian-the-awesome-Husky.jpg'
+                    : i % 5 == 0
+                        ? 'https://dogsinmind.files.wordpress.com/2015/08/dove.jpg'
+                        : 'http://dustytrailshorserescue.org/wp-content/uploads/2011/07/Stella-before.jpg',
+                sponsor: 'Houston Boxer Rescue',
+                sponsorHandle: '@HBR',
+                sponsorEmail: 'someone@hbr.com',
+                sponsorPhone: '(123) 456-7890',
+                summary: {
+                    date: Date.now(),
+                    value: 'I rescued this female Saint Bernard from the middle of no where off '
+                           + 'the I-15 & Nicholas rd in a very rural part of the area. When I arrived '
+                           + 'on seen than the dog was laying there dying with no one & nothing. '
+                           + 'She has extensive wounds to her back side & full of maggots. Thousands '
+                           + 'of ticks all over her body. She is at the Arlington Animal Hospital In Riverside, Ca. '
+                           + 'She is a critical situation rite now & needs a village of help. The bill is already '
+                           + 'at $3,115.91 to preform current life saving services. Please Help..'
+                },
+                images: [{ url: 'http://cutepuppydog.net/wallpapers/cute-puppies9.jpg' },
+                    { url: 'http://thedogwallpaper.com/wp-content/uploads/2014/02/siberian-husky-wide-wallpaper-hd-38.jpg' },
+                    { url: 'http://www.dogwallpapers.net/wallpapers/winter-siberian-husky-dog-wallpaper.jpg' }
+                ],
+                tags: ['@HBR', '#' + last + i, '#husky', '#houston', '#desparate'],
+                isLiked: (i % 13 == 0),
+                name: 'Chance'
+            };
+
+            tiles.push(tile);
+            $scope.tiles.push(tile);
+        }
+
+        $scope.addTiles(tiles);
+        appState['browse'].pageState.tiles = $scope.tiles;
+    };
+
     var isScrolling = false;
     function scrollCarousel(tile, modifier) {
         if (isScrolling) return;
@@ -411,74 +476,6 @@
         return true;
     }
 
-    $scope.loadMore = function ()
-    {
-        var tileCount = Math.ceil($scope.columnCount * ($scope.bodyHeight / $scope.rowHeight));
-        var last = $scope.tiles.length;
-        if (last > 0)
-        {
-            var row = $scope.grid[lastRow];
-            if ($scope.bodyHeight + w[0].pageYOffset < row.top) return;
-        }
-        var tiles = [];
-        for (var i = 1; i <= tileCount; i++) {
-            var size = 2;
-
-            if (i % 7 == 0)
-            {
-                size = 4;
-            }
-            var expires = new Date(Date.now() + Math.random() * 10);
-            var created = new Date(Date.now() - Math.random() * 10);
-            var tile = {
-                image: last + i,
-                title: 'Lorem epsum salts or something',
-                caption: 'E plurubus unum',
-                subTitle: 'All for one',
-                href: '/' + i,
-                size: size,
-                id: last + i,
-                expires: expires,
-                created: created,
-                address: 'Montgomery County Animal Shelter, 8535 Texas 242, Conroe, TX 77385',
-                goal: Math.random() * 10000,
-                total: Math.random() * 10000,
-                img: i % 3 == 0 
-                    ? 'http://www.prestonspeaks.com/wp-content/uploads/2012/11/Lucian-the-awesome-Husky.jpg'
-                    : i % 5 == 0
-                        ? 'https://dogsinmind.files.wordpress.com/2015/08/dove.jpg'
-                        : 'http://dustytrailshorserescue.org/wp-content/uploads/2011/07/Stella-before.jpg',
-                sponsor: 'Houston Boxer Rescue',
-                sponsorHandle: '@HBR',
-                sponsorEmail: 'someone@hbr.com',
-                sponsorPhone: '(123) 456-7890',
-                lastUpdate: {
-                    date: Date.now(),
-                    value: 'I rescued this female Saint Bernard from the middle of no where off '
-                           + 'the I-15 & Nicholas rd in a very rural part of the area. When I arrived '
-                           + 'on seen than the dog was laying there dying with no one & nothing. '
-                           + 'She has extensive wounds to her back side & full of maggots. Thousands '
-                           + 'of ticks all over her body. She is at the Arlington Animal Hospital In Riverside, Ca. '
-                           + 'She is a critical situation rite now & needs a village of help. The bill is already '
-                           + 'at $3,115.91 to preform current life saving services. Please Help..'
-                },
-                images: [{ url: 'http://cutepuppydog.net/wallpapers/cute-puppies9.jpg' },
-                    { url: 'http://thedogwallpaper.com/wp-content/uploads/2014/02/siberian-husky-wide-wallpaper-hd-38.jpg' },
-                    { url: 'http://www.dogwallpapers.net/wallpapers/winter-siberian-husky-dog-wallpaper.jpg' }
-                ],
-                tags: ['@HBR', '#' + last + i, '#husky', '#houston', '#desparate'],
-                isLiked: (i % 13 == 0),
-                name: 'Chance'
-            };
-
-            tiles.push(tile);
-            $scope.tiles.push(tile);
-        }
-
-        $scope.addTiles(tiles);
-        appState['browse'].pageState.tiles = $scope.tiles;
-    };
-
     function isElementInViewport(el) {
 
         //special bonus for those using jQuery
@@ -650,6 +647,14 @@ function updateStatusLinear(tile, $wrapper)
 
     var goalSize = { width: $goalCanvas.parent().width() - 80, height: $goalCanvas.parent().height() };
     var timeSize = { width: $timeCanvas.parent().width() - 80, height: $timeCanvas.parent().height() };
+    var drawText = true;
+
+    if (goalSize.width < 50)
+    {
+        drawText = false;
+        goalSize = { width: $goalCanvas.parent().width() - 30, height: $goalCanvas.parent().height() };
+        timeSize = { width: $timeCanvas.parent().width() - 30, height: $timeCanvas.parent().height() };
+    }
 
     $goalCanvas.attr('width', goalSize.width + 50);
     $goalCanvas.attr('height', goalSize.height);
@@ -680,13 +685,15 @@ function updateStatusLinear(tile, $wrapper)
     goalCtx.fillRect(2, (goalSize.height - innerH_Goal) / 2, goalSize.width * fundingPercent - 4, innerH_Goal);
     timeCtx.fillRect(2, (timeSize.height - innerH_Time) / 2, timeSize.width * timePercent - 4, innerH_Time);
 
-    goalCtx.fillStyle = '#fff';
-    timeCtx.fillStyle = '#fff';
-    goalCtx.font = outerH_Goal + "px sans serif";
-    timeCtx.font = outerH_Time + "px sans serif";
-    goalCtx.fillText('$' + tile.goal.toFixed(0), goalSize.width + 4, outerH_Goal);
-    var days = timespanDays + ' Day' + (timespanDays > 1 ? 's' : '');
-    timeCtx.fillText(days, timeSize.width + 4, outerH_Time);
+    if (drawText) {
+        goalCtx.fillStyle = '#fff';
+        timeCtx.fillStyle = '#fff';
+        goalCtx.font = outerH_Goal + "px sans serif";
+        timeCtx.font = outerH_Time + "px sans serif";
+        goalCtx.fillText('$' + tile.goal.toFixed(0), goalSize.width + 4, outerH_Goal);
+        var days = timespanDays + ' Day' + (timespanDays > 1 ? 's' : '');
+        timeCtx.fillText(days, timeSize.width + 4, outerH_Time);
+    }
 }
 
 //function updateStatusRadial(tile, $wrapper)
