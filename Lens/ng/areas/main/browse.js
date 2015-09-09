@@ -187,7 +187,8 @@
                 ],
                 tags: ['@HBR', '#' + last + i, '#husky', '#houston', '#desparate'],
                 isLiked: (i % 13 == 0),
-                name: 'Chance'
+                name: 'Chance',
+                canSwipe: true
             };
 
             tiles.push(tile);
@@ -264,6 +265,7 @@
 
     function initializePage($page, tile) {
         if ($page.hasClass('map')) {
+            tile.canSwipe = false;
             var setLocation = function (location) {
                 var latLng = new google.maps.LatLng(location.latitude, location.longitude);
                 var mapProp = {
@@ -317,6 +319,10 @@
             else {
                 setLocation(tile.location);
             }
+        }
+        else
+        {
+            tile.canSwipe = true;
         }
     }
 
@@ -563,6 +569,19 @@
             height: tile.height
         });
         updateStatus(tile, $element);
+        $element.swipe({
+            swipe: function (event, direction, distance, duration, fingerCount) {
+                if (tile.canSwipe) {
+                    if (direction == 'left') {
+                        scope.scrollRight(tile);
+                    }
+                    else if (direction == 'right') {
+                        scope.scrollLeft(tile);
+                    }
+                }
+            },
+            allowPageScroll: 'vertical'
+        });
     };
 });
 
