@@ -143,6 +143,7 @@ html
     }
 }
 
+
 form
 {
     display: inline-block;
@@ -777,8 +778,6 @@ input{
 .wrapper .carousel-left
 {
     -webkit-tap-highlight-color: transparent;
-    position: absolute;
-    top: 50%;
     width: 1.5em;
     height: 2em;
     background-image: url("images/arrow.svg");
@@ -786,6 +785,8 @@ input{
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;
+    position: absolute;
+    top: 50%;
     -ms-transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
@@ -847,6 +848,11 @@ input{
     text-decoration: none;
 }
 
+.wrapper .carousel .carousel-page.details
+{
+    background: #596d59;
+}
+
 .wrapper .carousel .carousel-page .content.large
 {
     font-size: 2em;
@@ -858,11 +864,19 @@ input{
     margin-bottom: 1em;
 }
 
-.wrapper .carousel .carousel-page .content div.update
+.wrapper .carousel .carousel-page .content.large div.update
 {
-    font-size: 0.75em;
+    font-size: 0.65em;
     margin-left: 2.2em;
     margin-right: 1.2em;
+    margin-top: 0.5em;
+}
+
+.wrapper .carousel .carousel-page .content div.update
+{
+    font-size: 0.65em;
+    margin-left: 3em;
+    margin-right: 2.4em;
     margin-top: 0.5em;
 }
 
@@ -912,6 +926,7 @@ input{
     -moz-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
+    padding-bottom: 2.25em;
 }
 
 .wrapper .carousel .carousel-page.tags span
