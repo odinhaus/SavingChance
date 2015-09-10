@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html ng-app='sc'>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHcaXbboAjuHvwt9uz7P3Hz67Om5M429g"></script>
+    <script src="Scripts/jquery.touchSwipe.min.js"></script>
+    <script src="Scripts/ng_infiniteScroll.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body style="margin: 0; padding: 0;">
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1516907565266690";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <header id="header" resize>
+        <div class="logo">
+        </div>
+        <div class="tool" id="navTool">
+            <a id="navButton" href="#" title="Navgiation"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="tool">
+            <a href="Login" title="Login"><i class="fa fa-sign-in"></i></a>
+        </div>
+        <div class="tool">
+            <a href="FBLike" title="Like us on Facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+        <div class="tool">
+            <a href="TLike" title="Like us on Twitter"><i class="fa fa-twitter"></i></a>
+        </div>
+        <form>
+            <label for="search" class="search"><i class="fa fa-search"></i></label>
+            <input class="search" id="search" />
+        </form>
+    </header>
+    <nav id="nav">
+        <a href="/Campaign/Create">Create a Campaign</a>
+        <span class="separator"></span>
+        <a href="/Campaign/Mine">My Campaigns</a>
+        <a href="/Campaign/Following">Campaigns I Follow</a>
+        <span class="separator"></span>
+        <a href="/HowItWorks">How it Works</a>
+        <span class="separator"></span>
+        <a href="/Privacy">Privacy</a>
+        <a href="/HowItWorks">Legal</a>
+        <span class="separator"></span>
+        <a href="/HowItWorks">About Us</a>
+    </nav>
+    <div id="main" class="fade" ng-view style="position:relative; top: 4em;"></div>
+    <script src="Scripts/fb.js"></script>
+    <script src="ng/main.js"></script>
+    <script src="ng/areas/main/browse.js"></script>
+    <script src="ng/areas/details/details.js"></script>
+</body>
+</html>

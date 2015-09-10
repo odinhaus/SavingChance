@@ -1,0 +1,90 @@
+﻿<section id="thumbnails" infinite-scroll='loadMore()' infinite-scroll-distance='4'>
+    <div class="wrapper" ng-repeat="tile in tiles" tile-rendered>
+        
+        <article id="{{tile.id}}">
+            <div class="carousel">
+
+                <div class="carousel-page main selected">
+                    <img class="thumbnail initializing" src="{{tile.img}}" />
+                    <h2 class="title">
+                        {{tile.title}}
+                    </h2>
+                </div>
+
+                <div class="carousel-page details">
+                    <div ng-class="{content: tile.size < 4, 'content large': tile.size >= 4}">
+                        <div class="update">
+                            <p>
+                                <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
+                                <a href="?q={{tile.sponsorHandle}}">Other Campaigns</a> by {{tile.sponsorHandle}}
+                            </p>
+
+                            <h3 class="date">
+                                Deadline: <span ng-bind="tile.expires | date:'MM/dd/yyyy HH:mm'"></span>
+                            </h3>
+                            <h3 class="goal">
+                                Goal: <span ng-bind="tile.goal | currency"></span>
+                            </h3>
+                            {{tile.summary.value}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-page images inline" ng-repeat="image in tile.images">
+                    <img src="{{image.url}}" />
+                </div>
+
+                <div class="carousel-page map" style="background: #8c99a3">
+
+                </div>
+
+                <div class="carousel-page tags">
+                    <div class="center">
+                        <span ng-repeat="tag in tile.tags"><a href="?q={{tag}}">{{tag}}</a>&nbsp;</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div id="toolbar_{{tile.id}}_bg" class="toolbar_bg"></div>
+        <div id="toolbar_{{tile.id}}" class="toolbar">
+            <a id="donate_{{tile.id}}" ng-class="{'tool like': !tile.isLiked, 'tool like selected': tile.isLiked}" title="Love...">
+                <i class="fa fa-heart"></i>
+            </a>
+            <a id="share_{{tile.id}}" class="tool share"
+               title="Share..."
+               href="#"
+               ng-click="share(tile)">
+                <i class="fa fa-share-alt"></i>
+            </a>
+            <a id="donate_{{tile.id}}" class="tool donate" title="Donate...">
+                <i class="fa fa-credit-card"></i>
+            </a>
+            <div class="status tool">
+                <div>
+                    <div class="status_group">
+                        <i class="fa fa-clock-o status_label"></i>
+                        <canvas class="status_bar time" width="16" height="16" id="time_status_{{tile.id}}"></canvas>
+                    </div>
+                    <div class="status_group">
+                        <i class="fa fa-usd status_label"></i>
+                        <canvas class="status_bar goal" width="16" height="16" id="goal_status_{{tile.id}}"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" ng-click='scrollRight(tile)'><div id="next_{{tile.id}}" class="carousel-right"></div></a>
+        <a href="#" ng-click='scrollLeft(tile)'><div id="prev_{{tile.id}}" class="carousel-left"></div></a>
+        <a href="#{{tile.href}}" class="maximize" title="Maximize">
+            <i class="max-icon">
+                <svg viewBox="0 0 100 100">
+                    <path d="M 10 10 L 90 10 L 90 90 M 90 10 L 10 90"/>
+                </svg>
+                <svg viewBox="0 0 100 100">
+                    <path d="M 10 10 L 10 90 L 90 90 M 10 90 L 90 10" />
+                </svg>
+            </i>
+        </a>
+            <!--<canvas id="status_{{tile.id}}" class="status radial" height="64" width="64" title="Orange = time left, Green = current funding"></canvas>-->
+    </div>
+</section>
