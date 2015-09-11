@@ -1,4 +1,7 @@
-﻿html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+﻿html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, 
+cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, 
+center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
+article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
 {
     margin: 0;
     padding: 0;
@@ -11,25 +14,10 @@
 
 textarea:focus, input:focus{
     outline: 0;
-    padding: 5px;
 }
 
 body, .bg {
-    background: #121760;
-    /* Safari 4-5, Chrome 1-9 */
-    background: -webkit-gradient(linear, left top, right top, from(#000), to(#F37227));
-
-    /* Safari 5.1, Chrome 10+ */
-    background: -webkit-linear-gradient(left, #000, #F37227);
-
-    /* Firefox 3.6+ */
-    background: -moz-linear-gradient(left, #000, #F37227);
-
-    /* IE 10 */
-    background: -ms-linear-gradient(left, #000, #F37227);
-
-    /* Opera 11.10+ */
-    background: -o-linear-gradient(left, #000, #F37227);
+    background: #000;
 }
 
 *, *:before, *:after
@@ -82,34 +70,34 @@ body, .bg {
 
 @media only screen and (min-width: 600px) {
     /* For tablets: */
-    .row1m  {height: 64px;}
-    .row2m  {height: 128px;}
-    .row3m  {height: 192px;}
-    .row4m  {height: 256px;}
-    .row5m  {height: 320px;}
-    .row6m  {height: 384px;}
-    .row7m  {height: 448px;}
-    .row8m  {height: 512px;}
-    .row9m  {height: 576px;}
-    .row10m {height: 640px;}
-    .row11m {height: 704px;}
-    .row12m {height: 768px;}
+    .row1m  {height: 64px; width:auto;}
+    .row2m  {height: 128px; width:auto;}
+    .row3m  {height: 192px; width:auto;}
+    .row4m  {height: 256px; width:auto;}
+    .row5m  {height: 320px; width:auto;}
+    .row6m  {height: 384px; width:auto;}
+    .row7m  {height: 448px; width:auto;}
+    .row8m  {height: 512px; width:auto;}
+    .row9m  {height: 576px; width:auto;}
+    .row10m {height: 640px; width:auto;}
+    .row11m {height: 704px; width:auto;}
+    .row12m {height: 768px; width:auto;}
 }
 
 @media only screen and (min-width: 768px) {
     /* For desktop: */
-    .row1   {height: 64px;}
-    .row2   {height: 128px;}
-    .row3   {height: 192px;}
-    .row4   {height: 256px;}
-    .row5   {height: 320px;}
-    .row6   {height: 384px;}
-    .row7   {height: 448px;}
-    .row8   {height: 512px;}
-    .row9   {height: 576px;}
-    .row10  {height: 640px;}
-    .row11  {height: 704px;}
-    .row12  {height: 768px;}
+    .row1   {height: 64px;  width:auto;}
+    .row2   {height: 128px; width:auto;}
+    .row3   {height: 192px; width:auto;}
+    .row4   {height: 256px; width:auto;}
+    .row5   {height: 320px; width:auto;}
+    .row6   {height: 384px; width:auto;}
+    .row7   {height: 448px; width:auto;}
+    .row8   {height: 512px; width:auto;}
+    .row9   {height: 576px; width:auto;}
+    .row10  {height: 640px; width:auto;}
+    .row11  {height: 704px; width:auto;}
+    .row12  {height: 768px; width:auto;}
 }
 
 @media screen and (max-width: 480px)
@@ -143,8 +131,27 @@ html
     }
 }
 
+.content-container
+{
+    top: 4em;
+    position: relative;
+    width: 100%;
+    background-color:#414141;
+    padding: 2em;
+    border-bottom: 1px solid #fff;
+}
 
-form
+.btn
+{
+    background-color: #fff;
+}
+
+.content-container a
+{
+    color: #95C095;
+}
+
+header form
 {
     display: inline-block;
     position: absolute;
@@ -280,6 +287,44 @@ input.search:focus
                         0 0 40px rgba(255, 255, 255, 0.5);
 }
 
+#loginForm
+{
+    width: 100%;
+}
+
+#loginForm .signup
+{
+    float: right;
+    font-size: 1em;
+    margin-left: 1em;
+}
+
+#loginForm .signup a
+{
+    text-decoration: none;
+}
+
+#loginForm input[type=text],
+#loginForm input[type=password]
+{
+    width: 100%;
+    font-size: 1em;
+}
+
+#loginForm .checkbox
+{
+    text-align: left;
+}
+
+#loginForm input[type=submit]
+{
+    font-size: 1em;
+    width: 5em;
+    font-weight: bold;
+    float: right;
+    color: #414141;
+}
+
 label.search 
 {
     cursor: pointer;
@@ -355,6 +400,31 @@ input{
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
+    padding: 5px;
+}
+
+.field-validation-error
+{
+    color: #F77224;
+}
+
+
+#socialLoginList button,
+#socialLoginList button i
+{
+    border: none;
+    font-size: 2em;
+    background-color: transparent;
+    cursor: pointer;
+    color: #95C095;
+}
+
+#socialLoginList button:hover,
+#socialLoginList button:active,
+#socialLoginList button i:hover,
+#socialLoginList button i:active
+{
+    color: #F77224;
 }
 
 .ng-scope{

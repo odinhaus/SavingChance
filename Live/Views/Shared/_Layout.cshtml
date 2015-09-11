@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title</title>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHcaXbboAjuHvwt9uz7P3Hz67Om5M429g"></script>
-    <script src="Scripts/jquery.touchSwipe.min.js"></script>
-    <script src="Scripts/ng_infiniteScroll.js"></script>
+    <script src="/Scripts/jquery.touchSwipe.min.js"></script>
+    <script src="/Scripts/ng_infiniteScroll.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
 </head>
 <body style="margin: 0; padding: 0;">
     <div id="fb-root"></div>
@@ -27,13 +27,15 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <header id="header" resize>
-        <div class="logo">
-        </div>
+        <a href="/">
+            <div class="logo">
+            </div>
+        </a>
         <div class="tool" id="navTool">
             <a id="navButton" href="#" title="Navgiation"><i class="fa fa-bars"></i></a>
         </div>
         <div class="tool">
-            <a href="#/Login" title="Login"><i class="fa fa-lock"></i></a>
+            <a href="/Account/Login" title="Login"><i class="fa fa-lock"></i></a>
         </div>
         <div class="tool">
             <a href="FBLike" title="Like us on Facebook"><i class="fa fa-facebook"></i></a>
@@ -59,13 +61,13 @@
         <span class="separator"></span>
         <a href="/HowItWorks">About Us</a>
     </nav>
-
-    @RenderBody()
-
+    <div class="content-container">
+        @RenderBody()
+    </div>
     @RenderSection("scripts", required: false)
-    <script src="Scripts/fb.js"></script>
-    <script src="ng/main.js"></script>
-    <script src="ng/areas/main/browse.js"></script>
-    <script src="ng/areas/details/details.js"></script>
+    <script src="/Scripts/fb.js"></script>
+    <script src="/ng/main.js"></script>
+    <script src="/ng/areas/main/browse.js"></script>
+    <script src="/ng/areas/details/details.js"></script>
 </body>
 </html>

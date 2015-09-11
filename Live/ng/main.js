@@ -8,10 +8,6 @@ sc.config(['$routeProvider',
             templateUrl: '/ng/areas/details/details.html',
             controller: 'sc.Details'
         }).
-        when('/Login', {
-            templateUrl: '/ng/areas/login/login.html',
-            controller: 'sc.Login'
-        }).
         otherwise({
             templateUrl: '/ng/areas/main/browse.html',
             controller: 'sc.Browse'
