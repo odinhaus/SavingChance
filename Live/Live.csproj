@@ -221,8 +221,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\images\arrow-small.svg" />
     <Content Include="css\images\arrow.svg" />
@@ -241,6 +239,8 @@
     <Content Include="images\logo-86.png" />
     <Content Include="images\palette.png" />
     <Content Include="Index.html" />
+    <Content Include="ng\areas\login\login.html" />
+    <Content Include="ng\areas\login\login.js" />
     <Content Include="ng\areas\details\details.html" />
     <Content Include="ng\areas\details\details.js" />
     <Content Include="ng\areas\main\browse.html" />
@@ -248,8 +248,6 @@
     <Content Include="ng\main.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -275,6 +273,7 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\savingchance.pubxml" />
+    <None Include="Properties\PublishProfiles\sc-beta.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\fb.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -297,7 +296,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />

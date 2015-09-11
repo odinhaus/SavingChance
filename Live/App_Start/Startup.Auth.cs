@@ -40,7 +40,11 @@ namespace Live
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 // In production mode set AllowInsecureHttp = false
+#if(DEBUG)
                 AllowInsecureHttp = true
+#else
+                AllowInsecureHttp = false
+#endif
             };
 
             // Enable the application to use bearer tokens to authenticate users
@@ -55,9 +59,9 @@ namespace Live
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            app.UseFacebookAuthentication(
+                appId: "1516907565266690",
+                appSecret: "1718b930509da0ce763de8b9b6c8a11b");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

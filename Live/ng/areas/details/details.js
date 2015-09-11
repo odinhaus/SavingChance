@@ -21,7 +21,7 @@
     var fbMeta = '<meta property="og:locale" content="en_US" /><meta property="og:type" content="website" />'
                 + '<meta property="og:title" content="' + tile.title +'" />'
                 + '<meta property="og:description" content="Page Description" />'
-                + '<meta property="og:url" content="http://beta-001.savingchance.com/Test.html#' + tile.href + '" />'
+                + '<meta property="og:url" content="http://beta-001.savingchance.com/#' + tile.href + '" />'
                 + '<meta property="og:site_name" content="SavingChance.com" />'
                 + '<meta property="og:image" content="' + tile.img + '" />';
     $head.find("meta[property^='og:']").remove();

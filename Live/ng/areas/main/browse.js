@@ -153,7 +153,7 @@
                 title: 'Lorem epsum salts or something',
                 caption: 'E plurubus unum',
                 subTitle: 'All for one',
-                href: '/' + i,
+                href: '/Campaign/' + i,
                 size: size,
                 actualSize: size,
                 id: last + i,
@@ -204,7 +204,7 @@
         FB.ui({
             app_id: 1516907565266690,
             method: 'feed',
-            link: 'http://beta-001.savingchance.com/Test.html#' + tile.href,
+            link: 'http://beta-001.savingchance.com/#' + tile.href,
             caption: tile.title,
             picture: tile.img,
             description: tile.summary.value

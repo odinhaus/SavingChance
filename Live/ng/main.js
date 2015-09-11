@@ -4,9 +4,13 @@ var $masonry = null;
 sc.config(['$routeProvider',
   function ($routeProvider) {
       $routeProvider.
-        when('/:id', {
+        when('/Campaign/:id', {
             templateUrl: '/ng/areas/details/details.html',
             controller: 'sc.Details'
+        }).
+        when('/Login', {
+            templateUrl: '/ng/areas/login/login.html',
+            controller: 'sc.Login'
         }).
         otherwise({
             templateUrl: '/ng/areas/main/browse.html',
