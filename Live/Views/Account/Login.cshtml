@@ -7,7 +7,7 @@
 @Html.Partial("_LoginPartial")
 
 <div>
-    <div style="margin: auto;padding-top: 2em;width:50%;">
+    <div class="content-center">
         <section id="loginForm">
             <div class="signup">
                 @Html.ActionLink("Signup", "Register")
@@ -52,7 +52,7 @@
             }
         </section>
     </div>
-    <div style="margin: auto;padding-top: 4em;width: 50%;">
+    <div class="content-center">
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>

@@ -3,10 +3,19 @@
     ViewBag.Title = "Manage";
 }
 @Html.Partial("_LoginPartial")
-<h2>@ViewBag.Title.</h2>
+<h2>Account Settings</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <div><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></div>
+        }
+    }
+
     <h4>Change your account settings</h4>
     <hr />
     <dl class="dl-horizontal">

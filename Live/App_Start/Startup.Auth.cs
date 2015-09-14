@@ -100,7 +100,7 @@ namespace Live
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
                 ClientId = "680808345067-knelt6708ok4qllhrsl77omvn5k79mnv.apps.googleusercontent.com",
-                ClientSecret = "G58fWz3IUj3E7cvkPVZt137B"
+                ClientSecret = "ycJL06rm_1mThMHkCqbD_smB"
             });
         }
     }

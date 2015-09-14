@@ -34,9 +34,21 @@
         <div class="tool" id="navTool">
             <a id="navButton" href="#" title="Navgiation"><i class="fa fa-bars"></i></a>
         </div>
-        <div class="tool">
-            <a href="/Account/Login" title="Login"><i class="fa fa-lock"></i></a>
-        </div>
+        
+        @using Microsoft.AspNet.Identity
+        @if (Request.IsAuthenticated)
+        {
+            <div class="tool selected">
+                <a href="/Manage" title="@User.Identity.GetUserName()"><i class="fa fa-lock"></i></a>
+            </div>
+        }
+        else
+        {
+            <div class="tool">
+                <a href="/Account/Login" title="Login"><i class="fa fa-lock"></i></a>
+            </div>
+        }
+
         <div class="tool">
             <a href="FBLike" title="Like us on Facebook"><i class="fa fa-facebook"></i></a>
         </div>
@@ -47,7 +59,7 @@
             <label for="search" class="search"><i class="fa fa-search"></i></label>
             <input class="search" id="search" />
         </form>
-    </header>
+</header>
     <nav id="nav">
         <a href="/Campaign/Create">Create a Campaign</a>
         <span class="separator"></span>
