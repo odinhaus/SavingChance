@@ -6,6 +6,7 @@ using Microsoft.Owin;
 using Live.Models;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
+using Live.Services;
 
 namespace Live
 {
@@ -41,6 +42,9 @@ namespace Live
             {
                 manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
+            manager.EmailService = new EmailService();
+
             return manager;
         }
     }

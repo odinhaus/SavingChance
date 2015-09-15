@@ -15,5 +15,13 @@ namespace Live.Controllers
 
             return View();
         }
+
+        [Authorize]
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
