@@ -354,6 +354,11 @@ form.block-form
     float: left;
 }
 
+p
+{
+    margin-bottom: 1em;
+}
+
 #loginForm
 {
     width: 100%;
@@ -800,7 +805,7 @@ input{
     margin: auto;
     padding-top: 2em;
     width:50%;
-    min-width: 350px;
+    min-width: 320px;
 }
 
 .wrapper a.maximize i
@@ -1175,7 +1180,7 @@ input{
         display: none;
     }
 
-    form 
+    #header form 
     {
         right: 0.25em;
     }
