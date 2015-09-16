@@ -18,10 +18,9 @@
                     if (ViewBag.ShowRemoveButton)
                     {
                         <div id="socialLoginList">
-                            <p>
                         @foreach (var account in Model.CurrentLogins)
                         {
-                            using (Html.BeginForm("RemoveLogin", "Manage"))
+                            using (Html.BeginForm("RemoveLogin", "Manage", FormMethod.Post, new { @class = "block-form"}))
                             {
                                 @Html.AntiForgeryToken()
                                 @Html.Hidden("loginProvider", account.LoginProvider)
@@ -42,7 +41,6 @@
                                 </button>
                             }
                         }
-                            </p>
                         </div>
                     }
                     <br/>
@@ -50,22 +48,23 @@
             }
             if (Model.OtherLogins.Count > 0)
             {
-                <h4>Available Logins (Click to Assign)</h4>
-                using (Html.BeginForm("LinkLogin", "Manage"))
-                {
+                <div class="clearfix">
+                    <h4>Available Logins (Click to Assign)</h4>
+                    @using (Html.BeginForm("LinkLogin", "Manage"))
+                    {
                     @Html.AntiForgeryToken()
                     <div id="socialLoginList">
                         <p>
                             @foreach (AuthenticationDescription p in Model.OtherLogins)
-                    {
+                            {
                                 <button type="submit" class="btn btn-default"
                                         id="@p.AuthenticationType"
                                         name="provider"
                                         value="@p.AuthenticationType"
                                         title="Log in using your @p.Caption account">
                                     @switch (p.AuthenticationType)
-                        {
-                            case "Google":
+                                    {
+                                        case "Google":
                                             <i class="fa fa-google-plus-square"></i>
                                             break;
                                         case "Facebook":
@@ -76,7 +75,8 @@
                             }
                         </p>
                     </div>
-                }
+                    }
+                </div>
             }
         }
     </section>

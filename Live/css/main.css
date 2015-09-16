@@ -12,6 +12,26 @@ article, aside, canvas, details, embed, figure, figcaption, footer, header, hgro
     color: #fff;
 }
 
+h1
+{
+    font-size: 2em;
+}
+
+h2
+{
+    font-size: 1.5em;
+}
+
+h3
+{
+    font-size: 1.25em;
+}
+
+h4
+{
+    font-size: 1.15em;
+}
+
 a
 {
     text-decoration: none;
@@ -23,6 +43,32 @@ textarea:focus, input:focus{
 
 body, .bg {
     background: #000;
+}
+
+input[type=button],
+input[type=submit]
+{
+    border: 1px solid #FFFDFC;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+}
+
+input[type=button]:hover,
+input[type=submit]:hover
+{
+    background-color: #F77224;
+    color: #FFFDFC !important;
+    cursor: pointer;
+    box-shadow:         0 0 12px rgba(195, 136, 100, 0.5);
+    -moz-box-shadow:    0 0 12px rgba(195, 136, 100, 0.5);
+    -o-box-shadow:      0 0 12px rgba(195, 136, 100, 0.5);
+    -webkit-box-shadow: 0 0 12px rgba(195, 136, 100, 0.5);
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
 }
 
 *, *:before, *:after
@@ -134,6 +180,11 @@ html
     {
         font-size: 12pt;
     }
+}
+
+.no-bullet
+{
+    list-style: none;
 }
 
 .content-container
@@ -295,6 +346,12 @@ input.search:focus
 .form-group
 {
     position: relative;
+}
+
+form.block-form
+{
+    display: block;
+    float: left;
 }
 
 #loginForm

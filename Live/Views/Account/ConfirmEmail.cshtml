@@ -1,13 +1,25 @@
 ﻿@{
     ViewBag.Title = "Email Confirmation";
 }
+
 @Html.Partial("_LoginPartial")
-<h2>@ViewBag.Title.</h2>
+
 <div class="content-center">
     <section id="registerForm">
         <div>
             <p>
-                Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                Thank you for confirming your email address.  You can use your email address and password to login by following the link provided below.
+            </p>
+            <p>
+                @Html.ActionLink("Click here to Log In", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+            </p>
+            <p>
+                Your basic account allows you to participate on the site, by following existing Saves or creating new Saves.
+            </p>
+            <p>
+                If you are (or represent) a Service Provider (e.g. a 501c3 Rescue Organization, Veterinarian, Behaviorist, Trainer, etc.) and would like to 
+                to register to accept payments through SavingChance Save Campaigns, follow @Html.ActionLink("this link", "RegisterAgent", "Account", routeValues: null, htmlAttributes: new { id = "registerAgentLink" }) 
+                to enter additional information to your profile, and begin the Service Provider verification process.  For more information, please see <a href="/HowItWorks">How It Works</a>.
             </p>
         </div>
     </section>

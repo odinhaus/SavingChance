@@ -40,7 +40,15 @@ namespace Live.Services
             // Send the email.
             if (transportWeb != null)
             {
-                await transportWeb.DeliverAsync(myMessage);
+                try
+                {
+                    await transportWeb.DeliverAsync(myMessage);
+                }
+                catch(Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                    throw;
+                }
             }
             else
             {
