@@ -19,12 +19,12 @@
                                 <a href="?q={{tile.sponsorHandle}}">Other Campaigns</a> by {{tile.sponsorHandle}}
                             </p>
 
-                            <h3 class="date">
-                                Deadline: <span ng-bind="tile.expires | date:'MM/dd/yyyy HH:mm'"></span>
-                            </h3>
-                            <h3 class="goal">
+                            <h4 class="date">
+                                Deadline: <span ng-bind="tile.expires | date:'MM/dd/yyyy'"></span>
+                            </h4>
+                            <h4 class="goal">
                                 Goal: <span ng-bind="tile.goal | currency"></span>
-                            </h3>
+                            </h4>
                             {{tile.summary.value}}
                         </div>
                     </div>

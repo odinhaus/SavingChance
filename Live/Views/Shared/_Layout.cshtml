@@ -11,7 +11,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHcaXbboAjuHvwt9uz7P3Hz67Om5M429g"></script>
     <script src="/Scripts/jquery.touchSwipe.min.js"></script>
     <script src="/Scripts/ng_infiniteScroll.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Archivo+Narrow:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
 </head>
@@ -59,24 +59,30 @@
             <label for="search" class="search"><i class="fa fa-search"></i></label>
             <input class="search" id="search" />
         </form>
-</header>
+    </header>
     <nav id="nav">
-        <a href="/Saves/Create">Create a Save</a>
+        <a href="/Saves/Create" class="hover"><i class="fa fa-home"></i> Home</a>
         <span class="separator"></span>
-        <a href="/Saves/Mine">My Campaigns</a>
-        <a href="/Saves/Following">Campaigns I Follow</a>
+        <a href="/Saves/Create" class="hover"><i class="fa fa-plus"></i> Create a Save</a>
         <span class="separator"></span>
-        <a href="/HowItWorks">How it Works</a>
+        <a href="/Saves/Mine" class="hover"><i class="fa fa-user"></i> My Campaigns</a>
+        <a href="/Saves/Following" class="hover"><i class="fa fa-heart"></i> My Favorites</a>
         <span class="separator"></span>
-        <a href="/Privacy">Privacy</a>
-        <a href="/HowItWorks">Legal</a>
-        <span class="separator"></span>
-        <a href="/HowItWorks">About Us</a>
+        <a href="/HowItWorks" class="hover"><i class="fa fa-question"></i> How it Works</a>
     </nav>
     <div class="content-container">
         @RenderBody()
         <div class="clearfix" style="margin-bottom: 2em;"></div>
     </div>
+    <footer>
+        <div class="center">
+            <ul>
+                <li><a href="/Privacy">Privacy</a></li>
+                <li><a href="/Legal">Legal</a></li>
+                <li><a href="/About">About</a></li>
+            </ul>
+        </div>
+    </footer>
     @RenderSection("scripts", required: false)
     <script src="/Scripts/fb.js"></script>
     <script src="/ng/main.js"></script>
