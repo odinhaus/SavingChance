@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Live.Models;
+using Live.Managers;
 
 namespace Live.Controllers
 {
@@ -64,13 +65,16 @@ namespace Live.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var appUser = await UserManager.FindByIdAsync(userId);
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                PhoneNumber = appUser.PhoneNumber,
+                TwoFactor = appUser.TwoFactorEnabled,
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                User = appUser
             };
             return View(model);
         }

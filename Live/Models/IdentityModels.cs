@@ -6,6 +6,23 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace Live.Models
 {
+    public enum UserType
+    {
+        Default = 0,
+        ServiceProvider
+    }
+
+    public enum ServiceProviderType
+    {
+        None = 0,
+        Rescue,
+        Veterinarian,
+        Trainer,
+        Behaviorist,
+        OtherMedicalCare,
+        OtherVendor
+    }
+
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -24,18 +41,8 @@ namespace Live.Models
             // Add custom user claims here
             return userIdentity;
         }
-    }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-        
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
+        public UserType UserType { get; set; }
+        public ServiceProviderType ServiceProviderType { get; set; }
     }
 }

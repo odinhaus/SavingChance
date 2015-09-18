@@ -13,6 +13,8 @@ using Live.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Twitter;
 using Microsoft.Owin.Security;
+using Live.Data;
+using Live.Managers;
 
 namespace Live
 {

@@ -8,6 +8,7 @@
 <div class="content-center">
     <section id="registerForm">
         <h2>Account Settings</h2>
+        <hr />
         <div>
             @if (Request.IsAuthenticated)
             {
@@ -16,8 +17,17 @@
                     @Html.AntiForgeryToken()
                     <div><a href="javascript:document.getElementById('logoutForm').submit()">Log Off</a></div><br/>
                 }
+                <dl class="settings">
+                    <dt>
+                        Account Type <i class="fa fa-question-circle help-icon"></i>
+                    </dt>
+                    <dd>
+                        @Model.User.UserType
+                    </dd>
+                </dl>
             }
 
+            <br/>
             <h4>Security Settings</h4>
             <p class="text-success">@ViewBag.StatusMessage</p>
             <hr />

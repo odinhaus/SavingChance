@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using Live.Models;
 using Live.Providers;
 using Live.Results;
+using Live.Managers;
 
 namespace Live.Controllers.Api
 {

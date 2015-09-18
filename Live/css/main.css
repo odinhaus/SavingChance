@@ -494,6 +494,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     display: block;
 }
 
+footer .links li
+{
+    list-style: none;
+    display: inline-block;
+    font-size: .75em;
+    margin: 1em;
+}
+
+footer .links li a:hover
+{
+    color: #F77224;
+}
+
 input{
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
@@ -507,6 +520,15 @@ input{
     color: #F77224;
 }
 
+dl.settings dt
+{
+    font-weight: bold;
+}
+
+.help-icon
+{
+    font-size: 0.6em;
+}
 
 #socialLoginList button,
 #socialLoginList button i
@@ -514,8 +536,18 @@ input{
     border: none;
     font-size: 2em;
     background-color: transparent;
+    margin-right: .1em;
     cursor: pointer;
     color: #95C095;
+}
+
+#socialLoginList i
+{
+    border: none;
+    font-size: 4em;
+    background-color: transparent;
+    margin-right: .1em;
+    color: #FFFDFC;
 }
 
 #socialLoginList button:hover,

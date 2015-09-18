@@ -14,9 +14,10 @@
             {
                 if (Model.CurrentLogins.Count > 0)
                 {
-                    <h4>Currently Registered Logins (Click to Remove)</h4>
                     if (ViewBag.ShowRemoveButton)
                     {
+                        <h4>Currently Registered Login(s) [Click to Remove]</h4>
+                        <hr />
                         <div id="socialLoginList">
                         @foreach (var account in Model.CurrentLogins)
                         {
@@ -27,8 +28,7 @@
                                 @Html.Hidden("providerKey", account.ProviderKey)
                                 <button type="submit"
                                         id="@account.LoginProvider"
-                                        title="Remove your @account.LoginProvider login from your account"
-                                        class="selected">
+                                        title="Remove your @account.LoginProvider login from your account">
                                     @switch (account.LoginProvider)
                                     {
                                         case "Google":
@@ -43,13 +43,35 @@
                         }
                         </div>
                     }
+                    else
+                    {
+                        <p>You do not have a SavingChance username/password so you must have at least one external login from the options below.  You may link as many additional logins as you desire.</p>
+                        <hr />
+                        <h4>Currently Registered Login(s)</h4>
+                        <hr />
+                        <div id="socialLoginList">
+                            @foreach (var account in Model.CurrentLogins)
+                            {
+                                switch (account.LoginProvider)
+                                {
+                                    case "Google":
+                                        <i class="fa fa-google-plus-square"></i>
+                                        break;
+                                    case "Facebook":
+                                        <i class="fa fa-facebook-official"></i>
+                                        break;
+                                }   
+                            }
+                        </div>
+                    }
                     <br/>
                 }
             }
             if (Model.OtherLogins.Count > 0)
             {
                 <div class="clearfix">
-                    <h4>Available Logins (Click to Assign)</h4>
+                    <h4>Available Login(s) [Click to Assign]</h4>
+                    <hr/>
                     @using (Html.BeginForm("LinkLogin", "Manage"))
                     {
                     @Html.AntiForgeryToken()
