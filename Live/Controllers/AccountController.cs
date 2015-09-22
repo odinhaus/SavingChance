@@ -81,7 +81,7 @@ namespace Live.Controllers
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Resending: Confirm your account");
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    ViewBag.errorMessage = "You must have a confirmed email to log on.  Check your email and follow the instructions to confirm your account, which will then allow you to log on.";
                     return View("Error");
                 }
             }

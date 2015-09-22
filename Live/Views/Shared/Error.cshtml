@@ -10,19 +10,22 @@
     ViewBag.Title = "Error";
 }
 <body>
-    <hgroup>
-        <h1>Error.</h1>
-        @{
-            if (String.IsNullOrEmpty(ViewBag.errorMessage))
-            {
-                <h2 class="text-danger">An error occurred while processing your request.</h2>
-            }
-            else
-            {
-                <h2 class="text-danger">@ViewBag.errorMessage</h2>
-            }
-        }
-
-    </hgroup>
+    <div class="content-center">
+        <section id="registerForm">
+            <hgroup>
+                <h1>An error occurred</h1>
+                @{
+                    if (String.IsNullOrEmpty(ViewBag.errorMessage))
+                    {
+                        <h2 class="text-danger">An error occurred while processing your request.</h2>
+                    }
+                    else
+                    {
+                        <h2 class="text-danger">@ViewBag.errorMessage</h2>
+                    }
+                }
+            </hgroup>
+        </section>
+    </div>
 </body>
 </html>

@@ -6,7 +6,6 @@ input, button
 {
     margin: 0;
     padding: 0;
-    border: 0;
     font-size: 100%;
     font-family: 'Archivo Narrow', sans-serif;
     vertical-align: baseline;
@@ -14,7 +13,7 @@ input, button
 
 body, a
 {
-    color: #FFFDFC;
+    color: #0F0F0F;
 }
 
 h1
@@ -53,7 +52,9 @@ body, .bg {
 input[type=button],
 input[type=submit]
 {
-    border: 1px solid #FFFDFC;
+    border: 0px solid  #0F0F0F;
+    background-color: #95C095;
+    color: #FFFDFC !important;
     transition:         all .1s linear;
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
@@ -202,7 +203,7 @@ html
     margin-top: 4em;
     position: relative;
     width: 100%;
-    background-color:#414141;
+    background-color:#FFFDFC;
     padding: 2em;
     border-bottom: 1px solid #fff;
 }
@@ -263,6 +264,7 @@ header form
 #nav a,
 #nav span.separator
 {
+    color: #FFFDFC;
     display:block;
     margin-left: 1em;
     text-decoration: none;
@@ -283,7 +285,9 @@ header form
     text-align: center;
 }
 
-.hover:hover
+.hover:hover,
+#nav a.hover:hover,
+#nav a i.hover:hover
 {
     transition:         all .1s linear;
     -moz-transition:    all .1s linear;
@@ -425,6 +429,7 @@ p
 
 label.search 
 {
+    color: #FFFDFC;
     cursor: pointer;
     position:absolute;
     font-size: 1.25em;
@@ -502,6 +507,11 @@ footer .links li
     margin: 1em;
 }
 
+footer .links li a
+{
+    color: #FFFDFC;
+}
+
 footer .links li a:hover
 {
     color: #F77224;
@@ -552,10 +562,13 @@ dl.settings dt
 
 #socialLoginList button:hover,
 #socialLoginList button:active,
+#socialLoginList button:focus,
 #socialLoginList button i:hover,
 #socialLoginList button i:active
 {
     color: #F77224;
+    border: 0px solid #fff;
+    outline: none;
 }
 
 .ng-scope{
@@ -781,6 +794,7 @@ dl.settings dt
 
 #header .tool
 {
+    color: #FFFDFC !important;
     display: inline-block;
     position: relative;
     /*top: 0.125em;
@@ -793,6 +807,11 @@ dl.settings dt
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+#header .tool a
+{
+    color: #FFFDFC !important;
 }
 
 .wrapper .carousel-right a,
