@@ -204,7 +204,6 @@ html
     position: relative;
     width: 100%;
     background-color:#FFFDFC;
-    padding: 2em;
     border-bottom: 1px solid #fff;
 }
 
@@ -222,7 +221,7 @@ header form
 {
     display: inline-block;
     position: absolute;
-    left: 11em;
+    left: 6em;
     right: 4.5em;
     top: 50%;
     -ms-transform: translateY(-50%);
@@ -409,6 +408,11 @@ p
     text-align: left;
 }
 
+#registerForm
+{
+    padding-bottom: 2em;
+}
+
 #loginForm input[type=submit],
 #registerForm input[type=submit]
 {
@@ -417,8 +421,8 @@ p
     font-weight: bold;
     color: #414141;
     right: 0;
+    bottom: 0;
     position: absolute;
-    margin-bottom: 1em;
 }
 
 #registerForm dl dd
@@ -466,13 +470,15 @@ label.search:focus
   transition: none !important;
 }
 
+#main
+{
+    height: 100%;
+}
 
 .fade {
-    position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 100%;
     opacity: 1;
 }
 .fade.ng-enter,
@@ -493,10 +499,26 @@ label.search:focus
     opacity: 0;
 }
 
+#main.fade
+{
+    position: relative;
+}
+
+.navbar-right
+{
+    margin-right: 0px!important;
+}
+
+.popover,
+.tooltip
+{
+    z-index: 999999999!important;
+}
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
 {
     display: block;
+    position: relative;
 }
 
 footer .links li
@@ -538,6 +560,15 @@ dl.settings dt
 .help-icon
 {
     font-size: 0.6em;
+    cursor: pointer;
+    transform: translateY(-50%);
+    color: #648F64;
+}
+
+.help-icon:hover,
+.help-icon:active
+{
+    color: #F77224;
 }
 
 #socialLoginList button,
@@ -571,9 +602,9 @@ dl.settings dt
     outline: none;
 }
 
-.ng-scope{
+/*.ng-scope{
     width: 100%;
-}
+}*/
 
 .wrapper .closeButton
 {
@@ -636,7 +667,7 @@ dl.settings dt
     }
 }
 
-#thumbnails
+#thumbs
 {
     display: -moz-flex;
     display: -webkit-flex;
@@ -655,7 +686,7 @@ dl.settings dt
     padding: 0px;
 }
 
-#thumbnails .wrapper
+#thumbs .wrapper
 {
     position: absolute;
 
@@ -675,20 +706,20 @@ dl.settings dt
     clear: both;
 }
 
-#thumbnails .wrapper.selected,
-#thumbnails .wrapper.active
+#thumbs .wrapper.selected,
+#thumbs .wrapper.active
 {
     padding: 0px;
 }
 
-#thumbnails .wrapper.selected
+#thumbs .wrapper.selected
 {
     left: 0;
     top: 0;
     right: 0;
 }
 
-#thumbnails .wrapper:hover
+#thumbs .wrapper:hover
 {
     -webkit-transition: all 0.25s ease;
     -moz-transition: all 0.25s ease;
@@ -698,7 +729,7 @@ dl.settings dt
 }
 
 
-#thumbnails .wrapper article
+#thumbs .wrapper article
 {
     position: relative;
     width: 100%;
@@ -706,7 +737,7 @@ dl.settings dt
 }
 
 
-.wrapper article .thumbnail
+.wrapper article .thumb
 {
     display: block;
     width: 100%;
@@ -814,8 +845,8 @@ dl.settings dt
     color: #FFFDFC !important;
 }
 
-.wrapper .carousel-right a,
-.wrapper .carousel-left a,
+.wrapper .caro-right a,
+.wrapper .caro-left a,
 .wrapper .toolbar a.tool,
 #header .tool a
 {
@@ -828,8 +859,8 @@ dl.settings dt
     transition: all 0.25s ease;
 }
 
-.wrapper .carousel-right a:hover,
-.wrapper .carousel-left a:hover,
+.wrapper .caro-right a:hover,
+.wrapper .caro-left a:hover,
 .wrapper .toolbar a.tool:hover,
 #header .tool a:hover,
 #header .tool.active a
@@ -946,21 +977,21 @@ dl.settings dt
     width: 100%;
     background: #0F0F0F;
     padding: 2px;
-    opacity: 0.3;
+    opacity: 0.6;
     -moz-transition: all 0.25s ease;
     -webkit-transition: all 0.25s ease;
     -ms-transition: all 0.25s ease;
     transition: all 0.25s ease;
 }
 
-.wrapper .toolbar_bg:hover
+/*.wrapper .toolbar_bg:hover
 {
     opacity: 0.8;
     -moz-transition: all 0.25s ease;
     -webkit-transition: all 0.25s ease;
     -ms-transition: all 0.25s ease;
     transition: all 0.25s ease;
-}
+}*/
 
 .wrapper .toolbar .tool
 {
@@ -981,8 +1012,10 @@ dl.settings dt
 
 .wrapper .toolbar .tool.status
 {
-    width: 100%;
     vertical-align: middle;
+    color: #FFFDFC;
+    right: 0;
+    position: absolute;
 }
 
 .wrapper .toolbar .tool.status .status_group
@@ -998,6 +1031,7 @@ dl.settings dt
     width: 1em;
     text-align: center;
     margin-right: 5px;
+    color: #FFFDFC;
 }
 
 .wrapper .toolbar .tool.status .status_group .status_bar
@@ -1023,8 +1057,8 @@ dl.settings dt
     width: 1.5em;
 }
 
-.wrapper .carousel-right,
-.wrapper .carousel-left
+.wrapper .caro-right,
+.wrapper .caro-left
 {
     -webkit-tap-highlight-color: transparent;
     width: 1.5em;
@@ -1048,8 +1082,8 @@ dl.settings dt
     transition: opacity 0.25s ease;
 }
 
-.wrapper .carousel-right:hover,
-.wrapper .carousel-left:hover
+.wrapper .caro-right:hover,
+.wrapper .caro-left:hover
 {
     opacity: 1.0;
     -moz-transition: opacity 0.25s ease;
@@ -1059,7 +1093,7 @@ dl.settings dt
 }
 
 
-.wrapper .carousel-left
+.wrapper .caro-left
 {
     -moz-transform: scaleX(-1) translateY(-50%);
     -webkit-transform: scaleX(-1) translateY(-50%);
@@ -1068,12 +1102,12 @@ dl.settings dt
     left: 0;
 }
 
-.wrapper .carousel-right
+.wrapper .caro-right
 {
     right: 0;
 }
 
-.wrapper .carousel .carousel-page
+.wrapper .caro .caro-page
 {
     background: #0F0F0F;
     height: 100%;
@@ -1082,7 +1116,7 @@ dl.settings dt
     display: none;
 }
 
-.wrapper .carousel .carousel-page .content
+.wrapper .caro .caro-page .content
 {
     overflow-Y: hidden;
     left: 0;
@@ -1097,23 +1131,23 @@ dl.settings dt
     text-decoration: none;
 }
 
-.wrapper .carousel .carousel-page.details
+.wrapper .caro .caro-page.details
 {
     background: #596d59;
 }
 
-.wrapper .carousel .carousel-page .content.large
+.wrapper .caro .caro-page .content.large
 {
     font-size: 2em;
     bottom: 1.25em;
 }
 
-.wrapper .carousel .carousel-page .content p
+.wrapper .caro .caro-page .content p
 {
     margin-bottom: 1em;
 }
 
-.wrapper .carousel .carousel-page .content.large div.update
+.wrapper .caro .caro-page .content.large div.update
 {
     font-size: 0.65em;
     margin-left: 2.2em;
@@ -1121,27 +1155,28 @@ dl.settings dt
     margin-top: 0.5em;
 }
 
-.wrapper .carousel .carousel-page .content div.update
+.wrapper .caro .caro-page .content div.update
 {
     font-size: 0.65em;
     margin-left: 3em;
     margin-right: 2.4em;
     margin-top: 0.5em;
+    color: #FFFDFC;
 }
 
-.wrapper .carousel .carousel-page .content div.update .date,
-.wrapper .carousel .carousel-page .content div.update .goal
+.wrapper .caro .caro-page .content div.update .date,
+.wrapper .caro .caro-page .content div.update .goal
 {
     display: inline-block;
     width: 49%;
 }
 
-.wrapper .carousel .carousel-page .content div.update .goal
+.wrapper .caro .caro-page .content div.update .goal
 {
     text-align: right;
 }
 
-.wrapper .carousel .carousel-page.images.inline img
+.wrapper .caro .caro-page.images.inline img
 {
     position: absolute;
     display: block;
@@ -1155,7 +1190,7 @@ dl.settings dt
     transform: translateY(-50%);
 }
 
-.wrapper .carousel .carousel-page.tags
+.wrapper .caro .caro-page.tags
 {
     background: #3d3d3d;
     font-size: 1.25em;
@@ -1164,8 +1199,8 @@ dl.settings dt
     padding-bottom: 0.25em;
 }
 
-.wrapper .carousel .carousel-page .content .center,
-.wrapper .carousel .carousel-page.tags .center
+.wrapper .caro .caro-page .content .center,
+.wrapper .caro .caro-page.tags .center
 {
     position: absolute;
     width: 100%;
@@ -1178,11 +1213,11 @@ dl.settings dt
     padding-bottom: 2.25em;
 }
 
-.wrapper .carousel .carousel-page.tags span
+.wrapper .caro .caro-page.tags span
 {
     display: inline-block;
 }
-.wrapper .carousel .carousel-page.tags span a
+.wrapper .caro .caro-page.tags span a
 {
     text-decoration: none;
     transition:         all .1s linear;
@@ -1191,9 +1226,9 @@ dl.settings dt
     -webkit-transition: all .1s linear;
 }
 
-.wrapper .carousel .carousel-page.tags span a:hover,
-.wrapper .carousel .carousel-page.tags span a:active,
-.wrapper .carousel .carousel-page.tags span a:focus
+.wrapper .caro .caro-page.tags span a:hover,
+.wrapper .caro .caro-page.tags span a:active,
+.wrapper .caro .caro-page.tags span a:focus
 {
     transition:         all .1s linear;
     -moz-transition:    all .1s linear;
@@ -1203,9 +1238,9 @@ dl.settings dt
 }
 
 
-.wrapper .carousel .carousel-page .content div.tags span a:hover,
-.wrapper .carousel .carousel-page .content div.tags span a:focus,
-.wrapper .carousel .carousel-page .content div.tags span a:active
+.wrapper .caro .caro-page .content div.tags span a:hover,
+.wrapper .caro .caro-page .content div.tags span a:focus,
+.wrapper .caro .caro-page .content div.tags span a:active
 {
     color: #F37227;
     -moz-transition: color 0.25s ease;
@@ -1214,7 +1249,7 @@ dl.settings dt
     transition: color 0.25s ease;
 }
 
-.wrapper .carousel .carousel-page.selected
+.wrapper .caro .caro-page.selected
 {
     display: inline-block;
     -moz-transition: left 0.25s ease;
@@ -1264,7 +1299,7 @@ dl.settings dt
     text-shadow: 0px 0px 5px #0F0F0F;
 }
 
-.wrapper.selected article .thumbnail
+.wrapper.selected article .thumb
 {
     -webkit-filter: sepia(0%);
     -moz-filter: sepia(0%);
@@ -1284,7 +1319,7 @@ dl.settings dt
 }
 
 
-#thumbnails .wrapper article .thumbnail:before
+#thumbs .wrapper article .thumb:before
 {
     /* overlay an inset box shadow on the image to give it some depth */
     -webkit-box-shadow: inset 16px 21px 59px 7px rgba(234,114,38,1);
@@ -1304,11 +1339,11 @@ dl.settings dt
     z-index: 1;
 }
 
-#thumbnails .wrapper article.active,
-#thumbnails .wrapper article.active:hover,
-#thumbnails .wrapper article.active:focus,
-#thumbnails .wrapper article .thumbnail:hover,
-#thumbnails .wrapper article .thumbnail.active
+#thumbs .wrapper article.active,
+#thumbs .wrapper article.active:hover,
+#thumbs .wrapper article.active:focus,
+#thumbs .wrapper article .thumb:hover,
+#thumbs .wrapper article .thumb.active
 {
     -webkit-filter: sepia(0%);
     -moz-filter: sepia(0%);
@@ -1322,9 +1357,9 @@ dl.settings dt
 }
 
 
-#thumbnails .wrapper article .thumbnail:focus:before,
-#thumbnails .wrapper article .thumbnail:hover:before,
-#thumbnails .wrapper article.active .thumbnail:before
+#thumbs .wrapper article .thumb:focus:before,
+#thumbs .wrapper article .thumb:hover:before,
+#thumbs .wrapper article.active .thumb:before
 {
     -webkit-transition: all 0.25s ease;
     -moz-transition: all 0.25s ease;
@@ -1332,5 +1367,10 @@ dl.settings dt
     -ms-transition: all 0.25s ease;
     transition: all 0.25s ease;
     opacity: 0.0;
+}
+
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio]
+{
+    margin-left: 0px!important;
 }
 

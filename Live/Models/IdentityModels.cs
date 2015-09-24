@@ -8,8 +8,8 @@ namespace Live.Models
 {
     public enum UserType
     {
-        Default = 0,
-        ServiceProvider
+        Donor = 0,
+        Provider
     }
 
     public enum ServiceProviderType
@@ -39,6 +39,8 @@ namespace Live.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("UserType", this.UserType.ToString()));
+            userIdentity.AddClaim(new Claim("ServiceProviderType", this.ServiceProviderType.ToString()));
             return userIdentity;
         }
 

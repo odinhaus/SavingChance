@@ -2,6 +2,7 @@
     $scope.tiles = [];
     $scope.grid = [];
     $scope.columnCount = 8;
+    $scope.loggedIn = window.sc_loggedIn;
 
     var $selected = null;
     var w = angular.element($window);
@@ -217,7 +218,7 @@
         isScrolling = true;
         var $article = $("#" + tile.id);
         var size = { width: $article.width(), height: $article.height() };
-        var $pages = $article.find('.carousel .carousel-page');
+        var $pages = $article.find('.caro .caro-page');
         var length = $pages.length;
         var current = 0;
         $pages.each(function (index, page) {
@@ -378,7 +379,7 @@
         } while (col == -1); // -1 means it won't fit on this row, try the next row
 
         var i = 0;
-        var $section = $('#thumbnails');
+        var $section = $('#thumbs');
         for(i; i < tile.size; i++)
         {
             j = col; // start at the open column
@@ -568,7 +569,7 @@
             width: tile.width,
             height: tile.height
         });
-        updateStatus(tile, $element);
+        //updateStatus(tile, $element);
         $element.swipe({
             swipe: function (event, direction, distance, duration, fingerCount) {
                 if (tile.canSwipe) {
@@ -585,71 +586,71 @@
     };
 });
 
-function updateStatus(tile, $wrapper) {
-    updateStatusLinear(tile, $wrapper);
-}
+//function updateStatus(tile, $wrapper) {
+//    updateStatusLinear(tile, $wrapper);
+//}
 
-function updateStatusLinear(tile, $wrapper)
-{
-    if (!$wrapper)
-    {
-        $wrapper = $('#' + tile.id).parent();
-    }
-    var $goalCanvas = $wrapper.find('.status_bar.goal');
-    var $timeCanvas = $wrapper.find('.status_bar.time');
-    var goalCtx = $goalCanvas[0].getContext("2d");
-    var timeCtx = $timeCanvas[0].getContext("2d");
+//function updateStatusLinear(tile, $wrapper)
+//{
+//    if (!$wrapper)
+//    {
+//        $wrapper = $('#' + tile.id).parent();
+//    }
+//    var $goalCanvas = $wrapper.find('.status_bar.goal');
+//    var $timeCanvas = $wrapper.find('.status_bar.time');
+//    var goalCtx = $goalCanvas[0].getContext("2d");
+//    var timeCtx = $timeCanvas[0].getContext("2d");
 
-    goalCtx.clearRect(0, 0, $goalCanvas[0].width, $goalCanvas[0].height);
-    timeCtx.clearRect(0, 0, $timeCanvas[0].width, $timeCanvas[0].height);
+//    goalCtx.clearRect(0, 0, $goalCanvas[0].width, $goalCanvas[0].height);
+//    timeCtx.clearRect(0, 0, $timeCanvas[0].width, $timeCanvas[0].height);
 
-    var goalSize = { width: $goalCanvas.parent().width() - 80, height: $goalCanvas.parent().height() };
-    var timeSize = { width: $timeCanvas.parent().width() - 80, height: $timeCanvas.parent().height() };
-    var drawText = true;
+//    var goalSize = { width: $goalCanvas.parent().width() - 80, height: $goalCanvas.parent().height() };
+//    var timeSize = { width: $timeCanvas.parent().width() - 80, height: $timeCanvas.parent().height() };
+//    var drawText = true;
 
-    if (goalSize.width < 50)
-    {
-        drawText = false;
-        goalSize = { width: $goalCanvas.parent().width() - 30, height: $goalCanvas.parent().height() };
-        timeSize = { width: $timeCanvas.parent().width() - 30, height: $timeCanvas.parent().height() };
-    }
+//    if (goalSize.width < 50)
+//    {
+//        drawText = false;
+//        goalSize = { width: $goalCanvas.parent().width() - 30, height: $goalCanvas.parent().height() };
+//        timeSize = { width: $timeCanvas.parent().width() - 30, height: $timeCanvas.parent().height() };
+//    }
 
-    $goalCanvas.attr('width', goalSize.width + 50);
-    $goalCanvas.attr('height', goalSize.height);
-    $timeCanvas.attr('width', timeSize.width + 50);
-    $timeCanvas.attr('height', timeSize.height);
+//    $goalCanvas.attr('width', goalSize.width + 50);
+//    $goalCanvas.attr('height', goalSize.height);
+//    $timeCanvas.attr('width', timeSize.width + 50);
+//    $timeCanvas.attr('height', timeSize.height);
 
-    var timespanMS = tile.expires - tile.created;
-    var timespanDays = Math.ceil(timespanMS / (1000 * 60 * 60 * 24));
-    var currentTimeSpanMS = Date.now() - tile.created;
-    var timePercent = 0.3;// currentTimeSpanMS / timespanMS;
-    var fundingPercent = 0.42;//tile.total / tile.goal;
+//    var timespanMS = tile.expires - tile.created;
+//    var timespanDays = Math.ceil(timespanMS / (1000 * 60 * 60 * 24));
+//    var currentTimeSpanMS = Date.now() - tile.created;
+//    var timePercent = 0.3;// currentTimeSpanMS / timespanMS;
+//    var fundingPercent = 0.42;//tile.total / tile.goal;
 
-    var outerH_Time = timeSize.height - 4;
-    var outerH_Goal = goalSize.height - 4;
+//    var outerH_Time = timeSize.height - 4;
+//    var outerH_Goal = goalSize.height - 4;
 
-    var innerH_Time = outerH_Time - 4;
-    var innerH_Goal = outerH_Goal - 4;
+//    var innerH_Time = outerH_Time - 4;
+//    var innerH_Goal = outerH_Goal - 4;
 
-    goalCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-    timeCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+//    goalCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+//    timeCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
 
-    goalCtx.fillRect(0, (goalSize.height - outerH_Goal) / 2, goalSize.width, outerH_Goal);
-    timeCtx.fillRect(0, (timeSize.height - outerH_Time) / 2, timeSize.width, outerH_Time);
+//    goalCtx.fillRect(0, (goalSize.height - outerH_Goal) / 2, goalSize.width, outerH_Goal);
+//    timeCtx.fillRect(0, (timeSize.height - outerH_Time) / 2, timeSize.width, outerH_Time);
 
 
-    goalCtx.fillStyle = 'rgba(100, 143, 100, 0.9)';
-    timeCtx.fillStyle = 'rgba(247, 114, 36, 0.9)';
-    goalCtx.fillRect(2, (goalSize.height - innerH_Goal) / 2, goalSize.width * fundingPercent - 4, innerH_Goal);
-    timeCtx.fillRect(2, (timeSize.height - innerH_Time) / 2, timeSize.width * timePercent - 4, innerH_Time);
+//    goalCtx.fillStyle = 'rgba(100, 143, 100, 0.9)';
+//    timeCtx.fillStyle = 'rgba(247, 114, 36, 0.9)';
+//    goalCtx.fillRect(2, (goalSize.height - innerH_Goal) / 2, goalSize.width * fundingPercent - 4, innerH_Goal);
+//    timeCtx.fillRect(2, (timeSize.height - innerH_Time) / 2, timeSize.width * timePercent - 4, innerH_Time);
 
-    if (drawText) {
-        goalCtx.fillStyle = '#fff';
-        timeCtx.fillStyle = '#fff';
-        goalCtx.font = outerH_Goal + "px sans serif";
-        timeCtx.font = outerH_Time + "px sans serif";
-        goalCtx.fillText('$' + tile.goal.toFixed(0), goalSize.width + 4, outerH_Goal);
-        var days = timespanDays + ' Day' + (timespanDays > 1 ? 's' : '');
-        timeCtx.fillText(days, timeSize.width + 4, outerH_Time);
-    }
-}
+//    if (drawText) {
+//        goalCtx.fillStyle = '#fff';
+//        timeCtx.fillStyle = '#fff';
+//        goalCtx.font = outerH_Goal + "px sans serif";
+//        timeCtx.font = outerH_Time + "px sans serif";
+//        goalCtx.fillText('$' + tile.goal.toFixed(0), goalSize.width + 4, outerH_Goal);
+//        var days = timespanDays + ' Day' + (timespanDays > 1 ? 's' : '');
+//        timeCtx.fillText(days, timeSize.width + 4, outerH_Time);
+//    }
+//}

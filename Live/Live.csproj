@@ -285,6 +285,7 @@
     <Content Include="Global.asax" />
     <Content Include="images\header-bg.png" />
     <Content Include="images\logo-86.png" />
+    <Content Include="images\Logo-Hex-400.png" />
     <Content Include="images\palette.png" />
     <Content Include="Index.html" />
     <Content Include="ng\areas\details\details.html" />

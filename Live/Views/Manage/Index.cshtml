@@ -19,7 +19,21 @@
                 }
                 <dl class="settings">
                     <dt>
-                        Account Type <i class="fa fa-question-circle help-icon"></i>
+                        @if (Model.User.UserType == Live.Models.UserType.Donor)
+                        {
+                            ViewBag.AccountMessage = "The Donor account type allows you to follow, share, and donate to existing Saving Chances.  "
+                                                   + "If you represent a 501c3 organization, and would like to be able to create Saving Chances and "
+                                                   + "accept crowd funding, "
+                                                   + "<a href=\"mailto:accounts@savingchance.com?subject=Register My 501c3 - Account-Ref: "
+                                                   + Model.User.Id + " - " + Model.User.Email + "&body=I'd like to upgrade my account to 501c3 status.  What do I need to do?\">"
+                                                   + "contact us</a>, and we'll get you started.";
+                        }
+                        else
+                        {
+                            ViewBag.AccountMessage = "The Provider account type allows you follow, share and donate to existing Saving Chances, as well as creating your own Saving Chances, and accepting payments through them.";
+                        }
+                        
+                        Account Type <i data-toggle="popover" data-html="true" data-placement="right" title="Account Type" data-content="@ViewBag.AccountMessage" class="fa fa-question-circle help-icon"></i>
                     </dt>
                     <dd>
                         @Model.User.UserType

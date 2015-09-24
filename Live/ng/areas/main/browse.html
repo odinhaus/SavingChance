@@ -1,17 +1,17 @@
-﻿<section id="thumbnails" infinite-scroll='loadMore()' infinite-scroll-distance='4'>
+﻿<section id="thumbs" infinite-scroll='loadMore()' infinite-scroll-distance='4'>
     <div class="wrapper" ng-repeat="tile in tiles" tile-rendered>
         
         <article id="{{tile.id}}">
-            <div class="carousel">
+            <div class="caro">
 
-                <div class="carousel-page main selected">
-                    <img class="thumbnail initializing" src="{{tile.img}}" />
+                <div class="caro-page main selected">
+                    <img class="thumb initializing" src="{{tile.img}}" />
                     <h2 class="title">
                         {{tile.title}}
                     </h2>
                 </div>
 
-                <div class="carousel-page details">
+                <div class="caro-page details">
                     <div ng-class="{content: tile.size < 4, 'content large': tile.size >= 4}">
                         <div class="update">
                             <p>
@@ -30,15 +30,15 @@
                     </div>
                 </div>
 
-                <div class="carousel-page images inline" ng-repeat="image in tile.images">
+                <div class="caro-page images inline" ng-repeat="image in tile.images">
                     <img src="{{image.url}}" />
                 </div>
 
-                <div class="carousel-page map" style="background: #8c99a3">
+                <div class="caro-page map" style="background: #8c99a3">
 
                 </div>
 
-                <div class="carousel-page tags">
+                <div class="caro-page tags">
                     <div class="center">
                         <span ng-repeat="tag in tile.tags"><a href="?q={{tag}}">{{tag}}</a>&nbsp;</span>
                     </div>
@@ -48,7 +48,7 @@
 
         <div id="toolbar_{{tile.id}}_bg" class="toolbar_bg"></div>
         <div id="toolbar_{{tile.id}}" class="toolbar">
-            <a id="donate_{{tile.id}}" ng-class="{'tool like': !tile.isLiked, 'tool like selected': tile.isLiked}" title="Love...">
+            <a ng-if="loggedIn" id="donate_{{tile.id}}" ng-class="{'tool like': !tile.isLiked, 'tool like selected': tile.isLiked}" title="Love...">
                 <i class="fa fa-heart"></i>
             </a>
             <a id="share_{{tile.id}}" class="tool share"
@@ -60,7 +60,7 @@
             <a id="donate_{{tile.id}}" class="tool donate" title="Donate...">
                 <i class="fa fa-credit-card"></i>
             </a>
-            <div class="status tool">
+            <!--<div class="status tool">
                 <div>
                     <div class="status_group">
                         <i class="fa fa-clock-o status_label"></i>
@@ -71,10 +71,13 @@
                         <canvas class="status_bar goal" width="16" height="16" id="goal_status_{{tile.id}}"></canvas>
                     </div>
                 </div>
+            </div>-->
+            <div class="tool status">
+                <i class="fa fa-clock-o status_label"></i> 3d
             </div>
         </div>
-        <a href="#" ng-click='scrollRight(tile)'><div id="next_{{tile.id}}" class="carousel-right"></div></a>
-        <a href="#" ng-click='scrollLeft(tile)'><div id="prev_{{tile.id}}" class="carousel-left"></div></a>
+        <a href="#" ng-click='scrollRight(tile)'><div id="next_{{tile.id}}" class="caro-right"></div></a>
+        <a href="#" ng-click='scrollLeft(tile)'><div id="prev_{{tile.id}}" class="caro-left"></div></a>
         <a href="#{{tile.href}}" class="maximize" title="Maximize">
             <i class="max-icon">
                 <svg viewBox="0 0 100 100">

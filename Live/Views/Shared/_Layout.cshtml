@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
@@ -39,22 +41,16 @@
         @if (Request.IsAuthenticated)
         {
             <div class="tool selected">
-                <a href="/Manage" title="@User.Identity.GetUserName()"><i class="fa fa-lock"></i></a>
+                <a href="/Manage" title="@User.Identity.GetUserName()"><i class="fa fa-user"></i></a>
             </div>
         }
         else
         {
             <div class="tool">
-                <a href="/Account/Login" title="Login"><i class="fa fa-lock"></i></a>
+                <a href="/Account/Login" title="Login"><i class="fa fa-user"></i></a>
             </div>
         }
 
-        <div class="tool">
-            <a href="FBLike" title="Like us on Facebook"><i class="fa fa-facebook"></i></a>
-        </div>
-        <div class="tool">
-            <a href="TLike" title="Like us on Twitter"><i class="fa fa-twitter"></i></a>
-        </div>
         <form>
             <label for="search" class="search"><i class="fa fa-search"></i></label>
             <input class="search" id="search" />
@@ -62,13 +58,22 @@
     </header>
     <nav id="nav">
         <a href="/" class="hover"><i class="fa fa-home"></i> Home</a>
-        <span class="separator"></span>
-        <a href="/Saves/Create" class="hover"><i class="fa fa-plus"></i> Create a Save</a>
-        <span class="separator"></span>
-        <a href="/Saves/Mine" class="hover"><i class="fa fa-user"></i> My Campaigns</a>
-        <a href="/Saves/Following" class="hover"><i class="fa fa-heart"></i> My Favorites</a>
+        @if (Request.IsAuthenticated)
+        {
+            <span class="separator"></span>
+            if (((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "UserType" && c.Value == "Provider")
+                && ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "ServiceProviderType" && c.Value == "Rescue"))
+            {
+                <a href="/Saves/Create" class="hover"><i class="fa fa-plus"></i> Create a Save</a>
+                <span class="separator"></span>
+                <a href="/Saves/Mine" class="hover"><i class="fa fa-user"></i> My Saves</a>
+            }
+            <a href="/Saves/Following" class="hover"><i class="fa fa-heart"></i> My Favorites</a>
+        }
         <span class="separator"></span>
         <a href="/HowItWorks" class="hover"><i class="fa fa-question"></i> How it Works</a>
+        <span class="separator"></span>
+        <a href="#" title="Share us on Facebook" class="hover" onclick="fbShare()"><i class="fa fa-facebook"></i> Share on Facebook</a>
     </nav>
     <div class="content-container">
         @RenderBody()
@@ -84,6 +89,12 @@
         </div>
     </footer>
     @RenderSection("scripts", required: false)
+    <script>
+        @{bool isLoggedIn = Request.IsAuthenticated;}
+        @{bool isProvider = ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "UserType" && c.Value == "Provider");}
+        window.sc_loggedIn = @isLoggedIn.ToString().ToLower();
+        window.sc_isProvider = @isProvider.ToString().ToLower();
+    </script>
     <script src="/Scripts/fb.js"></script>
     <script src="/ng/main.js"></script>
     <script src="/ng/areas/main/browse.js"></script>

@@ -18,21 +18,21 @@
                 <h4>Log in with your SavingChance credentials...</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div >
+                    @Html.LabelFor(m => m.Email)
                     <div>
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div >
+                    @Html.LabelFor(m => m.Password)
                     <div>
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
+                <div >
                     <div>
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
@@ -40,15 +40,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div >
                     <div>
-                        <input type="submit" value="Log In" class="btn btn-default" />
+                        <input type="submit" value="Log In"  />
                     </div>
                 </div>
-                <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>
             }
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>
         </section>
     </div>
     <div class="content-center">
