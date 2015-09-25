@@ -23,6 +23,16 @@
         updateTileSizes();
     });
 
+    var handler = StripeCheckout.configure({
+        key: 'pk_test_vtUHWXz77yipQW2cPZYC1RJq',
+        image: 'https://s3.amazonaws.com/stripe-uploads/acct_16e86tE2I5HVjWOxmerchant-icon-1440618852948-icon_50.png',
+        locale: 'auto',
+        token: function (token) {
+            // Use the token to create the charge with a server-side script.
+            // You can access the token ID with `token.id`
+        }
+    });
+
     var resizing = false;
     function updateTileSizes()
     {
@@ -200,8 +210,7 @@
         appState['browse'].pageState.tiles = $scope.tiles;
     };
 
-    $scope.share = function(tile)
-    {
+    $scope.share = function (tile) {
         FB.ui({
             app_id: 1516907565266690,
             method: 'feed',
@@ -210,6 +219,12 @@
             picture: tile.img,
             description: tile.summary.value
         }, function (response) { });
+    };
+
+    $scope.donate = function(tile)
+    {
+        $('#donate').modal();
+
     }
 
     var isScrolling = false;

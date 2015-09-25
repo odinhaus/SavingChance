@@ -49,6 +49,7 @@ body, .bg {
     background: #0F0F0F;
 }
 
+.modal-dialog button,
 input[type=button],
 input[type=submit]
 {
@@ -61,6 +62,7 @@ input[type=submit]
     -webkit-transition: all .1s linear;
 }
 
+.modal-dialog button:hover,
 input[type=button]:hover,
 input[type=submit]:hover
 {
@@ -75,6 +77,60 @@ input[type=submit]:hover
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
     -webkit-transition: all .1s linear;
+}
+
+.modal-dialog button.close,
+.modal-dialog button.close:hover
+{
+    background-color: #FFFDFC !important;
+    color: #0F0F0F !important;
+    box-shadow:         0 0 0 rgba(195, 136, 100, 0.5);
+    -moz-box-shadow:    0 0 0 rgba(195, 136, 100, 0.5);
+    -o-box-shadow:      0 0 0 rgba(195, 136, 100, 0.5);
+    -webkit-box-shadow: 0 0 0 rgba(195, 136, 100, 0.5);
+}
+
+.form-row
+{
+    margin: 0 Auto;
+    margin-bottom: 0.25em;
+}
+
+#donate label
+{
+    width: 40%;
+}
+
+#donate .required
+{
+    background-color: #FFD7C0;
+}
+
+#donate #donation
+{
+    display: inline-block;
+    width: calc(58%);
+}
+
+#donate input
+{
+    width: 55%;
+}
+
+#donate input[name=donation]
+{
+    width: calc(100% - 1.75em);
+}
+
+#donate #donation:before
+{
+    content: '$';
+    font-size: 1.75em;
+}
+
+#donate .modal-body h4:last-child
+{
+    margin-top: 1em;
 }
 
 *, *:before, *:after
@@ -186,6 +242,33 @@ html
     {
         font-size: 12pt;
     }
+}
+
+.modal
+{
+    z-index: 999999999;
+}
+
+.modal-dialog
+{
+    background-color: #FFFDFC;
+    box-shadow:         2px 2px 24px rgba(15, 15, 15, 0.75);
+    -moz-box-shadow:    2px 2px 24px rgba(15, 15, 15, 0.75);
+    -o-box-shadow:      2px 2px 24px rgba(15, 15, 15, 0.75);
+    -webkit-box-shadow: 2px 2px 24px rgba(15, 15, 15, 0.75);
+    border-radius: 0.65em;
+    margin: 3em auto;
+}
+
+.modal-header #emblem
+{
+    position: absolute;
+    left: 50%;
+    top: -32px;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
 }
 
 .center
@@ -570,6 +653,7 @@ dl.settings dt
 {
     color: #F77224;
 }
+
 
 #socialLoginList button,
 #socialLoginList button i
@@ -964,6 +1048,7 @@ dl.settings dt
     display: table;
     height: 2em;
     overflow: hidden;
+    width: 100%;
 }
 
 .wrapper .toolbar_bg
@@ -995,12 +1080,13 @@ dl.settings dt
 
 .wrapper .toolbar .tool
 {
-    position: relative;
     top: 0;
     font-size: 1.5em;
     display: table-cell;
     padding-left: 0.25em;
     cursor: pointer;
+    float: left;
+    margin-right: 0.25em;
 }
 
 .wrapper .toolbar .tool.selected,
