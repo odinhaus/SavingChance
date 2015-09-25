@@ -92,66 +92,61 @@
     </div>
     <div id="donate" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title"><img id="emblem" src="/images/Logo-Hex-64.png"/> Make a Donation...</h2>
-            </div>
-            <div class="modal-body">
-                <h4>Donation</h4>
-                <div class="form-row">
-                    <label for="name" class="stripeLabel">Donation Amount</label>
-                    <div id="donation">
-                        <input type="number" name="donation" class="required" min="10" value="10"/>
+            <form action="/Api/Donate" method="POST" id="donate-form" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" id="chanceId" name="chanceId"/>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><img id="emblem" src="/images/Logo-Hex-64.png" /> Make a Donation...</h2>
+                </div>
+                <div class="modal-body">
+                    <span class="payment-errors"></span>
+                    <h4>Donation</h4>
+                    <div class="form-row">
+                        <label for="name" class="stripeLabel">Donation Amount</label>
+                        <div id="donation">
+                            <input type="number" name="donation" class="required" min="10" value="10" />
+                        </div>
                     </div>
-                </div>
-                <hr />
-                <h4>Card Details</h4>
-                <div class="form-row">
-                    <label for="name" class="stripeLabel">Name on Card</label>
-                    <input type="text" name="name" class="required" />
-                </div>
+                    <hr />
+                    <h4>Card Details</h4>
 
-                <div class="form-row">
-                    <label for="email">E-mail Address</label>
-                    <input type="text" name="email" class="required" />
-                </div>
+                    <div class="form-row">
+                        <label>Card Number</label>
+                        <input type="text" maxlength="20" autocomplete="off" class="card-number required" data-stripe="number" />
+                    </div>
 
-                <div class="form-row">
-                    <label>Card Number</label>
-                    <input type="text" maxlength="20" autocomplete="off" class="card-number stripe-sensitive required" />
-                </div>
+                    <div class="form-row">
+                        <label>CVC</label>
+                        <input type="text" maxlength="4" autocomplete="off" class="card-cvc required" data-stripe="cvc" />
+                    </div>
 
-                <div class="form-row">
-                    <label>CVC</label>
-                    <input type="text" maxlength="4" autocomplete="off" class="card-cvc stripe-sensitive required" />
-                </div>
+                    <div class="form-row">
+                        <label>Expiration</label>
 
-                <div class="form-row">
-                    <label>Expiration</label>
-                    
-                        <select class="card-expiry-month stripe-sensitive required"></select>
+                        <select class="card-expiry-month required" data-stripe="exp-month"></select>
                         <script type="text/javascript">
-                        var select = $(".card-expiry-month"),
-                            month = new Date().getMonth() + 1;
-                        for (var i = 1; i <= 12; i++) {
-                            select.append($("<option value='"+i+"' "+(month === i ? "selected" : "")+">"+i+"</option>"))
-                        }
+                            var select = $(".card-expiry-month"),
+                                month = new Date().getMonth() + 1;
+                            for (var i = 1; i <= 12; i++) {
+                                select.append($("<option value='" + i + "' " + (month === i ? "selected" : "") + ">" + i + "</option>"))
+                            }
                         </script>
                         <span> / </span>
-                        <select class="card-expiry-year stripe-sensitive required"></select>
+                        <select class="card-expiry-year required" data-stripe="exp-year"></select>
                         <script type="text/javascript">
-                        var select = $(".card-expiry-year"),
-                            year = new Date().getFullYear();
-                        for (var i = 0; i < 12; i++) {
-                            select.append($("<option value='"+(i + year)+"' "+(i === 0 ? "selected" : "")+">"+(i + year)+"</option>"))
-                        }
+                            var select = $(".card-expiry-year"),
+                                year = new Date().getFullYear();
+                            for (var i = 0; i < 12; i++) {
+                                select.append($("<option value='" + (i + year) + "' " + (i === 0 ? "selected" : "") + ">" + (i + year) + "</option>"))
+                            }
                         </script>
-                    
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>

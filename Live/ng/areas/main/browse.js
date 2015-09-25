@@ -18,19 +18,9 @@
     });
 
     updateWindowDimensions(w);
-    
+
     w.bind('resize', function () {
         updateTileSizes();
-    });
-
-    var handler = StripeCheckout.configure({
-        key: 'pk_test_vtUHWXz77yipQW2cPZYC1RJq',
-        image: 'https://s3.amazonaws.com/stripe-uploads/acct_16e86tE2I5HVjWOxmerchant-icon-1440618852948-icon_50.png',
-        locale: 'auto',
-        token: function (token) {
-            // Use the token to create the charge with a server-side script.
-            // You can access the token ID with `token.id`
-        }
     });
 
     var resizing = false;
@@ -221,11 +211,49 @@
         }, function (response) { });
     };
 
-    $scope.donate = function(tile)
-    {
+    $scope.donate = function (tile) {
+        $('#chanceId').attr('value', tile.id);
         $('#donate').modal();
+    };
 
-    }
+    $('#donate-form').submit(function (event) {
+        var $form = $(this);
+
+        // Disable the submit button to prevent repeated clicks
+        $form.find('input').prop('disabled', true);
+        // This identifies your website in the createToken call below
+        Stripe.setPublishableKey('pk_test_vtUHWXz77yipQW2cPZYC1RJq');
+        Stripe.card.createToken($form, stripeResponseHandler);
+
+        // Prevent the form from submitting with the default action
+        return false;
+    });
+
+    function stripeResponseHandler(status, response) {
+        var $form = $('#donate-form');
+
+        if (response.error) {
+            // Show the errors on the form
+            $form.find('.payment-errors').text(response.error.message);
+            $form.find('input').prop('disabled', false);
+        }
+        else {
+            // response contains id and card, which contains additional card details
+            var token = response.id;
+            $form.find('input[type=hidden]').prop('disabled', false);
+            // Insert the token into the form so it gets submitted to the server
+            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            // and submit
+            var jqxhr = $.post('api/donate', $('#donate-form').serialize())
+                .success(function (data, textStatus, jqXHR) {
+                    $('#donate').modal('hide');
+                })
+                .error(function (data, textStatus, jqXHR) {
+                    $form.find('.payment-errors').html("Error posting the update.");
+                });
+            return false;
+        }
+    };
 
     var isScrolling = false;
     function scrollCarousel(tile, modifier) {

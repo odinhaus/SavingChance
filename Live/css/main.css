@@ -133,6 +133,15 @@ input[type=submit]:hover
     margin-top: 1em;
 }
 
+.payment-errors
+{
+    color: #F77224;
+    font-weight: bold;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
 *, *:before, *:after
 {
     -moz-box-sizing: border-box;
