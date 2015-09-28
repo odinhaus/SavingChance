@@ -161,8 +161,8 @@
                 expires: expires,
                 created: created,
                 address: 'Montgomery County Animal Shelter, 8535 Texas 242, Conroe, TX 77385',
-                goal: Math.random() * 10000,
-                total: Math.random() * 10000,
+                goal: 700,
+                total: 320,
                 img: i % 3 == 0
                     ? 'http://www.prestonspeaks.com/wp-content/uploads/2012/11/Lucian-the-awesome-Husky.jpg'
                     : i % 5 == 0
@@ -189,7 +189,8 @@
                 tags: ['@HBR', '#' + last + i, '#husky', '#houston', '#desparate'],
                 isLiked: (i % 13 == 0),
                 name: 'Chance',
-                canSwipe: true
+                canSwipe: true,
+                type: i % 3 == 0 ? 1 : 0
             };
 
             tiles.push(tile);
@@ -213,6 +214,20 @@
 
     $scope.donate = function (tile) {
         $('#chanceId').attr('value', tile.id);
+        $('#goal').attr('value', tile.goal);
+        $('#total').attr('value', tile.total);
+        $('#type').attr('value', tile.type);
+        $('[data-toggle="popover"]').popover();
+        var donation = $('[name="donation"]');
+        donation.prop('disabled', false);
+        if (tile.type == 1)
+        {
+            $('#donationType').css('display', 'none');
+        }
+        else
+        {
+            $('#donationType').css('display', 'block');
+        }
         $('#donate').modal();
     };
 
@@ -628,6 +643,26 @@
         });
     };
 });
+
+
+function donationTypeChanged() {
+    var goal = $('#goal').attr('value');
+    var total = $('#total').attr('value');
+    var type = $('[name="donationType"]').find(":selected").val();
+    var donation = $('[name="donation"]');
+
+    if (type == 0)
+    {
+        // adoption
+        donation.prop('disabled', true);
+        donation.val(goal - total);
+    }
+    else
+    {
+        // donation or refundable
+        donation.prop('disabled', false);
+    }
+}
 
 //function updateStatus(tile, $wrapper) {
 //    updateStatusLinear(tile, $wrapper);

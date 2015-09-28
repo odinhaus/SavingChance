@@ -101,7 +101,7 @@ input[type=submit]:hover
     width: 40%;
 }
 
-#donate .required
+.required
 {
     background-color: #FFD7C0;
 }
@@ -131,6 +131,11 @@ input[type=submit]:hover
 #donate .modal-body h4:last-child
 {
     margin-top: 1em;
+}
+
+input:disabled
+{
+    background-color: #D1DAE0!important;
 }
 
 .payment-errors
