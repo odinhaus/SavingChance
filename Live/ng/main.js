@@ -54,3 +54,14 @@ function fbShare()
         description: 'We believe every animal should have a Chance at a good life. Our mission is to connect people who are willing to help animals in need get the resources they deserve.'
     }, function (response) { });
 }
+
+/**
+ * Number.prototype.format(n, x)
+ * 
+ * @param integer n: length of decimal
+ * @param integer x: length of sections
+ */
+Number.prototype.toCurrency = function (n, x) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
+};

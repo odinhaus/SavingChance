@@ -14,7 +14,12 @@ namespace Live.Controllers.Api
         [HttpPost]
         public HttpResponseMessage Post(DonationRequest request)
         {
-            return Request.CreateResponse<DonationResponse>(new DonationResponse() { Confirmation = "123456", Message = "Success" });
+            return Request.CreateResponse<DonationResponse>(new DonationResponse()
+            {
+                Confirmation = "123456",
+                Message = "Success",
+                Amount = request.Amount
+            });
         }
     }
 }

@@ -13,6 +13,12 @@ namespace Live.Models
         RefundableDonation = 2
     }
 
+    public enum DonationStatus
+    {
+        Success,
+        Error
+    }
+
     public class DonationRequest
     {
         public string StripeToken { get; set; }
@@ -23,7 +29,9 @@ namespace Live.Models
 
     public class DonationResponse
     {
+        public DonationStatus Status { get; set; }
         public string Message { get; set; }
         public string Confirmation { get; set; }
+        public decimal Amount { get; set; }
     }
 }

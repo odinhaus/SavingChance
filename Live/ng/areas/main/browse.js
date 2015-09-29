@@ -218,8 +218,7 @@
         $('#total').attr('value', tile.total);
         $('#type').attr('value', tile.type);
         $('[data-toggle="popover"]').popover();
-        var donation = $('[name="donation"]');
-        donation.prop('disabled', false);
+        $('#donate-form').find('input').prop('disabled', false);
         if (tile.type == 1)
         {
             $('#donationType').css('display', 'none');
@@ -228,6 +227,19 @@
         {
             $('#donationType').css('display', 'block');
         }
+        $('[name="donationType"]').val('1');
+        $('[name="amount"]').val('10');
+        $('[data-stripe="number"]').val('');
+        $('[data-stripe="cvc"]').val('');
+        $('[data-stripe="exp-month"]').val('1');
+        $('[data-stripe="exp-year"]').val(new Date().getFullYear());
+        $('#currentFunding').text('$' + tile.total.toCurrency(0, 3) + " of $" + tile.goal.toCurrency(0, 3) + " raised");
+        var title = "Make a Donation";
+        if (tile.type == 0)
+        {
+            title = "Donate or Adopt";
+        }
+        $('#donate .modal-title span').text(title);
         $('#donate').modal();
     };
 
@@ -256,12 +268,15 @@
             // response contains id and card, which contains additional card details
             var token = response.id;
             $form.find('input[type=hidden]').prop('disabled', false);
+            $form.find('input[name=amount]').prop('disabled', false);
             // Insert the token into the form so it gets submitted to the server
             $form.append($('<input type="hidden" name="stripeToken" />').val(token));
             // and submit
-            var jqxhr = $.post('api/donate', $('#donate-form').serialize())
+            var json = $('#donate-form').serialize();
+            var jqxhr = $.post('api/donate', json)
                 .success(function (data, textStatus, jqXHR) {
                     $('#donate').modal('hide');
+                    displayConfirmation($('#donateResult'), data);
                 })
                 .error(function (data, textStatus, jqXHR) {
                     $form.find('.payment-errors').html("Error posting the update.");
@@ -269,6 +284,22 @@
             return false;
         }
     };
+
+    function displayConfirmation($dialog, paymentResults)
+    {
+        var $body = $dialog.find('.modal-body');
+        if (paymentResults.Status == 0)
+        {
+            $('#paymentConfirmation').text(paymentResults.Confirmation);
+            $('#paymentAmount').text('$' + paymentResults.Amount.toCurrency(0, 3));
+        }
+        else
+        {
+            $body.find('.modal-title span').text('An Error Occurred...');
+            $body.html('<span class="payment-errors">paymentResult.Message</span>')
+        }
+        $dialog.modal('show');
+    }
 
     var isScrolling = false;
     function scrollCarousel(tile, modifier) {

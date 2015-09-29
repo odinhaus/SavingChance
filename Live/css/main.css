@@ -41,7 +41,10 @@ a
     text-decoration: none;
 }
 
-textarea:focus, input:focus{
+textarea:focus, 
+input:focus,
+select:focus
+{
     outline: 0;
 }
 
@@ -96,37 +99,69 @@ input[type=submit]:hover
     margin-bottom: 0.25em;
 }
 
-#donate label
+/*#donate label
 {
     width: 40%;
-}
+}*/
 
 .required
 {
     background-color: #FFD7C0;
 }
 
-#donate #donation
+/*#donate #donation
 {
     display: inline-block;
     width: calc(58%);
-}
+}*/
 
-#donate input
+#donate input,
+#donate select
 {
-    width: 55%;
+    display: block;
+    width: 100%;
 }
 
-#donate input[name=donation]
+#donate input[data-stripe='cvc']
+{
+    display: inline;
+    width: 4em;
+}
+
+#donate select[data-stripe='exp-month'],
+#donate select[data-stripe='exp-year']
+{
+    display: inline;
+    width: auto;
+}
+
+/*#donate input[name=donation],
+#donate select[name=donationType]
 {
     width: calc(100% - 1.75em);
+}*/
+
+::-webkit-input-placeholder {
+   color: #8C99A3;
 }
 
-#donate #donation:before
+:-moz-placeholder { /* Firefox 18- */
+   color: #8C99A3;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #8C99A3;  
+}
+
+:-ms-input-placeholder {  
+   color: #8C99A3;  
+}
+
+/*#donate #donation:before
 {
     content: '$';
     font-size: 1.75em;
-}
+}*/
 
 #donate .modal-body h4:last-child
 {
@@ -636,7 +671,9 @@ footer .links li a:hover
     color: #F77224;
 }
 
-input{
+input,
+select
+{
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
