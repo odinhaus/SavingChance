@@ -28,6 +28,8 @@ namespace Live.Models
         public string Personalize { get; set; }
         public string Message { get; set; }
         public string Anonymous { get; set; }
+        public bool IsAnonymous { get { return "on".Equals(Anonymous, StringComparison.InvariantCultureIgnoreCase); } }
+        public bool IsPersonalized { get { return "on".Equals(Personalize, StringComparison.InvariantCultureIgnoreCase); } }
     }
 
     public class DonationResponse

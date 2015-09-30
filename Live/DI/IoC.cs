@@ -16,6 +16,7 @@ namespace Live.DI
             return new Container(c =>
             {
                 c.For<IIdentityMessageService>().Use<EmailService>();
+                c.For<IPaymentService>().Use<PaymentService>();
             });
         }
     }

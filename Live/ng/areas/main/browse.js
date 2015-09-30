@@ -242,7 +242,9 @@
         $('#donate .modal-title span').text(title);
         if (window.sc_loggedIn) {
             var $body = $('#donate .modal-body');
-            $body.append($('<div class="form-row"><label><input type="checkbox" name="anonymous"/> Donate anonymously?</label></div>'))
+            if ($('#donate input[name="anonymous"]').length == 0) {
+                $body.append($('<div class="form-row"><label><input type="checkbox" name="anonymous"/> Donate anonymously?</label></div>'));
+            }
         }
         $('#donate').modal();
     };
