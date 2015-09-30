@@ -257,6 +257,7 @@
     <Compile Include="DI\DependencyResolver.cs" />
     <Compile Include="DI\DependencyScope.cs" />
     <Compile Include="DI\IoC.cs" />
+    <Compile Include="DI\IoCControllerFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -274,9 +275,18 @@
     <Compile Include="Migrations\201509181250139_ServiceProvider.Designer.cs">
       <DependentUpon>201509181250139_ServiceProvider.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509301504142_StripAccountId.cs" />
+    <Compile Include="Migrations\201509301504142_StripAccountId.Designer.cs">
+      <DependentUpon>201509301504142_StripAccountId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509301743202_Chances.cs" />
+    <Compile Include="Migrations\201509301743202_Chances.Designer.cs">
+      <DependentUpon>201509301743202_Chances.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Chance.cs" />
     <Compile Include="Models\DonateModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -285,7 +295,9 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\IPaymentService.cs" />
+    <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\PaymentService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -395,6 +407,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\HowItWorks\Index.cshtml" />
+    <Content Include="Views\Manage\AcceptStripe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -417,6 +430,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509181250139_ServiceProvider.resx">
       <DependentUpon>201509181250139_ServiceProvider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509301504142_StripAccountId.resx">
+      <DependentUpon>201509301504142_StripAccountId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509301743202_Chances.resx">
+      <DependentUpon>201509301743202_Chances.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

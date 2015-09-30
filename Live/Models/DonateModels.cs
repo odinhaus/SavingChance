@@ -22,7 +22,7 @@ namespace Live.Models
     public class DonationRequest
     {
         public string StripeToken { get; set; }
-        public int ChanceId { get; set; }
+        public long ChanceId { get; set; }
         public decimal Amount { get; set; }
         public DonationType DonationType { get; set; }
         public string Personalize { get; set; }

@@ -8,6 +8,14 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Live.Models;
 using Live.Managers;
+using System.Net;
+using System.IO;
+using System.Configuration;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Microsoft.Owin;
+using Live.Data;
+using Live.Services;
 
 namespace Live.Controllers
 {
@@ -16,16 +24,20 @@ namespace Live.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IUserService _userService;
 
-        public ManageController()
+        public ManageController() { }
+
+        public ManageController(IUserService userService)
         {
+            _userService = userService;
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
+        //public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        //{
+        //    UserManager = userManager;
+        //    SignInManager = signInManager;
+        //}
 
         public ApplicationSignInManager SignInManager
         {
@@ -322,6 +334,52 @@ namespace Live.Controllers
             }
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+        }
+
+        //
+        // POST: /Manage/AcceptStripe
+        public async Task<ActionResult> AcceptStripe(string scope, string code)
+        {
+            if (Request["error_description"] != null)
+            {
+                Session["error_description"] = Request["error_description"];
+                Response.Redirect("/");
+            }
+
+            var request = HttpWebRequest.Create("https://manage.stripe.com/oauth/token?grant_type=authorization_code"
+                + "&client_id=" + ConfigurationManager.AppSettings["StripeClientId"] 
+                + "&code=" + Request["code"]);
+            request.Method = "POST";
+            request.Headers.Add("Authorization", "Bearer " + ConfigurationManager.AppSettings["StripeApiKey"]);
+
+            var response = request.GetResponse();
+
+            var dataStream = response.GetResponseStream();
+            var reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+
+            var responseValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseFromServer);
+
+            string access_token = responseValues["access_token"];
+            string refresh_token = responseValues["refresh_token"];
+            string stripe_publishable_key = responseValues["stripe_publishable_key"];
+            string strip_user_id = responseValues["stripe_user_id"];
+
+            _userService.UpdateStripeAccount(strip_user_id);
+
+            // Clean up the streams and the response.
+            reader.Close();
+            response.Close();
+
+            return RedirectToAction("Index");
+        }
+
+        //
+        // GET: /Manage/RemoveStripe
+        public async Task<ActionResult> RemoveStripe()
+        {
+            _userService.RemoveStripeAccount();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

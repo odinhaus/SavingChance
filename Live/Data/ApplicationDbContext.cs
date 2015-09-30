@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,5 +20,7 @@ namespace Live.Data
         {
             return new ApplicationDbContext();
         }
+
+        public IDbSet<Chance> Chances { get { return this.Set<Chance>(); } }
     }
 }

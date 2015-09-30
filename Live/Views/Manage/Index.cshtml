@@ -39,6 +39,27 @@
                         @Model.User.UserType
                     </dd>
                 </dl>
+                if (Model.User.UserType == Live.Models.UserType.Provider)
+                {
+                    <div>
+
+                        @if (string.IsNullOrEmpty(Model.User.StripeAccountId))
+                        {
+                            <p class="payment-errors" style="text-align: left">You need to authorize a valid Stripe.com account 
+                            by <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=@System.Configuration.ConfigurationManager.AppSettings["StripeClientId"]&scope=read_write">following this link</a>, 
+                            and granting permission for SavingChance.com to process payments on your behalf.</p>
+                            <p>You will not be able to create Save Chances and accept payments until you complete this step.</p>
+                        }
+                        else
+                        {
+                            <p>Your account is currently registered to accept payments through your Stripe.com account.</p>
+                            <p>You can remove the association to your Stripe.com account by <a href="/Manage/RemoveStripe">following this link</a>.</p>
+                            <p><strong>Note</strong>, this will disable all of your current Save Chances, 
+                            and prevent you from creating new Save Chances and accepting payments.</p>
+                        }
+
+                    </div>
+                }
             }
 
             <br/>

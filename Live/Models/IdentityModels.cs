@@ -46,5 +46,6 @@ namespace Live.Models
 
         public UserType UserType { get; set; }
         public ServiceProviderType ServiceProviderType { get; set; }
+        public string StripeAccountId { get; set; }
     }
 }

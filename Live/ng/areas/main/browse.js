@@ -305,13 +305,18 @@
         var $body = $dialog.find('.modal-body');
         if (paymentResults.Status == 0)
         {
+            $('#donateResult .modal-title span').text('Payment Confirmation...');
+            $('#success').css('display', 'block');
+            $('#failure').css('display', 'none');
             $('#paymentConfirmation').text(paymentResults.Confirmation);
             $('#paymentAmount').text('$' + paymentResults.Amount.toCurrency(0, 3));
         }
         else
         {
-            $body.find('.modal-title span').text('An Error Occurred...');
-            $body.html('<span class="payment-errors">paymentResult.Message</span>')
+            $('#success').css('display', 'none');
+            $('#failure').css('display', 'block');
+            $('#donateResult .modal-title span').text('An Error Occurred...');
+            $('#failure span').text(paymentResults.Message);
         }
         $dialog.modal('show');
     }

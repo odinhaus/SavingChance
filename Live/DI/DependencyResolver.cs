@@ -42,6 +42,15 @@ namespace Live.DI
             return new DependencyResolver(child);
         }
 
+
+        public override object GetService(Type serviceType)
+        {
+            if (serviceType.IsAbstract || serviceType.IsInterface)
+                return base.Container.TryGetInstance(serviceType);
+
+            return base.Container.GetInstance(serviceType);
+        }
+
         #endregion
     }
 }
