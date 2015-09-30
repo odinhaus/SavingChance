@@ -184,16 +184,21 @@
                 <h2 class="modal-title"><img id="emblem" src="/images/Logo-Hex-64.png" /><span>Payment Confirmation</span></h2>
             </div>
             <div class="modal-body">
-                <h2>Your payment has been processed successfully.<br/>Thank you!</h2><br/>
-                <h4>Please retain the confirmation number shown below for your records.</h4>
-                <hr/>
-                <div>
-                    <label>Amount Charged</label>
-                    <span id="paymentAmount"></span>
+                <div id="success">
+                    <h2>Your payment has been processed successfully.<br />Thank you!</h2><br />
+                    <h4>Please retain the confirmation number shown below for your records.</h4>
+                    <hr />
+                    <div>
+                        <label>Amount Charged</label>
+                        <span id="paymentAmount"></span>
+                    </div>
+                    <div>
+                        <label>Confirmation</label>
+                        <span id="paymentConfirmation"></span>
+                    </div>
                 </div>
-                <div>
-                    <label>Confirmation</label>
-                    <span id="paymentConfirmation"></span>
+                <div id="failure" style="display:none">
+                    <span class="payment-errors"></span>
                 </div>
             </div>
             <div class="modal-footer">
