@@ -21,9 +21,9 @@ namespace Live.Services
                 {
                     TokenId = request.StripeToken
                 },
-                ApplicationFee = (int)(request.Amount * 100M * 0.05M),
+                //ApplicationFee = (int)(request.Amount * 100M * 0.05M),
                 Capture = true,
-                Destination = GetDestinationAccount(request)
+               // Destination = GetDestinationAccount(request)
             };
             var chargeService = new StripeChargeService();
             var chargeReceipt = chargeService.Create(charge);
@@ -32,9 +32,9 @@ namespace Live.Services
             return new DonationResponse()
             {
                 Amount = (decimal)chargeReceipt.Amount / 100M,
-                Confirmation = chargeReceipt.Id,
+                Confirmation = chargeReceipt.Id.Replace("ch_",""),
                 Message = chargeReceipt.FailureMessage,
-                Status = chargeReceipt.Status == "Success" ? DonationStatus.Success : DonationStatus.Error
+                Status = chargeReceipt.Status == "succeeded" ? DonationStatus.Success : DonationStatus.Error
             };
         }
 
