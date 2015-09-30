@@ -240,6 +240,10 @@
             title = "Donate or Adopt";
         }
         $('#donate .modal-title span').text(title);
+        if (window.sc_loggedIn) {
+            var $body = $('#donate .modal-body');
+            $body.append($('<div class="form-row"><label><input type="checkbox" name="anonymous"/> Donate anonymously?</label></div>'))
+        }
         $('#donate').modal();
     };
 
@@ -248,6 +252,7 @@
 
         // Disable the submit button to prevent repeated clicks
         $form.find('input').prop('disabled', true);
+        $form.find('textarea').prop('disabled', true);
         // This identifies your website in the createToken call below
         Stripe.setPublishableKey('pk_test_vtUHWXz77yipQW2cPZYC1RJq');
         Stripe.card.createToken($form, stripeResponseHandler);
@@ -258,6 +263,15 @@
 
     function stripeResponseHandler(status, response) {
         var $form = $('#donate-form');
+        var token = response.id;
+        $form.find('input[type="hidden"]').prop('disabled', false);
+        $form.find('input[name="amount"]').prop('disabled', false);
+        $form.find('input[name="personalize"]').prop('disabled', false);
+        $form.find('textarea[name="message"]').prop('disabled', false);
+        var anonymous = $form.find('input[name=anonymous]');
+        if (anonymous) {
+            anonymous.prop('disabled', false);
+        }
 
         if (response.error) {
             // Show the errors on the form
@@ -266,15 +280,14 @@
         }
         else {
             // response contains id and card, which contains additional card details
-            var token = response.id;
-            $form.find('input[type=hidden]').prop('disabled', false);
-            $form.find('input[name=amount]').prop('disabled', false);
             // Insert the token into the form so it gets submitted to the server
-            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            $form.find('input[name=stripeToken]').val(token);
             // and submit
             var json = $('#donate-form').serialize();
             var jqxhr = $.post('api/donate', json)
                 .success(function (data, textStatus, jqXHR) {
+                    $form.find('input[name=stripeToken]').val('');
+                    $form.find('.payment-errors').html("");
                     $('#donate').modal('hide');
                     displayConfirmation($('#donateResult'), data);
                 })
@@ -681,17 +694,39 @@ function donationTypeChanged() {
     var total = $('#total').attr('value');
     var type = $('[name="donationType"]').find(":selected").val();
     var donation = $('[name="donation"]');
-
+    var anonymous = $('input[name="anonymous"]');
     if (type == 0)
     {
         // adoption
         donation.prop('disabled', true);
         donation.val(goal - total);
+        if (anonymous) {
+            anonymous.prop('checked', false);
+            anonymous.prop('disabled', true);
+        }
     }
     else
     {
         // donation or refundable
         donation.prop('disabled', false);
+        if (anonymous) {
+            anonymous.prop('disabled', false);
+        }
+    }
+}
+
+function updatePersonalize()
+{
+    var $personalizeCb = $('input[name="personalize"]');
+    var $message = $('textarea[name="message"]');
+    if ($personalizeCb.prop('checked'))
+    {
+        $message.prop('disabled', false);
+    }
+    else
+    {
+        $message.val('');
+        $message.prop('disabled', true);
     }
 }
 

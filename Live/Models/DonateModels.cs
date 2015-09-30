@@ -25,6 +25,9 @@ namespace Live.Models
         public int ChanceId { get; set; }
         public decimal Amount { get; set; }
         public DonationType DonationType { get; set; }
+        public string Personalize { get; set; }
+        public string Message { get; set; }
+        public string Anonymous { get; set; }
     }
 
     public class DonationResponse

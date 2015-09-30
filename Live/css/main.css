@@ -115,6 +115,12 @@ input[type=submit]:hover
     width: calc(58%);
 }*/
 
+#donate,
+#donateResult
+{
+    font-size: 0.75em;
+}
+
 #donate input,
 #donate select
 {
@@ -122,10 +128,27 @@ input[type=submit]:hover
     width: 100%;
 }
 
+#donate input[type=checkbox],
+#donate input[type=radio]
+{
+    display: inline;
+    width: auto;
+}
+
 #donate input[data-stripe='cvc']
 {
     display: inline;
     width: 4em;
+}
+
+label[for='message']
+{
+    display: block;
+}
+
+textarea[name='message']
+{
+    width: 100%;
 }
 
 #donate select[data-stripe='exp-month'],
@@ -821,6 +844,19 @@ dl.settings dt
     padding: 0px;
 }
 
+#thumbs
+{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0f0f0f+0,f77224+36 */
+    background: #0f0f0f; /* Old browsers */
+    background: -moz-linear-gradient(left,  #0f0f0f 0%, #f77224 36%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0f0f0f), color-stop(36%,#f77224)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #0f0f0f 0%,#f77224 36%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #0f0f0f 0%,#f77224 36%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #0f0f0f 0%,#f77224 36%); /* IE10+ */
+    background: linear-gradient(to right,  #0f0f0f 0%,#f77224 36%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f0f0f', endColorstr='#f77224',GradientType=1 ); /* IE6-9 */
+}
+
 #thumbs .wrapper
 {
     position: absolute;
@@ -832,7 +868,7 @@ dl.settings dt
     transition: all 0.25s ease;
 
     overflow: hidden;
-    border: 1px solid #fff;
+    border: 2px solid transparent;
 }
 
 .clearfix
