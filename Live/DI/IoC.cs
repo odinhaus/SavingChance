@@ -25,6 +25,7 @@ namespace Live.DI
                 c.For<IIdentityMessageService>().Use<EmailService>();
                 c.For<IPaymentService>().Use<PaymentService>();
                 c.For<IUserService>().Use<UserService>();
+                c.For<IEmailService>().Use<EmailService>();
             });
         }
     }

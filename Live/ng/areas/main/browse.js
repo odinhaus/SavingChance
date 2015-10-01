@@ -217,7 +217,6 @@
         $('#goal').attr('value', tile.goal);
         $('#total').attr('value', tile.total);
         $('#type').attr('value', tile.type);
-        $('[data-toggle="popover"]').popover();
         $('#donate-form').find('input').prop('disabled', false);
         if (tile.type == 1)
         {
@@ -247,19 +246,28 @@
             }
         }
         $('#donate').modal();
+        $('[data-toggle="popover"]').popover();
     };
 
     $('#donate-form').submit(function (event) {
         var $form = $(this);
+        var $alert = $form.find('.modal-footer .alert');
 
-        // Disable the submit button to prevent repeated clicks
-        $form.find('input').prop('disabled', true);
-        $form.find('textarea').prop('disabled', true);
-        // This identifies your website in the createToken call below
-        Stripe.setPublishableKey('pk_test_vtUHWXz77yipQW2cPZYC1RJq');
-        Stripe.card.createToken($form, stripeResponseHandler);
+        if ($alert.css('display') == 'none')
+        {
+            $alert.css('display', 'block');
+        }
+        else
+        {
+            $alert.css('display', 'none');
+            // Disable the submit button to prevent repeated clicks
+            $form.find('button').prop('disabled', true);
+            $form.find('textarea').prop('disabled', true);
+            // This identifies your website in the createToken call below
+            Stripe.setPublishableKey('pk_test_vtUHWXz77yipQW2cPZYC1RJq');
+            Stripe.card.createToken($form, stripeResponseHandler);
+        }
 
-        // Prevent the form from submitting with the default action
         return false;
     });
 
@@ -279,6 +287,7 @@
             // Show the errors on the form
             $form.find('.payment-errors').text(response.error.message);
             $form.find('input').prop('disabled', false);
+            $form.find('button').prop('disabled', false);
         }
         else {
             // response contains id and card, which contains additional card details
@@ -286,15 +295,24 @@
             $form.find('input[name=stripeToken]').val(token);
             // and submit
             var json = $('#donate-form').serialize();
-            var jqxhr = $.post('api/donate', json)
-                .success(function (data, textStatus, jqXHR) {
-                    $form.find('input[name=stripeToken]').val('');
-                    $form.find('.payment-errors').html("");
-                    $('#donate').modal('hide');
-                    displayConfirmation($('#donateResult'), data);
-                })
-                .error(function (data, textStatus, jqXHR) {
-                    $form.find('.payment-errors').html("Error posting the update.");
+            var jqxhr = $.ajax(
+                {
+                    url: 'api/donate',
+                    data: json,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data, textStatus, jqXHR) {
+                        $form.find('input[name=stripeToken]').val('');
+                        $form.find('.payment-errors').html('');
+                        $('#donate').modal('hide');
+                        displayConfirmation($('#donateResult'), data);
+                    },
+                    error: function (data, textStatus, jqXHR) {
+                        $form.find('.payment-errors').html("Error posting the update.");
+                    },
+                    headers: {
+                        Authorization: 'Bearer ' + window.sc_apiToken
+                    }
                 });
             return false;
         }
@@ -735,6 +753,12 @@ function updatePersonalize()
         $message.val('');
         $message.prop('disabled', true);
     }
+}
+
+function hideSubmitSafety()
+{
+    var $alert = $('#donate .modal-footer .alert');
+    $alert.css('display', 'none');
 }
 
 //function updateStatus(tile, $wrapper) {

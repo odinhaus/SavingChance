@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.Owin.Security;
+using System;
 
 namespace Live.Models
 {
@@ -41,11 +44,37 @@ namespace Live.Models
             // Add custom user claims here
             userIdentity.AddClaim(new Claim("UserType", this.UserType.ToString()));
             userIdentity.AddClaim(new Claim("ServiceProviderType", this.ServiceProviderType.ToString()));
+
+            if (BearerToken == null)
+            {
+                BearerToken = CreateBearerToken();
+            }
+
+            userIdentity.AddClaim(new Claim("BearerToken", this.BearerToken));
+
             return userIdentity;
+        }
+
+        private string CreateBearerToken()
+        {
+            ClaimsIdentity identity = new ClaimsIdentity(Startup.OAuthOptions.AuthenticationType);
+
+            identity.AddClaim(new Claim(ClaimTypes.Name, this.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, this.Id));
+
+            AuthenticationTicket ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
+
+            DateTime currentUtc = DateTime.UtcNow;
+            ticket.Properties.IssuedUtc = currentUtc;
+            ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(14));
+
+            return Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
         }
 
         public UserType UserType { get; set; }
         public ServiceProviderType ServiceProviderType { get; set; }
         public string StripeAccountId { get; set; }
+        [NotMapped]
+        public string BearerToken { get; set; }
     }
 }

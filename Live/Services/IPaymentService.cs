@@ -9,6 +9,6 @@ namespace Live.Services
 {
     public interface IPaymentService
     {
-        DonationResponse Donate(DonationRequest request);
+        Task<DonationResponse> DonateAsync(DonationRequest request);
     }
 }

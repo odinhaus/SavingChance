@@ -10,11 +10,15 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using System.Configuration;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Live.Services
 {
     public class PaymentService : IPaymentService
     {
+        IEmailService _emailService;
         IUserService _userService;
         IOwinContext _owin;
         ApplicationDbContext _dbContext;
@@ -24,16 +28,19 @@ namespace Live.Services
             STANDARD_FEE = decimal.Parse(ConfigurationManager.AppSettings["paymentFee"]);
         }
 
-        public PaymentService(IUserService userService)
+        public PaymentService(IUserService userService, IEmailService emailService)
         {
+            _emailService = emailService;
             _userService = userService;
             _owin = HttpContext.Current.GetOwinContext();
             _dbContext = _owin.Get<ApplicationDbContext>();
         }
 
-        public DonationResponse Donate(DonationRequest request)
+        public async Task<DonationResponse> DonateAsync(DonationRequest request)
         {
-            try {
+            var currentUser = HttpContext.Current.User;
+            try
+            {
                 var chance = _dbContext.Chances.FirstOrDefault(c => c.Id == request.ChanceId);
 
                 if (chance == null)
@@ -64,7 +71,7 @@ namespace Live.Services
                     {
                         Amount = (int)(request.Amount * 100M), // amount is in cents usd
                         Currency = "usd",
-                        Description = "SavingChance.com " + request.DonationType.ToString(),
+                        Description = "SavingChance.com " + request.DonationType.ToString() + " for '" + chance.Title + "'",
                         Source = new StripeSourceOptions()
                         {
                             TokenId = request.StripeToken
@@ -72,16 +79,49 @@ namespace Live.Services
                         Capture = true
                     };
 
+                    if (currentUser.Identity.IsAuthenticated)
+                    {
+                        charge.ReceiptEmail = currentUser.Identity.Name;
+                    }
+
+                    var options = new StripeRequestOptions()
+                    {
+                        ApiKey = ConfigurationManager.AppSettings["StripeApiKey"]
+                    };
+
                     if (chance.SaveType == SaveType.Donation
                         || request.DonationType == DonationType.Donation)
                     {
                         // non-tipping point fee, goes straight to provider, we take a fee
                         charge.ApplicationFee = (int)(request.Amount * 100M * STANDARD_FEE); // fee is in cents usd
-                        charge.Destination = chance.Sponsor.StripeAccountId;
+                                                                                                //charge.Destination = chance.Sponsor.StripeAccountId;
+                        options.StripeConnectAccountId = chance.Sponsor.StripeAccountId;
                     }
 
                     var chargeService = new StripeChargeService();
-                    var chargeReceipt = chargeService.Create(charge);
+                    var chargeReceipt = chargeService.Create(charge, options);
+
+                    if (request.IsPersonalized)
+                    {
+                        var message = string.IsNullOrEmpty(request.Message)
+                            ? request.DonationType == DonationType.Adoption ? "I'd like to adopt '" + chance.Title + "'" : "I hope my donation will help '" + chance.Title + "'"
+                            : request.Message;
+                        message += "\r\n\r\n";
+                        message += request.DonationType.ToString() + ": " + request.Amount.ToString("C0") + "\r\n";
+                        message += "Receipt: " + chargeReceipt.ReceiptNumber + "\r\n";
+                        message += "Created: " + chargeReceipt.Created.ToString() + "\r\n";
+                        string from = null;
+                        if (!request.IsAnonymous && currentUser.Identity.IsAuthenticated)
+                        {
+                            from = currentUser.Identity.Name;
+                        }
+                        // i want this to run async
+                        _emailService.SendAsync(chance.Sponsor.Email,
+                                request.DonationType == DonationType.Adoption ? "Adoption Request For " + chance.Title : "Donation For " + chance.Title,
+                                message,
+                                null,
+                                from);
+                    }
 
                     return new DonationResponse()
                     {
@@ -92,7 +132,7 @@ namespace Live.Services
                     };
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new DonationResponse()
                 {

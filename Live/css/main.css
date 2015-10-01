@@ -63,9 +63,11 @@ input[type=submit]
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
     -webkit-transition: all .1s linear;
+    outline: none;
 }
 
 .modal-dialog button:hover,
+.modal-dialog button:active,
 input[type=button]:hover,
 input[type=submit]:hover
 {
@@ -80,6 +82,20 @@ input[type=submit]:hover
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
     -webkit-transition: all .1s linear;
+    border: 0px solid transparent;
+}
+
+.btn-default,
+.btn-default:hover,
+.btn-default:active,
+.modal-dialog button.btn-default,
+.modal-dialog button.btn-default:hover,
+.modal-dialog button.btn-default:active
+{
+    font-weight: bold;
+    background-color: #F77224;
+    border: 0px solid transparent;
+    outline: none;
 }
 
 .modal-dialog button.close,
@@ -91,6 +107,17 @@ input[type=submit]:hover
     -moz-box-shadow:    0 0 0 rgba(195, 136, 100, 0.5);
     -o-box-shadow:      0 0 0 rgba(195, 136, 100, 0.5);
     -webkit-box-shadow: 0 0 0 rgba(195, 136, 100, 0.5);
+}
+
+.modal-footer .alert
+{
+    text-align: left;
+}
+
+.modal-footer .alert-danger,
+.modal-footer .alert-danger a
+{
+    color: #a94442!important;
 }
 
 .form-row

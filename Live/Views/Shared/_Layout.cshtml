@@ -92,9 +92,17 @@
     @RenderSection("scripts", required: false)
     <script>
         @{bool isLoggedIn = Request.IsAuthenticated;}
-        @{bool isProvider = ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "UserType" && c.Value == "Provider");}
+        @{bool isProvider = isLoggedIn ? ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "UserType" && c.Value == "Provider") : false ;}
+        @{string token = "";
+            var claim = ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).Claims.FirstOrDefault(c => c.Type == "BearerToken");
+            if (claim != null)
+            {
+                token = claim.Value;
+            }
+         }
         window.sc_loggedIn = @isLoggedIn.ToString().ToLower();
         window.sc_isProvider = @isProvider.ToString().ToLower();
+        window.sc_apiToken = '@token';
     </script>
     <script src="/Scripts/fb.js"></script>
     <script src="/ng/main.js"></script>

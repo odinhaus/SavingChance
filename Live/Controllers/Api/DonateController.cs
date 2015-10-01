@@ -21,7 +21,9 @@ namespace Live.Controllers.Api
         [HttpPost]
         public HttpResponseMessage Post(DonationRequest request)
         {
-            return Request.CreateResponse<DonationResponse>(_paymentService.Donate(request));
+            var donateTask = _paymentService.DonateAsync(request);
+            donateTask.Wait();
+            return Request.CreateResponse<DonationResponse>(donateTask.Result);
         }
     }
 }

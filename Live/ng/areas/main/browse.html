@@ -112,8 +112,8 @@
                     <h4>Donation</h4>
                     <div class="form-row" id="donationType">
                         <label for="donationType" class="stripeLabel">Donation Type</label>
-                        <i data-toggle="popover" data-container=".modal-body" data-trigger="hover" data-html="true" data-placement="auto"
-                           title="Donation Types" data-content="<strong>Adoption</strong><br/>You want to donate the full remaining adoption price, and adopt the animal.<hr/><strong>Donation</strong><br/>You want to make a donation to the animal that goes directly to the rescue.<hr/><strong>Refundable Donation</strong><br />You want to make a donation to the animal, but only if the animal ends up being adopted.  Otherwise, you want your donation refunded." class="fa fa-question-circle help-icon"></i>
+                        <i data-toggle="popover" data-container="#donate .modal-body" data-trigger="click" data-html="true" data-placement="auto"
+                           title="Donation Types" data-content="<strong>Adoption</strong><br/>You want to donate the full remaining adoption price, and adopt the animal.<hr/><strong>Donation</strong><br/>You want to make a donation to the animal that goes directly to the rescue, even if the animal is not adopted before the deadline.<hr/><strong>Refundable Donation</strong><br />You want to make a donation to the animal, but only if the animal ends up being adopted before the deadline.  Otherwise, you would like your donation to be refunded." class="fa fa-question-circle help-icon"></i>
                         <div id="donationType">
                             <select name="donationType" onchange="donationTypeChanged()" class="required">
                                 <option value="0">Adoption</option>
@@ -171,8 +171,15 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <div class="alert alert-danger fade in" style="display:none">
+                        <a href="#" class="close" aria-label="close" onclick="hideSubmitSafety()">&times;</a>
+                        <h3>Please Confirm Your Selection...</h3>
+                        <p>Verify the information shown above is correct and click <em>Submit</em> again to process your payment, or close this alert to cancel.</p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
                 </div>
             </form>
         </div>
