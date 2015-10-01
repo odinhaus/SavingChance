@@ -20,26 +20,20 @@ namespace Live.Services
             _owin = HttpContext.Current.GetOwinContext();
             _dbContext = _owin.Get<ApplicationDbContext>();
         }
-        public void UpdateStripeAccount(string stripeAccountId)
+        public async Task UpdateStripeAccountAsync(string stripeAccountId)
         {
             var userManager = _owin.Get<ApplicationUserManager>();
-            var userTask = userManager.FindByNameAsync(_owin.Authentication.User.Identity.Name);
-            userTask.Wait();
-            var user = userTask.Result;
+            var user = await userManager.FindByNameAsync(_owin.Authentication.User.Identity.Name);
             user.StripeAccountId = stripeAccountId;
-            var updateResult = userManager.UpdateAsync(user);
-            updateResult.Wait();
+            var update = await userManager.UpdateAsync(user);
         }
 
-        public void RemoveStripeAccount()
+        public async Task RemoveStripeAccountAsync()
         {
             var userManager = _owin.Get<ApplicationUserManager>();
-            var userTask = userManager.FindByNameAsync(_owin.Authentication.User.Identity.Name);
-            userTask.Wait();
-            var user = userTask.Result;
+            var user = await userManager.FindByNameAsync(_owin.Authentication.User.Identity.Name);
             user.StripeAccountId = null;
-            var updateResult = userManager.UpdateAsync(user);
-            updateResult.Wait();
+            var updateResult = await userManager.UpdateAsync(user);
         }
     }
 }

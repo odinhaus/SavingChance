@@ -365,7 +365,7 @@ namespace Live.Controllers
             string stripe_publishable_key = responseValues["stripe_publishable_key"];
             string strip_user_id = responseValues["stripe_user_id"];
 
-            _userService.UpdateStripeAccount(strip_user_id);
+            await _userService.UpdateStripeAccountAsync(strip_user_id);
 
             // Clean up the streams and the response.
             reader.Close();
@@ -378,7 +378,7 @@ namespace Live.Controllers
         // GET: /Manage/RemoveStripe
         public async Task<ActionResult> RemoveStripe()
         {
-            _userService.RemoveStripeAccount();
+            await _userService.RemoveStripeAccountAsync();
             return RedirectToAction("Index");
         }
 

@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity.Owin;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.Owin.Security;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Live.Models
 {
@@ -29,6 +31,11 @@ namespace Live.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+            AtHandle = Guid.NewGuid().ToString();
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -74,7 +81,13 @@ namespace Live.Models
         public UserType UserType { get; set; }
         public ServiceProviderType ServiceProviderType { get; set; }
         public string StripeAccountId { get; set; }
+        [Index(IsUnique = true)]
+        [Column(TypeName = "VARCHAR")]
+        [StringLength(64)]
+        public string AtHandle { get; set; }
         [NotMapped]
         public string BearerToken { get; set; }
+        public virtual List<Chance> Chances { get; set; }
+        public virtual List<Love> Loves { get; set; }
     }
 }

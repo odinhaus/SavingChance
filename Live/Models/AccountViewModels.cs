@@ -107,6 +107,12 @@ namespace Live.Models
     public class RegisterViewModel
     {
         [Required]
+        [CustomValidation(typeof(AtHandleValidationAttribute), "IsValid")]
+        [Display(Name = "Unique Account Handle (Starting With @, 2+ Characters Long)")]
+        public string AtHandle { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

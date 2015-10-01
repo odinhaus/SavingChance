@@ -43,7 +43,7 @@ namespace Live.Services
             {
                 var chance = _dbContext.Chances.FirstOrDefault(c => c.Id == request.ChanceId);
 
-                if (chance == null)
+                if (chance == null || chance.Status != ChanceStatus.Open)
                 {
                     return new DonationResponse()
                     {
@@ -88,6 +88,13 @@ namespace Live.Services
                         charge.ReceiptEmail = request.Email;
                     }
 
+                    if (chance.SaveType == SaveType.Adoption 
+                        && request.DonationType == DonationType.Adoption)
+                    {
+                        charge.Amount = (int)((chance.Goal - chance.Total) * 100M);  // adjust amount to remainder, in case other donations came in
+                        chance.Status = ChanceStatus.PendingAdoption;
+                    }
+
                     var options = new StripeRequestOptions()
                     {
                         ApiKey = ConfigurationManager.AppSettings["StripeApiKey"]
@@ -98,8 +105,16 @@ namespace Live.Services
                     {
                         // non-tipping point fee, goes straight to provider, we take a fee
                         charge.ApplicationFee = (int)(request.Amount * 100M * STANDARD_FEE); // fee is in cents usd
-                                                                                                //charge.Destination = chance.Sponsor.StripeAccountId;
                         options.StripeConnectAccountId = chance.Sponsor.StripeAccountId;
+                    }
+                    else
+                    {
+                        var metaData = new Dictionary<string, string>
+                        {
+                            { "PaymentType", request.DonationType.ToString() },
+                            { "ChanceId", chance.Id.ToString() },
+                        };
+                        charge.Metadata = metaData;
                     }
 
                     var chargeService = new StripeChargeService();
@@ -130,6 +145,19 @@ namespace Live.Services
                                 null,
                                 from);
                     }
+
+                    var amount = (decimal)charge.Amount / 100M;
+                    chance.Total += amount;
+                    chance.Payments.Add(new Payment()
+                    {
+                        Amount = amount,
+                        Created = chargeReceipt.Created,
+                        Payor = currentUser.Identity.IsAuthenticated ? _dbContext.Users.Single(u => u.UserName.Equals(currentUser.Identity.Name)) : null,
+                        PaymentType = request.DonationType,
+                        StripeId = chargeReceipt.Id
+                    });
+
+                    await _dbContext.SaveChangesAsync();
 
                     return new DonationResponse()
                     {

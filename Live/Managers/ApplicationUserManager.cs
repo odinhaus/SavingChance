@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Live.Data;
 using Live.Models;
 using Live.Services;
@@ -6,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using System.Collections.Generic;
 
 namespace Live.Managers
 {
@@ -21,7 +23,7 @@ namespace Live.Managers
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
+            manager.UserValidator = new ApplicationUserValidator(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
@@ -46,4 +48,30 @@ namespace Live.Managers
             return manager;
         }
     }
+
+    public class ApplicationUserValidator : UserValidator<ApplicationUser>
+    {
+        private UserManager<ApplicationUser, string> UserManager;
+
+        public ApplicationUserValidator(UserManager<ApplicationUser, string> manager) : base(manager)
+        {
+            this.UserManager = manager;
+        }
+
+        public override async Task<IdentityResult> ValidateAsync(ApplicationUser item)
+        {
+            var baseValidation = await base.ValidateAsync(item);
+            var errors = new List<string>(baseValidation.Errors ?? new string[0]);
+            if (errors.Count > 0 && errors[0].StartsWith("Name"))
+            {
+                errors.RemoveAt(0);
+            }
+            if (UserManager.Users.Any(u => u.AtHandle.Equals(item.AtHandle, System.StringComparison.InvariantCultureIgnoreCase)))
+            {
+                errors.Add(string.Format("Unique Handle {0} supplied is already taken.", item.AtHandle));
+                baseValidation = new IdentityResult(errors);
+            }
+            return baseValidation;
+        }
+    } 
 }

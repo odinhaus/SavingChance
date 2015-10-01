@@ -8,7 +8,7 @@ namespace Live.Services
 {
     public interface IUserService
     {
-        void UpdateStripeAccount(string stripeAccountId);
-        void RemoveStripeAccount();
+        Task UpdateStripeAccountAsync(string stripeAccountId);
+        Task RemoveStripeAccountAsync();
     }
 }

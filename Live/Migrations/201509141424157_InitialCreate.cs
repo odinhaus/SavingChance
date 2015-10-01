@@ -54,7 +54,7 @@ namespace Live.Migrations
                 "dbo.AspNetUserClaims",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Long(nullable: false, identity: true),
                         UserId = c.String(nullable: false, maxLength: 128),
                         ClaimType = c.String(),
                         ClaimValue = c.String(),
