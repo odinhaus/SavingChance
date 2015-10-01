@@ -252,24 +252,51 @@
     $('#donate-form').submit(function (event) {
         var $form = $(this);
         var $alert = $form.find('.modal-footer .alert');
+        var validation = validateForm($form);
+        if (validation.success) {
+            if ($alert.css('display') == 'none') {
 
-        if ($alert.css('display') == 'none')
-        {
-            $alert.css('display', 'block');
+                $alert.css('display', 'block');
+            }
+            else {
+                $alert.css('display', 'none');
+                // Disable the submit button to prevent repeated clicks
+                $form.find('button').prop('disabled', true);
+                $form.find('textarea').prop('disabled', true);
+                // This identifies your website in the createToken call below
+
+                Stripe.setPublishableKey('pk_test_vtUHWXz77yipQW2cPZYC1RJq');
+                Stripe.card.createToken($form, stripeResponseHandler);
+            }
         }
         else
         {
-            $alert.css('display', 'none');
-            // Disable the submit button to prevent repeated clicks
-            $form.find('button').prop('disabled', true);
-            $form.find('textarea').prop('disabled', true);
-            // This identifies your website in the createToken call below
-            Stripe.setPublishableKey('pk_test_vtUHWXz77yipQW2cPZYC1RJq');
-            Stripe.card.createToken($form, stripeResponseHandler);
+            $form.find('.payment-errors').text(validation.message);
+            $form.find('input').prop('disabled', false);
+            $form.find('button').prop('disabled', false);
+            $('#donate').effect('shake');
         }
 
         return false;
     });
+
+    function validateForm($form)
+    {
+        var validation = { success: true, message: '' };
+
+        var type = $('[name="donationType"]').find(":selected").val();
+        if (type == 0)
+        {
+            var email = $('input[name="email"]').val();
+            if (!window.sc_loggedIn && (!email || email.length == 0))
+            {
+                validation.success = false;
+                validation.message = "An email address is required.";
+            }
+        }
+
+        return validation;
+    }
 
     function stripeResponseHandler(status, response) {
         var $form = $('#donate-form');
@@ -288,6 +315,7 @@
             $form.find('.payment-errors').text(response.error.message);
             $form.find('input').prop('disabled', false);
             $form.find('button').prop('disabled', false);
+            $('#donate').effect('shake');
         }
         else {
             // response contains id and card, which contains additional card details
@@ -304,11 +332,20 @@
                     success: function (data, textStatus, jqXHR) {
                         $form.find('input[name=stripeToken]').val('');
                         $form.find('.payment-errors').html('');
+                        $form.find('input').prop('disabled', false);
+                        $form.find('button').prop('disabled', false);
+                        $('#email').css('display', 'none');
+                        $form[0].reset();
                         $('#donate').modal('hide');
                         displayConfirmation($('#donateResult'), data);
                     },
                     error: function (data, textStatus, jqXHR) {
-                        $form.find('.payment-errors').html("Error posting the update.");
+                        $form.find('input').prop('disabled', false);
+                        $form.find('button').prop('disabled', false);
+                        $('#email').css('display', 'none');
+                        $form[0].reset();
+                        $('#donate').modal('hide');
+                        displayConfirmation($('#donateResult'), data);
                     },
                     headers: {
                         Authorization: 'Bearer ' + window.sc_apiToken
@@ -323,18 +360,18 @@
         var $body = $dialog.find('.modal-body');
         if (paymentResults.Status == 0)
         {
-            $('#donateResult .modal-title span').text('Payment Confirmation...');
+            $('#donateResult .modal-title span').html('Payment Confirmation...');
             $('#success').css('display', 'block');
             $('#failure').css('display', 'none');
-            $('#paymentConfirmation').text(paymentResults.Confirmation);
-            $('#paymentAmount').text('$' + paymentResults.Amount.toCurrency(0, 3));
+            $('#paymentConfirmation').html(paymentResults.Confirmation);
+            $('#paymentAmount').html('$' + paymentResults.Amount.toCurrency(0, 3));
         }
         else
         {
             $('#success').css('display', 'none');
             $('#failure').css('display', 'block');
-            $('#donateResult .modal-title span').text('An Error Occurred...');
-            $('#failure span').text(paymentResults.Message);
+            $('#donateResult .modal-title span').html('An Error Occurred...');
+            $('#failure span').html(paymentResults.Message);
         }
         $dialog.modal('show');
     }
@@ -718,25 +755,35 @@ function donationTypeChanged() {
     var goal = $('#goal').attr('value');
     var total = $('#total').attr('value');
     var type = $('[name="donationType"]').find(":selected").val();
-    var donation = $('[name="donation"]');
+    var donation = $('[name="amount"]');
     var anonymous = $('input[name="anonymous"]');
     if (type == 0)
     {
         // adoption
-        donation.prop('disabled', true);
         donation.val(goal - total);
-        if (anonymous) {
+        donation.prop('readonly', true);
+        if (anonymous.length) {
             anonymous.prop('checked', false);
-            anonymous.prop('disabled', true);
+            anonymous.prop('readonly', true);
+        }
+        if (!window.sc_loggedIn)
+        {
+            $('#email').css('display', 'block');
+        }
+        else
+        {
+            $('#email').css('display', 'none');
         }
     }
     else
     {
         // donation or refundable
-        donation.prop('disabled', false);
-        if (anonymous) {
-            anonymous.prop('disabled', false);
+        donation.prop('readonly', false);
+        donation.val('10');
+        if (anonymous.length) {
+            anonymous.prop('readonly', false);
         }
+        $('#email').css('display', 'none');
     }
 }
 

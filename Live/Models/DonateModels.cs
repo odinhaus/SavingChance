@@ -30,6 +30,7 @@ namespace Live.Models
         public string Anonymous { get; set; }
         public bool IsAnonymous { get { return "on".Equals(Anonymous, StringComparison.InvariantCultureIgnoreCase); } }
         public bool IsPersonalized { get { return "on".Equals(Personalize, StringComparison.InvariantCultureIgnoreCase); } }
+        public string Email { get; set; }
     }
 
     public class DonationResponse

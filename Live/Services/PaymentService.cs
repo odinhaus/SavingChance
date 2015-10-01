@@ -83,6 +83,10 @@ namespace Live.Services
                     {
                         charge.ReceiptEmail = currentUser.Identity.Name;
                     }
+                    else if (!string.IsNullOrEmpty(request.Email))
+                    {
+                        charge.ReceiptEmail = request.Email;
+                    }
 
                     var options = new StripeRequestOptions()
                     {
@@ -108,12 +112,16 @@ namespace Live.Services
                             : request.Message;
                         message += "\r\n\r\n";
                         message += request.DonationType.ToString() + ": " + request.Amount.ToString("C0") + "\r\n";
-                        message += "Receipt: " + chargeReceipt.ReceiptNumber + "\r\n";
+                        message += "Payment: " + chargeReceipt.Source.Brand + ", Last Four: " + chargeReceipt.Source.Last4 + "\r\n";
                         message += "Created: " + chargeReceipt.Created.ToString() + "\r\n";
+                        message += "Charge Id: " + chargeReceipt.Id + "\r\n";
                         string from = null;
-                        if (!request.IsAnonymous && currentUser.Identity.IsAuthenticated)
+                        if (!request.IsAnonymous)
                         {
-                            from = currentUser.Identity.Name;
+                            if (currentUser.Identity.IsAuthenticated)
+                                from = currentUser.Identity.Name;
+                            else
+                                from = request.Email;
                         }
                         // i want this to run async
                         _emailService.SendAsync(chance.Sponsor.Email,
@@ -138,7 +146,9 @@ namespace Live.Services
                 {
                     Amount = 0,
                     Confirmation = "n/a",
-                    Message = ex.Message,
+                    Message = ex.Message + (!string.IsNullOrEmpty(((StripeException)ex).StripeError.DeclineCode) 
+                        ? "<br />Reason: " + ((StripeException)ex).StripeError.DeclineCode 
+                        : ""),
                     Status = DonationStatus.Error
                 };
             }

@@ -162,6 +162,10 @@
 
                     <hr />
                     <h4>Personalize</h4>
+                    <div class="form-row" id="email" style="display: none">
+                        <label for="message">Email</label>
+                        <input name="email" type="email" class="required" />
+                    </div>
                     <div class="form-row">
                         <label><input type="checkbox" name="personalize" onchange="updatePersonalize()" checked/> Include a personal message?</label>
                     </div>
@@ -205,6 +209,8 @@
                     </div>
                 </div>
                 <div id="failure" style="display:none">
+                    <h3>Your card was not charged.</h3>
+                    <hr/>
                     <span class="payment-errors"></span>
                 </div>
             </div>
