@@ -124,7 +124,7 @@ namespace Live.Services
                                 from = request.Email;
                         }
                         // i want this to run async
-                        _emailService.SendAsync(chance.Sponsor.Email,
+                        await _emailService.SendAsync(chance.Sponsor.Email,
                                 request.DonationType == DonationType.Adoption ? "Adoption Request For " + chance.Title : "Donation For " + chance.Title,
                                 message,
                                 null,
