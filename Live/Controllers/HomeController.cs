@@ -12,7 +12,7 @@ namespace Live.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
+            ViewBag.QueryTerms = Request.QueryString["q"];
             return View();
         }
 

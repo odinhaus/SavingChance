@@ -542,6 +542,26 @@ input.search:focus
                         0 0 40px rgba(255, 255, 255, 0.5);
 }
 
+input.search::-webkit-input-placeholder 
+{
+   color: #C38864;
+}
+
+input.search:-moz-placeholder
+{
+   color: #C38864;
+}
+
+input.search::-moz-placeholder
+{
+   color: #C38864;
+}
+ 
+input.search:-ms-input-placeholder
+{
+   color: #C38864;
+}
+
 .form-group
 {
     position: relative;

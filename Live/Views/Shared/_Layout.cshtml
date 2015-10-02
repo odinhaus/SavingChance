@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html  ng-app='sc'>
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -54,9 +54,10 @@
             </div>
         }
 
-        <form>
-            <label for="search" class="search"><i class="fa fa-search"></i></label>
-            <input class="search" id="search" />
+        <form id="search-form" name="search-form" target="_self" method="get" onsubmit="return doSearch()">
+            <label for="search" class="search" onclick="document.getElementById('search-form').submit()"><i class="fa fa-search"></i></label>
+            <input class="search" id="search" name="q" placeholder="&#64;handle, #tags or ?" value="@ViewBag.QueryTerms"/>
+            <input type="submit" style="height: 1px; width: 1px; position: absolute; left: -9999px;" tabindex="-1"/>
         </form>
     </header>
     <nav id="nav">
@@ -78,7 +79,7 @@
         <span class="separator"></span>
         <a href="#" title="Share us on Facebook" class="hover" onclick="fbShare()"><i class="fa fa-facebook"></i> Share on Facebook</a>
     </nav>
-    <div class="content-container">
+    <div class="content-container" ng-app='sc'>
         @RenderBody()
         <div class="clearfix" style="margin-bottom: 2em;"></div>
     </div>

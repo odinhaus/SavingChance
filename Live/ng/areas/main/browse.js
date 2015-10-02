@@ -1,4 +1,4 @@
-﻿sc.controller('sc.Browse', ['$scope', '$window', 'appState', '$rootScope', function ($scope, $window, appState, $rootScope) {
+﻿sc.controller('sc.Browse', ['$scope', '$window', 'appState', '$rootScope', '$location', function ($scope, $window, appState, $rootScope, $location) {
     $scope.tiles = [];
     $scope.grid = [];
     $scope.columnCount = 8;
@@ -133,7 +133,13 @@
         }
     }
 
+    //$scope.search = function(searchParams)
+    //{
+    //    $scope.$apply($location.search(searchParams[0].name, searchParams[0].value));
+    //}
+
     $scope.loadMore = function () {
+        var query = $location.search();
         var tileCount = Math.ceil($scope.columnCount * ($scope.bodyHeight / $scope.rowHeight));
         var last = $scope.tiles.length;
         if (last > 0) {
@@ -154,7 +160,7 @@
                 title: 'Lorem epsum salts or something',
                 caption: 'E plurubus unum',
                 subTitle: 'All for one',
-                href: '/Campaign/' + i,
+                href: '/Chance/' + i,
                 size: size,
                 actualSize: size,
                 id: last + i,
