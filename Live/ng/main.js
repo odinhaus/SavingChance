@@ -8,9 +8,10 @@ sc.config(['$routeProvider', '$locationProvider',
             templateUrl: '/ng/areas/details/details.html',
             controller: 'sc.Details'
         }).
-        otherwise({
+        when('/', {
             templateUrl: '/ng/areas/main/browse.html',
-            controller: 'sc.Browse'
+            controller: 'sc.Browse',
+            reloadOnsearch: true
         });
       $locationProvider.html5Mode({
           enabled: true,
@@ -24,15 +25,16 @@ sc.factory('appState', function ($window) {
     return this;
 });
 
-//sc.directive('search', function()
-//{
-//    return {
-//        link: function($scope, element, attrs)
-//        {
-//            element.bind('')
-//        }
-//    }
-//})
+sc.directive('scSearch', function () {
+    return {
+        restrict: 'A',
+        link: function ($scope, element, attrs) {
+            element.bind('click', function (e) {
+                $scope.search(attrs);
+            })
+        }
+    }
+});
 
 function getLocation(address, callback)
 {

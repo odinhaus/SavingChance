@@ -334,15 +334,18 @@
     <Compile Include="Models\Love.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Services\IChanceService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IPaymentService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\PaymentService.cs" />
+    <Compile Include="Services\ChanceService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

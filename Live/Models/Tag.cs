@@ -11,6 +11,7 @@ namespace Live.Models
     {
         [PrimaryKey]
         public long Id { get; set; }
+        [Index]
         public string Name { get; set; }
     }
 }

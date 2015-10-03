@@ -1,4 +1,5 @@
 ﻿sc.controller('sc.Browse', ['$scope', '$window', 'appState', '$rootScope', '$location', function ($scope, $window, appState, $rootScope, $location) {
+    
     $scope.tiles = [];
     $scope.grid = [];
     $scope.columnCount = 8;
@@ -22,6 +23,9 @@
     w.bind('resize', function () {
         updateTileSizes();
     });
+
+    var $section = $('#thumbs');
+    $section.height($scope.bodyHeight);
 
     var resizing = false;
     function updateTileSizes()
@@ -116,7 +120,7 @@
                             width: col.tile.width,
                             height: col.tile.height
                         });
-                        updateStatus(col.tile);
+                        //updateStatus(col.tile);
                     }
                 }
             }
@@ -133,10 +137,13 @@
         }
     }
 
-    //$scope.search = function(searchParams)
-    //{
-    //    $scope.$apply($location.search(searchParams[0].name, searchParams[0].value));
-    //}
+    $scope.search = function(searchParams)
+    {
+        var $search = $('#search');
+        $search.val(searchParams.scSearch);
+        doSearch();
+    }
+
 
     $scope.loadMore = function () {
         var query = $location.search();
@@ -192,7 +199,12 @@
                     { url: 'http://thedogwallpaper.com/wp-content/uploads/2014/02/siberian-husky-wide-wallpaper-hd-38.jpg' },
                     { url: 'http://www.dogwallpapers.net/wallpapers/winter-siberian-husky-dog-wallpaper.jpg' }
                 ],
-                tags: ['@HBR', '#' + last + i, '#husky', '#houston', '#desparate'],
+                tags: [
+                    '@HBR',
+                    '#' + last + i,
+                    '#husky',
+                    '#houston',
+                '#desparate'],
                 isLiked: (i % 13 == 0),
                 name: 'Chance',
                 canSwipe: true,
@@ -206,6 +218,11 @@
         $scope.addTiles(tiles);
         appState['browse'].pageState.tiles = $scope.tiles;
     };
+
+    $scope.encode = function(item)
+    {
+        return encodeURIComponent(item);
+    }
 
     $scope.share = function (tile) {
         FB.ui({
@@ -726,7 +743,7 @@
         return row;
     }
 
-    
+    $scope.loadMore();
 }])
 .directive('tileRendered', function () {
     return function (scope, element, attrs) {
