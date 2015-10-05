@@ -54,6 +54,20 @@ namespace Live.Controllers
             }
         }
 
+        [AllowAnonymous]
+        public ActionResult ViewAccount(string handle)
+        {
+            var user = UserManager.Context.Users.SingleOrDefault(u => u.AtHandle == handle);
+            if (user == null)
+            {
+                return View("ItemNotFound");
+            }
+            else
+            {
+                return View(user);
+            }
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -93,7 +107,16 @@ namespace Live.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        if (user.ViewFilter == null)
+                        {
+                            return RedirectToAction("ViewFilter", "Manage", new { ReturnUrl = returnUrl });
+                        }
+                        else
+                        {
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

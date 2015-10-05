@@ -5,7 +5,7 @@ using Microsoft.Owin.Security;
 
 namespace Live.Models
 {
-    public class IndexViewModel
+    public class IndexViewModel : ViewFilterModel
     {
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
@@ -65,6 +65,13 @@ namespace Live.Models
         [Phone]
         [Display(Name = "Phone Number")]
         public string Number { get; set; }
+    }
+
+    public class ViewFilterModel
+    {
+        public bool Equine { get; set; }
+        public bool Canine { get; set; }
+        public bool Feline { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel

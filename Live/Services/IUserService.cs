@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Live.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,7 @@ namespace Live.Services
     {
         Task UpdateStripeAccountAsync(string stripeAccountId);
         Task RemoveStripeAccountAsync();
+
+        Task UpdateViewFilterAsync(ViewFilter filter);
     }
 }

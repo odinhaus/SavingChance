@@ -15,8 +15,8 @@
                     <div ng-class="{content: tile.size < 4, 'content large': tile.size >= 4}">
                         <div class="update">
                             <p>
-                                <a href="{{tile.sponsorHandle}}" target="_blank">{{tile.sponsor}}</a><br />
-                                <a href="?q={{tile.sponsorHandle}}">Other Campaigns</a> by {{tile.sponsorHandle}}
+                                <a href="{{tile.sponsorHandle}}" target="_self">{{tile.sponsor}}</a><br />
+                                <a href="" sc-search={{tile.sponsorHandle}}>Other Campaigns</a> by {{tile.sponsorHandle}}
                             </p>
 
                             <h4 class="date">

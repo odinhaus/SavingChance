@@ -78,6 +78,7 @@ namespace Live.Controllers
 
             var userId = User.Identity.GetUserId();
             var appUser = await UserManager.FindByIdAsync(userId);
+            var filter = appUser.ViewFilter == null ? AnimalTypes.All : appUser.ViewFilter.AnimalTypes;
 
             var model = new IndexViewModel
             {
@@ -86,9 +87,46 @@ namespace Live.Controllers
                 TwoFactor = appUser.TwoFactorEnabled,
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                User = appUser
+                User = appUser,
+                Equine = filter.HasFlag(AnimalTypes.Equine),
+                Canine = filter.HasFlag(AnimalTypes.Canine),
+                Feline = filter.HasFlag(AnimalTypes.Feline)
             };
             return View(model);
+        }
+
+        //
+        // GET
+        public async Task<ActionResult> ViewFilter(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            var userId = User.Identity.Name;
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var filter = user.ViewFilter == null ? AnimalTypes.All : user.ViewFilter.AnimalTypes;
+            return View(new ViewFilterModel()
+            {
+                Equine = filter.HasFlag(AnimalTypes.Equine),
+                Canine = filter.HasFlag(AnimalTypes.Canine),
+                Feline = filter.HasFlag(AnimalTypes.Feline)
+            });
+        }
+
+        //
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ViewFilter(ViewFilterModel model)
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var viewFilter = new ViewFilter()
+            {
+                AnimalTypes =
+                  (model.Equine ? AnimalTypes.Equine : AnimalTypes.None)
+                | (model.Canine ? AnimalTypes.Canine : AnimalTypes.None)
+                | (model.Feline ? AnimalTypes.Feline : AnimalTypes.None)
+            };
+            await _userService.UpdateViewFilterAsync(viewFilter);
+            return Redirect("/");
         }
 
         //

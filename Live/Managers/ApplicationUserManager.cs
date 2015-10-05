@@ -47,6 +47,26 @@ namespace Live.Managers
 
             return manager;
         }
+
+        public override Task<IdentityResult> CreateAsync(ApplicationUser user)
+        {
+            ((ApplicationUserValidator)this.UserValidator).ValidateHandle = true;
+            return base.CreateAsync(user);
+        }
+
+        public override Task<IdentityResult> CreateAsync(ApplicationUser user, string password)
+        {
+            ((ApplicationUserValidator)this.UserValidator).ValidateHandle = true;
+            return base.CreateAsync(user, password);
+        }
+
+        public ApplicationDbContext Context
+        {
+            get
+            {
+                return (ApplicationDbContext)((UserStore<ApplicationUser>)Store).Context;
+            }
+        }
     }
 
     public class ApplicationUserValidator : UserValidator<ApplicationUser>
@@ -56,6 +76,7 @@ namespace Live.Managers
         public ApplicationUserValidator(UserManager<ApplicationUser, string> manager) : base(manager)
         {
             this.UserManager = manager;
+            this.ValidateHandle = false;
         }
 
         public override async Task<IdentityResult> ValidateAsync(ApplicationUser item)
@@ -66,12 +87,14 @@ namespace Live.Managers
             {
                 errors.RemoveAt(0);
             }
-            if (UserManager.Users.Any(u => u.AtHandle.Equals(item.AtHandle, System.StringComparison.InvariantCultureIgnoreCase)))
+            if (ValidateHandle && UserManager.Users.Any(u => u.AtHandle.Equals(item.AtHandle, System.StringComparison.InvariantCultureIgnoreCase)))
             {
                 errors.Add(string.Format("Unique Handle {0} supplied is already taken.", item.AtHandle));
                 baseValidation = new IdentityResult(errors);
             }
             return baseValidation;
         }
+
+        public bool ValidateHandle { get; set; }
     } 
 }

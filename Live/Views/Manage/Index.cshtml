@@ -38,6 +38,12 @@
                     <dd>
                         @Model.User.UserType
                     </dd>
+                    <dt>
+                        Account Handle <i data-toggle="popover" data-html="true" data-placement="right" title="Account Type" data-content="Users can filter on Chances by your unique handle, and follow Chances created under this name." class="fa fa-question-circle help-icon"></i>
+                    </dt>
+                    <dd>
+                        @Model.User.AtHandle
+                    </dd>
                 </dl>
                 if (Model.User.UserType == Live.Models.UserType.Provider)
                 {
@@ -45,25 +51,78 @@
 
                         @if (string.IsNullOrEmpty(Model.User.StripeAccountId))
                         {
-                            <p class="payment-errors" style="text-align: left">You need to authorize a valid Stripe.com account 
-                            by <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=@System.Configuration.ConfigurationManager.AppSettings["StripeClientId"]&scope=read_write">following this link</a>, 
-                            and granting permission for SavingChance.com to process payments on your behalf.</p>
+                            <p><a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=@System.Configuration.ConfigurationManager.AppSettings["StripeClientId"]&scope=read_write">Accept Payments</a></p>
+                            <p class="payment-errors" style="text-align: left">By following the link shown above, you authorize SavingChance.com to process payments via Stripe.com on your behalf. 
+                                In so doing, you also agree to accept our <a href="/Terms">Terms</a> and <a href="/Privacy">Privacy</a> agreements.
+                            </p>
                             <p>You will not be able to create Save Chances and accept payments until you complete this step.</p>
                         }
                         else
                         {
+                            <p><a href="/Manage/RemoveStripe">Disable Payments</a></p>
                             <p>Your account is currently registered to accept payments through your Stripe.com account.</p>
-                            <p>You can remove the association to your Stripe.com account by <a href="/Manage/RemoveStripe">following this link</a>.</p>
-                            <p><strong>Note</strong>, this will disable all of your current Save Chances, 
-                            and prevent you from creating new Save Chances and accepting payments.</p>
+                            <p><strong>Note</strong>, disabling payments will also disable all of your current Save Chances, 
+                            and prevent you from creating new Save Chances and accepting payments.  Any pending donations will also be immediately refunded to all donors.</p>
                         }
 
                     </div>
                 }
             }
 
+            <br />
+            <h2>Search Settings</h2>
+            <hr/>
+            @using (Html.BeginForm("ViewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "searchSettings", @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <p style="margin-bottom: 0">Show results for:</p>
+                <div style="width: 12em; font-size: 0.75em; padding-top: 1em;">
+                    <div class="onoffswitch">
+                        @Html.CheckBoxFor(model => model.Equine, new { id = "equine", @class = "onoffswitch-checkbox" })
+                        <label class="onoffswitch-label" for="equine">
+                            <span class="onoffswitch-inner equine"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <div class="onoffswitch">
+                        @Html.CheckBoxFor(model => model.Canine, new { id = "canine", @class = "onoffswitch-checkbox" })
+                        <label class="onoffswitch-label" for="canine">
+                            <span class="onoffswitch-inner canine"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <div class="onoffswitch">
+                        @Html.CheckBoxFor(model => model.Feline, new { id = "feline", @class = "onoffswitch-checkbox" })
+                        <label class="onoffswitch-label" for="feline">
+                            <span class="onoffswitch-inner feline"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $('#equine, #canine, #feline').change(function () {
+                        var json = $('#searchSettings').serialize();
+                        var jqxhr = $.ajax(
+                            {
+                                url: 'api/account/viewFilter',
+                                data: json,
+                                type: 'post',
+                                dataType: 'json',
+                                success: function (data, textStatus, jqXHR) {
+                                    
+                                },
+                                error: function (data, textStatus, jqXHR) {
+                                    
+                                },
+                                headers: {
+                                    Authorization: 'Bearer ' + window.sc_apiToken
+                                }
+                            });
+                    });
+                </script>
+            }
             <br/>
-            <h4>Security Settings</h4>
+            <h2>Security Settings</h2>
             <p class="text-success">@ViewBag.StatusMessage</p>
             <hr />
             <ul>

@@ -22,5 +22,7 @@ namespace Live.Data
         }
 
         public IDbSet<Chance> Chances { get { return this.Set<Chance>(); } }
+
+        public IDbSet<ViewFilter> ViewFilters { get { return this.Set<ViewFilter>(); } }
     }
 }

@@ -29,6 +29,16 @@ namespace Live.Models
         Closed = 5
     }
 
+    [Flags]
+    public enum AnimalTypes
+    {
+        None = 0,
+        Equine = 1,
+        Canine = 2,
+        Feline = 4,
+        All = Equine | Canine | Feline
+    }
+
     public class Chance
     {
         public Chance()
@@ -49,5 +59,6 @@ namespace Live.Models
         public ChanceStatus Status { get; set; }
         public virtual List<Tag> Tags { get; set; }
         public virtual List<Payment> Payments { get; set; }
+        public AnimalTypes AnimalType { get; set; }
     }
 }

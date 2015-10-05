@@ -23,5 +23,10 @@ namespace Live.Controllers
 
             return View();
         }
+
+        public ActionResult ViewChance(long chanceId)
+        {
+            return Redirect("/#/Chance/" + chanceId);
+        }
     }
 }

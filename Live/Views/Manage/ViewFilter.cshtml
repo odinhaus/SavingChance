@@ -1,0 +1,45 @@
+﻿@using Live.Models
+@model ViewFilterModel
+
+<div>
+    <div class="content-center">
+        <section id="viewFilterForm">
+            @using (Html.BeginForm("ViewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h2>One last step...</h2>
+                <hr/>
+                <p>
+                    Saving Chances are divided into three major groups by animal type, Equine, Canine and Feline.
+                    By choosing which animal types you are most interested, your browsing experience will be filtered to only include choices that match your selection.
+                    You can change this setting at any time from the account management section of the site.
+                </p>
+                <div style="width: 12em; margin: 0 auto;">
+                    <div class="onoffswitch">
+                        @Html.CheckBoxFor(model => model.Equine, new { id = "equine", @class = "onoffswitch-checkbox" })
+                        <label class="onoffswitch-label" for="equine">
+                            <span class="onoffswitch-inner equine"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <div class="onoffswitch">
+                        @Html.CheckBoxFor(model => model.Canine, new { id = "canine", @class = "onoffswitch-checkbox" })
+                        <label class="onoffswitch-label" for="canine">
+                            <span class="onoffswitch-inner canine"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                    <div class="onoffswitch">
+                        @Html.CheckBoxFor(model => model.Feline, new { id = "feline", @class = "onoffswitch-checkbox" })
+                        <label class="onoffswitch-label" for="feline">
+                            <span class="onoffswitch-inner feline"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+                <input type="submit" value="Update" />
+            }
+        </section>
+    </div>
+</div>
+        

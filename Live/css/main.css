@@ -387,6 +387,7 @@ html
     width: 100%;
     background-color:#FFFDFC;
     border-bottom: 1px solid #fff;
+    min-height: 30em;
 }
 
 .btn
@@ -616,15 +617,15 @@ p
 }
 
 #loginForm input[type=submit],
-#registerForm input[type=submit]
+#registerForm input[type=submit],
+#viewFilterForm input[type=submit]
 {
     font-size: 1em;
     width: 5em;
     font-weight: bold;
     color: #414141;
-    right: 0;
-    bottom: 0;
-    position: absolute;
+    float: right;
+    margin-bottom: 2em;
 }
 
 #registerForm dl dd
@@ -785,6 +786,7 @@ dl.settings dt
     margin-right: .1em;
     cursor: pointer;
     color: #95C095;
+    margin-bottom: 1em;
 }
 
 #socialLoginList i
@@ -1589,8 +1591,94 @@ dl.settings dt
     opacity: 0.0;
 }
 
-.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio]
+.checkbox input[type=checkbox], 
+.checkbox-inline input[type=checkbox], 
+.radio input[type=radio], 
+.radio-inline input[type=radio]
 {
     margin-left: 0px!important;
 }
 
+.onoffswitch {
+    position: relative; 
+    width: 6em;
+    -webkit-user-select:none; 
+    -moz-user-select:none; 
+    -ms-user-select: none;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; 
+    overflow: hidden; 
+    cursor: pointer;
+    border: 2px solid #999999; 
+    border-radius: 0px;
+}
+.onoffswitch-inner {
+    display: block; 
+    width: 200%; 
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; 
+    float: left; 
+    width: 50%; 
+    height: 2.1em; 
+    padding: 0; 
+    line-height: 2em;
+    font-size: 1em; 
+    color: white; 
+    font-family: Trebuchet, Arial, sans-serif; 
+    font-weight: bold;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+.onoffswitch-inner:before {
+    padding-left: 10px;
+    background-color: #F77224; 
+    color: #FFFDFC;
+}
+.onoffswitch-inner:after {
+    padding-right: .25em;
+    background-color: #8C99A3; 
+    color: #3D3D3D;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; 
+    width: 1em; 
+    margin: 0px;
+    background: #648F64;
+    position: absolute; 
+    top: 0; 
+    bottom: 0;
+    right: 5em;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked ~ .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked ~ .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+.onoffswitch-inner.equine:before,
+.onoffswitch-inner.equine:after
+{
+    content: "Equine";
+}
+.onoffswitch-inner.canine:before,
+.onoffswitch-inner.canine:after
+{
+    content: "Canine";
+}
+.onoffswitch-inner.feline:before,
+.onoffswitch-inner.feline:after
+{
+    content: "Feline";
+}

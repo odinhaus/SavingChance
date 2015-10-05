@@ -17,6 +17,7 @@ using Live.Models;
 using Live.Providers;
 using Live.Results;
 using Live.Managers;
+using Live.Services;
 
 namespace Live.Controllers.Api
 {
@@ -26,16 +27,11 @@ namespace Live.Controllers.Api
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private IUserService _userService;
 
-        public AccountController()
+        public AccountController(IUserService userService)
         {
-        }
-
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
+            _userService = userService;
         }
 
         public ApplicationUserManager UserManager
@@ -132,6 +128,21 @@ namespace Live.Controllers.Api
                 return GetErrorResult(result);
             }
 
+            return Ok();
+        }
+
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        public async Task<IHttpActionResult> ViewFilter(ViewFilterModel model)
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var viewFilter = new ViewFilter()
+            {
+                AnimalTypes =
+                  (model.Equine ? AnimalTypes.Equine : AnimalTypes.None)
+                | (model.Canine ? AnimalTypes.Canine : AnimalTypes.None)
+                | (model.Feline ? AnimalTypes.Feline : AnimalTypes.None)
+            };
+            await _userService.UpdateViewFilterAsync(viewFilter);
             return Ok();
         }
 

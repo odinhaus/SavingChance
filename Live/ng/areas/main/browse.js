@@ -182,7 +182,7 @@
                         ? 'https://dogsinmind.files.wordpress.com/2015/08/dove.jpg'
                         : 'http://dustytrailshorserescue.org/wp-content/uploads/2011/07/Stella-before.jpg',
                 sponsor: 'Houston Boxer Rescue',
-                sponsorHandle: '@HBR',
+                sponsorHandle: '@shs',
                 sponsorEmail: 'someone@hbr.com',
                 sponsorPhone: '(123) 456-7890',
                 summary: {

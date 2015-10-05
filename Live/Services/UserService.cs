@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity.Owin;
 using Live.Managers;
+using Live.Models;
 
 namespace Live.Services
 {
@@ -34,6 +35,21 @@ namespace Live.Services
             var user = await userManager.FindByNameAsync(_owin.Authentication.User.Identity.Name);
             user.StripeAccountId = null;
             var updateResult = await userManager.UpdateAsync(user);
+        }
+
+        public async Task UpdateViewFilterAsync(ViewFilter filter)
+        {
+            var userManager = _owin.Get<ApplicationUserManager>();
+            var user = _dbContext.Users.Single(u => u.Email == _owin.Authentication.User.Identity.Name);
+            if (user.ViewFilter == null)
+            {
+                user.ViewFilter = _dbContext.ViewFilters.Create();
+                _dbContext.ViewFilters.Add(user.ViewFilter);
+            }
+
+            user.ViewFilter.AnimalTypes = filter.AnimalTypes;
+
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

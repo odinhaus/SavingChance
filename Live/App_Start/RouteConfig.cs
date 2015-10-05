@@ -14,15 +14,23 @@ namespace Live
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "Chance",
+               url: "{chanceId}",
+               defaults: new { controller = "Home", action = "ViewChance" },
+               constraints: new { chanceId = @"\d+" });
+
+            routes.MapRoute(
+               name: "Account",
+               url: "{handle}",
+               defaults: new { controller = "Account", action = "ViewAccount" },
+               constraints: new { handle = @"@\w+" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-                name: "Query",
-                url: "q/{query}",
-                defaults: new { controller = "Home", action = "Index" });
         }
     }
 }

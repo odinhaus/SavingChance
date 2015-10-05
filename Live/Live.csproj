@@ -324,6 +324,14 @@
     <Compile Include="Migrations\201510011904573_AtHandle_Unique.Designer.cs">
       <DependentUpon>201510011904573_AtHandle_Unique.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510051240279_Default_AnimalType.cs" />
+    <Compile Include="Migrations\201510051240279_Default_AnimalType.Designer.cs">
+      <DependentUpon>201510051240279_Default_AnimalType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510051758432_ViewFilter_Index.cs" />
+    <Compile Include="Migrations\201510051758432_ViewFilter_Index.Designer.cs">
+      <DependentUpon>201510051758432_ViewFilter_Index.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -463,6 +471,9 @@
     <Content Include="Views\HowItWorks\Index.cshtml" />
     <Content Include="Views\Manage\AcceptStripe.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Manage\ViewFilter.cshtml" />
+    <Content Include="Views\Account\ViewAccount.cshtml" />
+    <Content Include="Views\Account\ItemNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -503,6 +514,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510011904573_AtHandle_Unique.resx">
       <DependentUpon>201510011904573_AtHandle_Unique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510051240279_Default_AnimalType.resx">
+      <DependentUpon>201510051240279_Default_AnimalType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510051758432_ViewFilter_Index.resx">
+      <DependentUpon>201510051758432_ViewFilter_Index.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

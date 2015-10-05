@@ -28,6 +28,8 @@ namespace Live.Models
         OtherVendor
     }
 
+
+
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -89,5 +91,20 @@ namespace Live.Models
         public string BearerToken { get; set; }
         public virtual List<Chance> Chances { get; set; }
         public virtual List<Love> Loves { get; set; }
+        public virtual ViewFilter  ViewFilter { get; set; }
+    }
+
+    public class ViewFilter
+    {
+        public ViewFilter()
+        {
+            IsDefault = true;
+        }
+
+        [ServiceStack.DataAnnotations.PrimaryKey]
+        public long Id { get; set; }
+        [Index]
+        public AnimalTypes AnimalTypes { get; set; }
+        public bool IsDefault { get; set; }
     }
 }
