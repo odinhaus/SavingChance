@@ -91,7 +91,7 @@ namespace Live.Models
         public string BearerToken { get; set; }
         public virtual List<Chance> Chances { get; set; }
         public virtual List<Love> Loves { get; set; }
-        public virtual ViewFilter  ViewFilter { get; set; }
+        public virtual ViewFilter ViewFilter { get; set; }
     }
 
     public class ViewFilter

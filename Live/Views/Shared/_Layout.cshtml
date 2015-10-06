@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="~/Scripts/jquery-ui.min.js"></script>
@@ -24,11 +24,11 @@
     <div id="fb-root"></div>
     <script>
         (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1516907565266690";
-          fjs.parentNode.insertBefore(js, fjs);
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1516907565266690";
+            fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <header id="header" resize>
@@ -39,7 +39,7 @@
         <div class="tool" id="navTool">
             <a id="navButton" href="#" title="Navgiation"><i class="fa fa-bars"></i></a>
         </div>
-        
+
         @using Microsoft.AspNet.Identity
         @if (Request.IsAuthenticated)
         {
@@ -55,24 +55,40 @@
         }
 
         <form id="search-form" name="search-form" target="_self" method="get" onsubmit="return doSearch()">
-            <label for="search" class="search" onclick="document.getElementById('search-form').submit()"><i class="fa fa-search"></i></label>
-            <input class="search" id="search" name="q" placeholder="&#64;handle, #tags or ?" value="@ViewBag.QueryTerms"/>
-            <input type="submit" style="height: 1px; width: 1px; position: absolute; left: -9999px;" tabindex="-1"/>
+            <label for="search" class="search" onclick="toggleShortcuts()"><i class="fa fa-chevron-circle-down"></i></label>
+            <input class="search" id="search" name="q" placeholder="&#64;handle, #tags or ?" value="@ViewBag.QueryTerms" />
+            <input type="submit" style="height: 1px; width: 1px; position: absolute; left: -9999px;" tabindex="-1" />
+            <div id="shortcuts">
+                <button type="button" class="close" onclick="toggleShortcuts()">&times;</button>
+                <p>In addition to user defined tags, you can choose from the tags below to apply special system filters to provide unique ways to find Chances.</p>
+                <ul>
+                    <li><a href="/?q=%23mine">#mine</a></li>
+                    <li><a href="/?q=%23following">#following</a></li>
+                    <li><a href="/?q=%23new">#new</a></li>
+                    <li><a href="/?q=%23expiring">#expiring</a></li>
+                    <li><a href="/?q=%23almostthere">#almostthere</a></li>
+                    <li><a href="/?q=%23adoption">#adoption</a></li>
+                    <li><a href="/?q=%23donation">#donation</a></li>
+                    <li><a href="/?q=%23trending">#trending</a></li>
+                </ul>
+            </div>
         </form>
+        
     </header>
     <nav id="nav">
-        <a href="/" class="hover"><i class="fa fa-home"></i> Home</a>
+        <a href="/" class="hover"><i class="fa fa-home"></i> Chance Feed</a>
         @if (Request.IsAuthenticated)
         {
+            <a href="/&#64;me" class="hover"><i class="fa fa-at"></i> Me</a>
             <span class="separator"></span>
             if (((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "UserType" && c.Value == "Provider")
                 && ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "ServiceProviderType" && c.Value == "Rescue"))
             {
-                <a href="/Saves/Create" class="hover"><i class="fa fa-plus"></i> Create a Save</a>
+                <a href="/Chance/Create" class="hover"><i class="fa fa-plus"></i> Create a Chance</a>
                 <span class="separator"></span>
-                <a href="/Saves/Mine" class="hover"><i class="fa fa-user"></i> My Saves</a>
+                <a href="/?q=%23Mine" class="hover"><i class="fa fa-user"></i> My Chances</a>
             }
-            <a href="/Saves/Following" class="hover"><i class="fa fa-heart"></i> My Favorites</a>
+            <a href="/?q=%23Following" class="hover"><i class="fa fa-heart"></i> Following</a>
         }
         <span class="separator"></span>
         <a href="/HowItWorks" class="hover"><i class="fa fa-question"></i> How it Works</a>
@@ -127,6 +143,27 @@
 
         window.appInsights=appInsights;
         appInsights.trackPageView();
+    </script>
+    <script type="text/javascript">
+        var isShortuctsOpen = false;
+        function toggleShortcuts()
+        {
+            var $search = $('#search-form');
+            var $popup = $('#shortcuts');
+            if (isShortuctsOpen)
+            {
+                isShortuctsOpen = false;
+                $popup.css('display', 'none');
+            }
+            else
+            {
+                var top = $search.offset().top + $search.height();
+                var left = 0;
+                var width = $search.width();
+                $popup.css({display: 'block', top: top + 'px', left: left + 'px', width: width + 'px'});
+                isShortuctsOpen = true;
+            }
+        }
     </script>
 </body>
 </html>

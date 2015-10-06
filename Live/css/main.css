@@ -16,6 +16,11 @@ body, a
     color: #0F0F0F;
 }
 
+hr
+{
+    border-top: 1px solid #F77224!important;
+}
+
 h1
 {
     font-size: 2em;
@@ -50,6 +55,51 @@ select:focus
 
 body, .bg {
     background: #0F0F0F;
+}
+
+#shortcuts
+{
+    display:none; 
+    position: absolute; 
+    top: 0px;
+    left: 0px;
+    z-index:999999;
+    background: #FFFDFC;
+    font-size: 1.5em;
+    border: 1px solid #0F0F0F;
+    padding: 0.5em;
+    box-shadow:         5px 5px 12px rgba(30, 30, 30, 0.75);
+    -moz-box-shadow:    5px 5px 12px rgba(30, 30, 30, 0.75);
+    -o-box-shadow:      5px 5px 12px rgba(30, 30, 30, 0.75);
+    -webkit-box-shadow: 5px 5px 12px rgba(30, 30, 30, 0.75);
+    width: 20em;
+    max-height: 15em;
+    overflow-y: auto;
+}
+
+#shortcuts a
+{
+    color: #648F64;
+}
+
+#shortcuts a:hover,
+#shortcuts a:active,
+#shortcuts span.field-validation-error,
+#shortcuts .validation-summary-errors,
+#shortcuts .validation-summary-errors ul,
+#shortcuts .validation-summary-errors ul li
+{
+    color: #F77224;
+}
+
+#shortcuts p
+{
+    font-size: 0.65em;
+}
+
+#shortcuts ul
+{
+    list-style: none;
 }
 
 .modal-dialog button,

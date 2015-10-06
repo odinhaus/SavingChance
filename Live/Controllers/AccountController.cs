@@ -57,7 +57,18 @@ namespace Live.Controllers
         [AllowAnonymous]
         public ActionResult ViewAccount(string handle)
         {
-            var user = UserManager.Context.Users.SingleOrDefault(u => u.AtHandle == handle);
+            ApplicationUser user = null;
+
+            if (handle.Equals("@me", StringComparison.CurrentCultureIgnoreCase)
+                && User.Identity.IsAuthenticated)
+            {
+                user = UserManager.Context.Users.SingleOrDefault(u => u.Email == User.Identity.Name);
+            }
+            else
+            {
+                user = UserManager.Context.Users.SingleOrDefault(u => u.AtHandle == handle);
+            }
+
             if (user == null)
             {
                 return View("ItemNotFound");
