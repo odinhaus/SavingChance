@@ -4,34 +4,55 @@
 }
 
 @Html.Partial("_LoginPartial")
-
-<div class="content-center">
-    <section id="registerForm">
-        <h2>Account Settings</h2>
-        <hr />
-        <div>
-            @if (Request.IsAuthenticated)
-            {
+<div>
+@if (Request.IsAuthenticated && Model.User.UserType == Live.Models.UserType.Provider)
+{
+    <div class="tabHeader">
+        <ol>
+            <li><a href="" onclick="setTab(this)" class="tabButton selected" name="#settings">settings</a></li>
+            <li><a href="" onclick="setTab(this)" class="tabButton" name="#hero">about</a></li>
+        </ol>
+    </div>
+    <div id="hero" class="tab" style="display: none;">
+        <div class="hero-background" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Boxer_puppy_fawn_portrai.jpg/1920px-Boxer_puppy_fawn_portrai.jpg')"></div>
+        <div class="hero-body">
+            <i class="fa fa-camera"></i>
+            <h1>Houston Boxer Rescue</h1>
+            <h2>&#64;hbr</h2>
+            <div class="mission">
+                Houston Boxer Rescue (HBR)  was born out of a deep love for the boxer breed and a desire to help end the suffering of boxers due to neglect, abuse, or abandonment. We dedicate ourselves to insuring that the dogs in our program get the second chance they deserve and never find themselves lost, alone, or abused, again.
+            </div>
+        </div>
+    </div>
+}
+    <div id="settings" class="tab">
+        <div class="content-center">
+            <section id="registerForm">
+                <h2>Account Settings</h2>
+                <hr />
+                <div>
+                    @if (Request.IsAuthenticated)
+                {
                 using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                 {
-                    @Html.AntiForgeryToken()
-                    <div><a href="javascript:document.getElementById('logoutForm').submit()">Log Off</a></div><br/>
+                            @Html.AntiForgeryToken()
+                            <div><a href="javascript:document.getElementById('logoutForm').submit()">Log Off</a></div><br />
                 }
-                <dl class="settings">
-                    <dt>
-                        Account Login <i data-toggle="popover" data-html="true" data-placement="right" title="Account Handle" data-content="The email address used to login to your account." class="fa fa-question-circle help-icon"></i>
-                    </dt>
-                    <dd>
-                        @Model.User.Email
-                    </dd>
-                    <dt>
-                        Account Handle <i data-toggle="popover" data-html="true" data-placement="right" title="Account Handle" data-content="Users can filter on Chances by your unique handle, and follow Chances created under this name." class="fa fa-question-circle help-icon"></i>
-                    </dt>
-                    <dd>
-                        <a href="/@Model.User.AtHandle">@Model.User.AtHandle</a>
-                    </dd>
-                    <dt>
-                        @if (Model.User.UserType == Live.Models.UserType.Donor)
+                        <dl class="settings">
+                            <dt>
+                                Account Login <i data-toggle="popover" data-html="true" data-placement="right" title="Account Handle" data-content="The email address used to login to your account." class="fa fa-question-circle help-icon"></i>
+                            </dt>
+                            <dd>
+                                @Model.User.Email
+                            </dd>
+                            <dt>
+                                Account Handle <i data-toggle="popover" data-html="true" data-placement="right" title="Account Handle" data-content="Users can filter on Chances by your unique handle, and follow Chances created under this name." class="fa fa-question-circle help-icon"></i>
+                            </dt>
+                            <dd>
+                                <a href="/@Model.User.AtHandle">@Model.User.AtHandle</a>
+                            </dd>
+                            <dt>
+                                @if (Model.User.UserType == Live.Models.UserType.Donor)
                         {
                             ViewBag.AccountMessage = "The Donor account type allows you to follow, share, and donate to existing Saving Chances.  "
                                                    + "If you represent a 501c3 organization, and would like to be able to create Saving Chances and "
@@ -44,125 +65,127 @@
                         {
                             ViewBag.AccountMessage = "The Provider account type allows you follow, share and donate to existing Saving Chances, as well as creating your own Saving Chances, and accepting payments through them.";
                         }
-                        
-                        Account Type <i data-toggle="popover" data-html="true" data-placement="right" title="Account Type" data-content="@ViewBag.AccountMessage" class="fa fa-question-circle help-icon"></i>
-                    </dt>
-                    <dd>
-                        <p>@Model.User.UserType</p>
-                        @if (Model.User.UserType == Live.Models.UserType.Provider)
-                        {
-                        <div>
 
-                            @if (string.IsNullOrEmpty(Model.User.StripeAccountId))
+                                Account Type <i data-toggle="popover" data-html="true" data-placement="right" title="Account Type" data-content="@ViewBag.AccountMessage" class="fa fa-question-circle help-icon"></i>
+                            </dt>
+                            <dd>
+                                <p>@Model.User.UserType</p>
+                                @if (Model.User.UserType == Live.Models.UserType.Provider)
+                        {
+                                    <div>
+
+                                        @if (string.IsNullOrEmpty(Model.User.StripeAccountId))
                             {
-                                <form action="https://connect.stripe.com/oauth/authorize" method="get">
-                                    <input type="hidden" name="client_id" value="@System.Configuration.ConfigurationManager.AppSettings["StripeClientId"]"/>
-                                    <input type="hidden" name="response_type" value="code"/>
-                                    <input type="hidden" name="scope" value="read_write"/>
-                                    <button type="submit">Accept Payments</button>
-                                </form>
-                                <br/>
-                                <p class="payment-errors" style="text-align: left; font-weight: normal; font-size:0.75em;">
-                                    By following the link shown above, you authorize SavingChance.com to process payments via Stripe.com on your behalf.
-                                    In so doing, you also agree to accept our <a href="/Terms">Terms</a> and <a href="/Privacy">Privacy</a> agreements.
-                                </p>
-                                <p>You will not be able to create Save Chances and accept payments until you complete this step.</p>
+                                            <form action="https://connect.stripe.com/oauth/authorize" method="get">
+                                                <input type="hidden" name="client_id" value="@System.Configuration.ConfigurationManager.AppSettings["StripeClientId"]" />
+                                                <input type="hidden" name="response_type" value="code" />
+                                                <input type="hidden" name="scope" value="read_write" />
+                                                <button type="submit">Accept Payments</button>
+                                            </form>
+                                            <br />
+                                            <p class="payment-errors" style="text-align: left; font-weight: normal; font-size:0.75em;">
+                                                By following the link shown above, you authorize SavingChance.com to process payments via Stripe.com on your behalf.
+                                                In so doing, you also agree to accept our <a href="/Terms">Terms</a> and <a href="/Privacy">Privacy</a> agreements.
+                                            </p>
+                                            <p>You will not be able to create Save Chances and accept payments until you complete this step.</p>
                             }
                             else
                             {
-                                <form action="/Manage/RemoveStripe" method="get">
-                                    <button type="submit">Disable Payments</button>
-                                </form>
-                                <br/>
-                                <p>Your account is currently registered to accept payments through your Stripe.com account.</p>
-                                <p>
-                                    <strong>Note</strong>, disabling payments will also disable all of your current Save Chances,
-                                    and prevent you from creating new Save Chances and accepting payments.  Any pending donations will also be immediately refunded to all donors.
-                                </p>
+                                            <form action="/Manage/RemoveStripe" method="get">
+                                                <button type="submit">Disable Payments</button>
+                                            </form>
+                                            <br />
+                                            <p>Your account is currently registered to accept payments through your Stripe.com account.</p>
+                                            <p>
+                                                <strong>Note</strong>, disabling payments will also disable all of your current Save Chances,
+                                                and prevent you from creating new Save Chances and accepting payments.  Any pending donations will also be immediately refunded to all donors.
+                                            </p>
                             }
 
-                        </div>
+                                    </div>
                         }
-                    </dd>
-                    
-                </dl>
+                            </dd>
+
+                        </dl>
             }
 
-            <br />
-            <h2>Search Settings</h2>
-            <hr/>
-            @using (Html.BeginForm("ViewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "searchSettings", @class = "form-horizontal", role = "form" }))
+                    <br />
+                    <h2>Search Settings</h2>
+                    <hr />
+                    @using (Html.BeginForm("ViewFilter", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "searchSettings", @class = "form-horizontal", role = "form" }))
             {
-                @Html.AntiForgeryToken()
-                <dl class="settings">
-                    <dt>Filters <i data-toggle="popover" data-html="true" data-placement="right" title="Filters" data-content="Controls what types of animals are displayed in your Chance feed." class="fa fa-question-circle help-icon"></i></dt>
-                    <dd>
-                        <div style="width: 12em; font-size: 0.75em; padding-top: 1em;">
-                        <div class="onoffswitch">
-                            @Html.CheckBoxFor(model => model.Equine, new { id = "equine", @class = "onoffswitch-checkbox" })
-                            <label class="onoffswitch-label" for="equine">
-                                <span class="onoffswitch-inner equine"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
-                        <div class="onoffswitch">
-                            @Html.CheckBoxFor(model => model.Canine, new { id = "canine", @class = "onoffswitch-checkbox" })
-                            <label class="onoffswitch-label" for="canine">
-                                <span class="onoffswitch-inner canine"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
-                        <div class="onoffswitch">
-                            @Html.CheckBoxFor(model => model.Feline, new { id = "feline", @class = "onoffswitch-checkbox" })
-                            <label class="onoffswitch-label" for="feline">
-                                <span class="onoffswitch-inner feline"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <script type="text/javascript">
-                        $('#equine, #canine, #feline').change(function () {
-                            var json = $('#searchSettings').serialize();
-                            var jqxhr = $.ajax(
-                                {
-                                    url: 'api/account/viewFilter',
-                                    data: json,
-                                    type: 'post',
-                                    dataType: 'json',
-                                    success: function (data, textStatus, jqXHR) {
+                        @Html.AntiForgeryToken()
+                        <dl class="settings">
+                            <dt>Filters <i data-toggle="popover" data-html="true" data-placement="right" title="Filters" data-content="Controls what types of animals are displayed in your Chance feed." class="fa fa-question-circle help-icon"></i></dt>
+                            <dd>
+                                <div style="width: 12em; font-size: 0.75em; padding-top: 1em;">
+                                    <div class="onoffswitch">
+                                        @Html.CheckBoxFor(model => model.Equine, new { id = "equine", @class = "onoffswitch-checkbox" })
+                                        <label class="onoffswitch-label" for="equine">
+                                            <span class="onoffswitch-inner equine"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                    <div class="onoffswitch">
+                                        @Html.CheckBoxFor(model => model.Canine, new { id = "canine", @class = "onoffswitch-checkbox" })
+                                        <label class="onoffswitch-label" for="canine">
+                                            <span class="onoffswitch-inner canine"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                    <div class="onoffswitch">
+                                        @Html.CheckBoxFor(model => model.Feline, new { id = "feline", @class = "onoffswitch-checkbox" })
+                                        <label class="onoffswitch-label" for="feline">
+                                            <span class="onoffswitch-inner feline"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    $('#equine, #canine, #feline').change(function () {
+                                        var json = $('#searchSettings').serialize();
+                                        var jqxhr = $.ajax(
+                                            {
+                                                url: 'api/account/viewFilter',
+                                                data: json,
+                                                type: 'post',
+                                                dataType: 'json',
+                                                success: function (data, textStatus, jqXHR) {
 
-                                    },
-                                    error: function (data, textStatus, jqXHR) {
+                                                },
+                                                error: function (data, textStatus, jqXHR) {
 
-                                    },
-                                    headers: {
-                                        Authorization: 'Bearer ' + window.sc_apiToken
-                                    }
-                                });
-                        });
-                    </script>
-                    </dd>
-                </dl>
-            }
-            <br />
-            <h2>Security Settings</h2>
-            <p class="text-success">@ViewBag.StatusMessage</p>
-            <hr />
-            <ul>
-                <li class="no-bullet">
-                    @if (Model.HasPassword)
+                                                },
+                                                headers: {
+                                                    Authorization: 'Bearer ' + window.sc_apiToken
+                                                }
+                                            });
+                                    });
+                                </script>
+                            </dd>
+                        </dl>
+                    }
+                    <br />
+                    <h2>Security Settings</h2>
+                    <p class="text-success">@ViewBag.StatusMessage</p>
+                    <hr />
+                    <ul>
+                        <li class="no-bullet">
+                            @if (Model.HasPassword)
                     {
-                        @Html.ActionLink("Change Password", "ChangePassword")
+                                @Html.ActionLink("Change Password", "ChangePassword")
                     }
                     else
                     {
-                        @Html.ActionLink("Create Password", "SetPassword")
+                                @Html.ActionLink("Create Password", "SetPassword")
                     }
-                </li>
-                <li class="no-bullet">
-                    @Html.ActionLink("Manage Logins", "ManageLogins")
-                </li>
-            </ul>
+                        </li>
+                        <li class="no-bullet">
+                            @Html.ActionLink("Manage Logins", "ManageLogins")
+                        </li>
+                    </ul>
+                </div>
+            </section>
         </div>
-    </section>
+    </div>
 </div>

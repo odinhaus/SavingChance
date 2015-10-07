@@ -102,6 +102,138 @@ body, .bg {
     list-style: none;
 }
 
+a.selected
+{
+    color: #F77224!important;
+    font-weight: bold;
+}
+
+.tabHeader
+{
+    z-index: 5;
+    position: absolute;
+}
+
+.tabHeader ol
+{
+    list-style: none;
+    margin-left: 0.75em;
+}
+
+.tabHeader ol li
+{
+    display: inline-block;
+}
+
+.tabHeader ol li:not(:first-child):before
+{
+    content: '| ';
+}
+
+#hero
+{
+    color: #FFFDFC;
+    min-height: 30em;
+}
+
+#hero .hero-background
+{
+    position: absolute;
+    z-index: 0;
+    height: 30em;
+    width: 100%;
+    background-color: #F77224;
+    background-size: cover;
+    -webkit-filter: sepia(0.4) brightness(0.5);
+    -webkit-filter: sepia(40%) brightness(0.5);
+    -moz-filter:    sepia(40%) brightness(0.5);
+    -ms-filter:     sepia(40%) brightness(0.5);
+    -o-filter:      sepia(40%) brightness(0.5);
+    filter:         sepia(40%) brightness(0.5);
+}
+
+#hero .hero-body
+{
+    z-index: 10;
+}
+
+#hero .fa-camera
+{
+    color: #FFFDFC;
+    font-size: 3em;
+    position: absolute;
+    right: 0.2em;
+    top: 0.2em;
+    opacity: 0.6;
+    cursor: pointer;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+}
+
+#hero h1,
+#hero h2,
+#hero h3,
+#hero h4
+{
+    text-shadow:         0 0 12px rgba(15, 15, 15, 0.95);
+    -moz-text-shadow:    0 0 12px rgba(15, 15, 15, 0.95);
+    -o-text-shadow:      0 0 12px rgba(15, 15, 15, 0.95);
+    -webkit-text-shadow: 0 0 12px rgba(15, 15, 15, 0.95);
+    white-space: nowrap;
+}
+
+#hero h1
+{
+    font-size: 6em;
+    opacity: 1;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+
+#hero h2
+{
+    font-size: 4em;
+    opacity: 1;
+    position: absolute;
+    left: 0px;
+    bottom: 1.5em;
+}
+
+#hero .fa-camera:hover,
+#hero .fa-camera:active,
+#hero .fa-camera:focus
+{
+    opacity: 1;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+}
+
+#hero .mission
+{
+    position: absolute;
+    width: 75%;
+    top: 25%;
+    left: 50%;
+    font-size: 1.5em;
+    max-height: 11em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -ms-transform:      translateY(-25%) translateX(-50%);
+    -webkit-transform:  translateY(-25%) translateX(-50%);
+    -moz-transform:     translateY(-25%) translateX(-50%);
+    -o-transform:       translateY(-25%) translateX(-50%);
+    transform:          translateY(-25%) translateX(-50%);
+    text-shadow:         0 0 12px rgba(15, 15, 15, 0.95);
+    -moz-text-shadow:    0 0 12px rgba(15, 15, 15, 0.95);
+    -o-text-shadow:      0 0 12px rgba(15, 15, 15, 0.95);
+    -webkit-text-shadow: 0 0 12px rgba(15, 15, 15, 0.95);
+}
+
 .modal-dialog button,
 input[type=button],
 input[type=submit]

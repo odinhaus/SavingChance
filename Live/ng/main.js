@@ -105,3 +105,14 @@ function doSearch()
     event.preventDefault();
     return false;
 }
+
+function setTab(element)
+{
+    var $this = $(element);
+    $('.tabButton').each(function (index, elem) {
+        $(this).removeClass('selected');
+        $($(this).attr("name")).css('display', 'none');
+    });
+    $this.addClass('selected');
+    $($this.attr('name')).css('display', 'block');
+}
