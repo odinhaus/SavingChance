@@ -108,10 +108,20 @@ a.selected
     font-weight: bold;
 }
 
+a.tabButton
+{
+    /*text-shadow: 0 0 1px #FAFAFA;*/
+    font-weight: bold;
+}
+
 .tabHeader
 {
     z-index: 5;
     position: absolute;
+    width: 100%;
+    text-align: center;
+    background-color: #0F0F0F;
+    padding: 0.1em;
 }
 
 .tabHeader ol
@@ -136,11 +146,30 @@ a.selected
     min-height: 30em;
 }
 
+#hero a
+{
+    color: #FFFDFC;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+}
+
+#hero a:hover
+{
+    text-decoration: none;
+    color: #F77224;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+}
+
 #hero .hero-background
 {
     position: absolute;
     z-index: 0;
-    height: 30em;
+    height: 100%;
     width: 100%;
     background-color: #F77224;
     background-size: cover;
@@ -157,13 +186,13 @@ a.selected
     z-index: 10;
 }
 
-#hero .fa-camera
+.hero.fa-camera
 {
     color: #FFFDFC;
     font-size: 3em;
     position: absolute;
     right: 0.2em;
-    top: 0.2em;
+    bottom: 0.2em;
     opacity: 0.6;
     cursor: pointer;
     transition:         all .1s linear;
@@ -181,25 +210,24 @@ a.selected
     -moz-text-shadow:    0 0 12px rgba(15, 15, 15, 0.95);
     -o-text-shadow:      0 0 12px rgba(15, 15, 15, 0.95);
     -webkit-text-shadow: 0 0 12px rgba(15, 15, 15, 0.95);
-    white-space: nowrap;
+    width: 100%;
+    display: block;
 }
 
 #hero h1
 {
     font-size: 6em;
     opacity: 1;
-    position: absolute;
+    position: relative;
     left: 0px;
-    bottom: 0px;
 }
 
 #hero h2
 {
     font-size: 4em;
     opacity: 1;
-    position: absolute;
+    position: relative;
     left: 0px;
-    bottom: 1.5em;
 }
 
 #hero .fa-camera:hover,
@@ -215,24 +243,60 @@ a.selected
 
 #hero .mission
 {
-    position: absolute;
+    position: relative;
     width: 75%;
-    top: 25%;
+    padding-top: 1em;
+    padding-bottom: 4em;
     left: 50%;
     font-size: 1.5em;
-    max-height: 11em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -ms-transform:      translateY(-25%) translateX(-50%);
-    -webkit-transform:  translateY(-25%) translateX(-50%);
-    -moz-transform:     translateY(-25%) translateX(-50%);
-    -o-transform:       translateY(-25%) translateX(-50%);
-    transform:          translateY(-25%) translateX(-50%);
+    -ms-transform:      translateY(0%) translateX(-50%);
+    -webkit-transform:  translateY(0%) translateX(-50%);
+    -moz-transform:     translateY(0%) translateX(-50%);
+    -o-transform:       translateY(0%) translateX(-50%);
+    transform:          translateY(0%) translateX(-50%);
     text-shadow:         0 0 12px rgba(15, 15, 15, 0.95);
     -moz-text-shadow:    0 0 12px rgba(15, 15, 15, 0.95);
     -o-text-shadow:      0 0 12px rgba(15, 15, 15, 0.95);
     -webkit-text-shadow: 0 0 12px rgba(15, 15, 15, 0.95);
 }
+
+#hero .banner
+{
+    padding-top: 1em;
+}
+
+
+@media only screen and (max-width: 600px)
+{
+    #hero h1
+    {
+        font-size: 3em;
+    }
+    #hero h2
+    {
+        font-size: 1.5em;
+    }
+    #hero .mission
+    {
+        font-size: 1.2em;
+    }
+}
+@media only screen and (max-width: 1024px)
+{
+    #hero h1
+    {
+        font-size: 4em;
+    }
+    #hero h2
+    {
+        font-size: 2em;
+    }
+    #hero .mission
+    {
+        font-size: 1.5em;
+    }
+}
+
 
 .modal-dialog button,
 input[type=button],

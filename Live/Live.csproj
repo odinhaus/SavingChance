@@ -417,6 +417,7 @@
     <None Include="Properties\PublishProfiles\savingchance.pubxml" />
     <None Include="Properties\PublishProfiles\sc-beta.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dropzone.js" />
     <Content Include="Scripts\fb.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -474,6 +475,7 @@
     <Content Include="Views\Manage\ViewFilter.cshtml" />
     <Content Include="Views\Account\ViewAccount.cshtml" />
     <Content Include="Views\Account\ItemNotFound.cshtml" />
+    <Content Include="Views\Shared\_AccountHero.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
