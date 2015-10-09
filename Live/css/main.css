@@ -173,12 +173,14 @@ a.tabButton
     width: 100%;
     background-color: #F77224;
     background-size: cover;
-    -webkit-filter: sepia(0.4) brightness(0.5);
-    -webkit-filter: sepia(40%) brightness(0.5);
-    -moz-filter:    sepia(40%) brightness(0.5);
-    -ms-filter:     sepia(40%) brightness(0.5);
-    -o-filter:      sepia(40%) brightness(0.5);
-    filter:         sepia(40%) brightness(0.5);
+    background-position-x: center;
+    background-position-y: center;
+    -webkit-filter: sepia(50%) brightness(0.4);
+    -moz-filter:    sepia(50%) brightness(0.4);
+    -ms-filter:     sepia(50%) brightness(0.4);
+    -o-filter:      sepia(50%) brightness(0.4);
+    filter:         sepia(50%) brightness(0.4);
+    /*opacity: 0.9;*/
 }
 
 #hero .hero-body
@@ -186,7 +188,8 @@ a.tabButton
     z-index: 10;
 }
 
-.hero.fa-camera
+.hero.fa-camera,
+.hero.fa-heart
 {
     color: #FFFDFC;
     font-size: 3em;
@@ -199,6 +202,11 @@ a.tabButton
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
     -webkit-transition: all .1s linear;
+}
+
+.hero.fa-heart.selected
+{
+    color: #F77224;
 }
 
 #hero h1,
@@ -230,9 +238,12 @@ a.tabButton
     left: 0px;
 }
 
-#hero .fa-camera:hover,
-#hero .fa-camera:active,
-#hero .fa-camera:focus
+.hero.fa-camera:hover,
+.hero.fa-camera:active,
+.hero.fa-camera:focus,
+.hero.fa-heart:hover,
+.hero.fa-heart:active,
+.hero.fa-heart:focus
 {
     opacity: 1;
     transition:         all .1s linear;
@@ -263,6 +274,15 @@ a.tabButton
 #hero .banner
 {
     padding-top: 1em;
+}
+
+.dropzone 
+{
+    background: #FAFAFA;
+    min-height: 3em;
+    cursor: pointer;
+    text-align: center;
+    color: #596D59;
 }
 
 

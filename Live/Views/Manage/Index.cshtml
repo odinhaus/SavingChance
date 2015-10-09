@@ -16,6 +16,66 @@
 
     @Html.Partial("_AccountHero")
 
+    <script type="text/javascript">
+        Dropzone.options.heroImageForm = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            acceptedFiles: '.jpg, .jpeg, .png',
+            clickable: true,
+            autoProcessQueue: false,
+            maxFiles: 1,
+            addRemoveLinks: false,
+            dictDefaultMessage: 'Click Here or Drop a JPG or PNG file to upload (1024 x 400 or larger)...',
+            headers: { 'Authorization': 'Bearer ' + window.sc_apiToken },
+            init: function()
+            {
+                var dropZone = this;
+                dropZone.removeAllFiles(true);
+                dropZone.on("complete", function () {
+                    if (dropZone.files[0].status == "error") {
+                        alert(JSON.parse(this.files[0].xhr.responseText).Message);
+                    }
+                    else {
+                        //location.reload();
+                        $('#hero .hero-background').css('background-image', 'url(' + dropZone.files[0].localSrc + ')');
+                    }
+                    $('#heroImage').modal('hide');
+                });
+                dropZone.on("addedfile", function (file) {
+                    $('#heroError').text('');
+                    var reader = new FileReader();
+                    reader.onload = (function(aFile)
+                    {
+                        return function (e) {
+                            var img = document.createElement('img');
+                            img.src = e.target.result;
+                            if (img.naturalHeight < 400
+                                || img.naturalWidth < 1024)
+                            {
+                                $('#heroError').text('Please select a larger image (' + img.naturalWidth + ' x ' + img.naturalHeight + ').');
+                                dropZone.removeAllFiles(true);
+                                $('#heroImage').effect('shake');
+                            }
+                            else
+                            {
+                                file.localSrc = e.target.result;
+                                dropZone.autoProcessQueue = true;
+                                dropZone.processQueue();
+                            }
+                        };
+                    })(file);
+                    reader.readAsDataURL(file);
+                });
+            }
+        };
+        function showHeroImageSelector()
+        {
+            Dropzone.forElement("#heroImageForm").removeAllFiles(true);
+            $('#heroImageForm')[0].reset();
+            $('#heroImage').modal();
+        }
+    </script>
+
     <i class="hero fa fa-camera" onclick="showHeroImageSelector()"></i>
     <div id="heroImage" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -24,7 +84,8 @@
                 <h2 class="modal-title"><img id="emblem" src="/images/Logo-Hex-64.png" /><span>Select Your Hero Image...</span></h2>
             </div>
             <div class="modal-body">
-                <form id="heroImageForm" action="/Account/SetImage" class="dropzone">
+                <span id="heroError" class="payment-errors"></span>
+                <form id="heroImageForm" action="/api/Account/SetImage" class="dropzone">
                     <div class="fallback">
                         <input name="file" type="file" multiple />
                     </div>
@@ -35,14 +96,6 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        function showHeroImageSelector()
-        {
-            $('#heroImageForm')[0].reset();
-            $('#heroImage').modal();
-        }
-    </script>
 }
     <div id="settings" class="tab" style="display:none">
         <div class="content-center">

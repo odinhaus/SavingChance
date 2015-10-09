@@ -6,3 +6,8 @@
 }
 
 @Html.Partial("_AccountHero")
+
+@if (Request.IsAuthenticated)
+{
+    <i class="hero fa fa-heart" title="Follow"></i>
+}

@@ -18,6 +18,8 @@ using Live.Providers;
 using Live.Results;
 using Live.Managers;
 using Live.Services;
+using System.Net;
+using System.Diagnostics;
 
 namespace Live.Controllers.Api
 {
@@ -383,6 +385,39 @@ namespace Live.Controllers.Api
                 return GetErrorResult(result); 
             }
             return Ok();
+        }
+
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [Route("SetImage")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> SetImage()
+        {
+            // Check if the request contains multipart/form-data.
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            try
+            {
+                // Read the form data.
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                // This illustrates how to get the file names.
+                foreach (MultipartFileData file in provider.FileData)
+                {
+                    Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+                    Trace.WriteLine("Server file path: " + file.LocalFileName);
+                }
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (System.Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -6,6 +6,20 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
+    <script>
+        @{bool isLoggedIn = Request.IsAuthenticated;}
+        @{bool isProvider = isLoggedIn ? ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "UserType" && c.Value == "Provider") : false ;}
+        @{string token = "";
+            var claim = ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).Claims.FirstOrDefault(c => c.Type == "BearerToken");
+            if (claim != null)
+            {
+                token = claim.Value;
+            }
+         }
+        window.sc_loggedIn = @isLoggedIn.ToString().ToLower();
+        window.sc_isProvider = @isProvider.ToString().ToLower();
+        window.sc_apiToken = '@token';
+    </script>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="~/Scripts/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -77,7 +91,7 @@
         
     </header>
     <nav id="nav">
-        <a href="/" class="hover"><i class="fa fa-home"></i> Chance Feed</a>
+        <a href="/" class="hover"><i class="fa fa-home"></i> Browse</a>
         @if (Request.IsAuthenticated)
         {
             <a href="/&#64;me" class="hover"><i class="fa fa-at"></i> Me</a>
@@ -110,20 +124,6 @@
         </div>
     </footer>
     @RenderSection("scripts", required: false)
-    <script>
-        @{bool isLoggedIn = Request.IsAuthenticated;}
-        @{bool isProvider = isLoggedIn ? ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).HasClaim(c => c.Type == "UserType" && c.Value == "Provider") : false ;}
-        @{string token = "";
-            var claim = ((System.Security.Claims.ClaimsIdentity)((System.Security.Claims.ClaimsPrincipal)User).Identity).Claims.FirstOrDefault(c => c.Type == "BearerToken");
-            if (claim != null)
-            {
-                token = claim.Value;
-            }
-         }
-        window.sc_loggedIn = @isLoggedIn.ToString().ToLower();
-        window.sc_isProvider = @isProvider.ToString().ToLower();
-        window.sc_apiToken = '@token';
-    </script>
     <script src="/Scripts/fb.js"></script>
     <script src="/ng/main.js"></script>
     <script src="/ng/areas/main/browse.js"></script>
