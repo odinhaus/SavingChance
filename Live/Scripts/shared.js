@@ -66,11 +66,40 @@ function setTab(element) {
 }
 
 function applyEditables() {
-    $(document).ready(function () {
-        $('[sc-data]').each(function (i, elm) {
-            var $elm = $(elm);
-            
+    $('.edit a').toggleClass('active');
+    $('[sc-data]').each(function (i, elm) {
+        var $elm = $(elm);
+        var $input = $('<div type="text" name="' + $elm.attr('sc-data') + '" contenteditable></div>');
+        $input.data('view', $elm);
+        //$input.css($elm.css());
+        
+        $input.text($elm[0].innerText.trim());
+        $input.css({
+            'background-color': 'transparent',
+            overflow: 'hidden',
+            outline: 0,
+            border: '0px solid black'
         });
+        $input.attr('class', $elm.attr('class'));
+        $elm.replaceWith($input);
+        //$elm.parent().append($input);
+        //$elm.remove();
+    });
+}
+
+function commitEditables(uri) {
+    $('[sc-data]').each(function (i, elm) {
+        var $elm = $(elm);
+
+    });
+    $('.edit a').toggleClass('active');
+}
+
+function discardEditables() {
+    $('.edit a').toggleClass('active');
+    $('[sc-data]').each(function (i, elm) {
+        var $elm = $(elm);
+
     });
 }
 

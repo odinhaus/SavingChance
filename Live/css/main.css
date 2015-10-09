@@ -226,15 +226,16 @@ a.selected
     display: block;
 }
 
-#hero h1
+#hero .title
 {
     font-size: 6em;
     opacity: 1;
     position: relative;
     left: 0px;
+    width: 100%;
 }
 
-#hero h2
+#hero .handle
 {
     font-size: 4em;
     opacity: 1;
@@ -333,12 +334,19 @@ a.selected
 .edit a
 {
     cursor: pointer;
-    opacity: 0.3;
+    opacity: 0.6;
     transition:         all .1s linear;
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
     -webkit-transition: all .1s linear;
     color: #FFFDFC!important;
+    display: none;
+    margin-right: 1em;
+}
+
+.edit a.active
+{
+    display: inline-block;
 }
 
 .edit a:hover,
