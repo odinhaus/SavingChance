@@ -102,17 +102,20 @@ body, .bg {
     list-style: none;
 }
 
+a.tabButton
+{
+    /*text-shadow: 0 0 1px #FAFAFA;*/
+    font-weight: bold;
+    color: #FFFDFC!important;
+}
+
 a.selected
 {
     color: #F77224!important;
     font-weight: bold;
 }
 
-a.tabButton
-{
-    /*text-shadow: 0 0 1px #FAFAFA;*/
-    font-weight: bold;
-}
+
 
 .tabHeader
 {
@@ -138,6 +141,7 @@ a.tabButton
 .tabHeader ol li:not(:first-child):before
 {
     content: '| ';
+    color: #FFFDFC;
 }
 
 #hero
@@ -317,6 +321,38 @@ a.tabButton
     }
 }
 
+.edit
+{
+    position: absolute;
+    z-index: 9999999;
+    right: 0;
+    color: #FFFDFC;
+    top: 0;
+}
+
+.edit a
+{
+    cursor: pointer;
+    opacity: 0.3;
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+    color: #FFFDFC!important;
+}
+
+.edit a:hover,
+.edit a:active,
+.edit a:focus
+{
+    transition:         all .1s linear;
+    -moz-transition:    all .1s linear;
+    -o-transition:      all .1s linear;
+    -webkit-transition: all .1s linear;
+    opacity: 1.0;
+    color: #FFFDFC!important;
+    text-decoration: none;
+}
 
 .modal-dialog button,
 input[type=button],

@@ -44,26 +44,24 @@
                 dropZone.on("addedfile", function (file) {
                     $('#heroError').text('');
                     var reader = new FileReader();
-                    reader.onload = (function(aFile)
+                    reader.onloadend = function(e)
                     {
-                        return function (e) {
-                            var img = document.createElement('img');
-                            img.src = e.target.result;
+                        var img = document.createElement('img');
+                        img.onload = function () {
                             if (img.naturalHeight < 400
-                                || img.naturalWidth < 1024)
-                            {
+                            || img.naturalWidth < 1024) {
                                 $('#heroError').text('Please select a larger image (' + img.naturalWidth + ' x ' + img.naturalHeight + ').');
                                 dropZone.removeAllFiles(true);
                                 $('#heroImage').effect('shake');
                             }
-                            else
-                            {
+                            else {
                                 file.localSrc = e.target.result;
                                 dropZone.autoProcessQueue = true;
                                 dropZone.processQueue();
                             }
                         };
-                    })(file);
+                        img.src = e.target.result;
+                    };
                     reader.readAsDataURL(file);
                 });
             }
@@ -77,6 +75,11 @@
     </script>
 
     <i class="hero fa fa-camera" onclick="showHeroImageSelector()"></i>
+    <div class="edit">
+        <a><i class="fa fa-pencil tool"></i> Edit</a>
+        <a><i class="fa fa-check tool"></i> Commit</a>
+        <a><i class="fa fa-times tool"></i> Discard</a>
+    </div>
     <div id="heroImage" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-header">

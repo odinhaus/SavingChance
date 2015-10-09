@@ -20,6 +20,7 @@ using Live.Managers;
 using Live.Services;
 using System.Net;
 using System.Diagnostics;
+using System.IO;
 
 namespace Live.Controllers.Api
 {
@@ -397,8 +398,14 @@ namespace Live.Controllers.Api
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
+            
+            string root = HttpContext.Current.Server.MapPath("~/Users/Media/Images");
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            if (!Directory.Exists(root))
+            {
+                Directory.CreateDirectory(root);
+            }
+            
             var provider = new MultipartFormDataStreamProvider(root);
 
             try
@@ -416,7 +423,7 @@ namespace Live.Controllers.Api
             }
             catch (System.Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.ToString());
             }
         }
 
