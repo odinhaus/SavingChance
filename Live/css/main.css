@@ -251,6 +251,7 @@ a.selected
     position: relative;
     left: 0px;
     width: 100%;
+    white-space: pre-line;
 }
 
 #hero .handle
@@ -292,6 +293,7 @@ a.selected
     -moz-text-shadow:    0 0 12px rgba(15, 15, 15, 0.95);
     -o-text-shadow:      0 0 12px rgba(15, 15, 15, 0.95);
     -webkit-text-shadow: 0 0 12px rgba(15, 15, 15, 0.95);
+    white-space: pre-line;
 }
 
 #hero .banner
@@ -305,6 +307,7 @@ a.selected
     border: 0px inset rgba(255,253,252,0.3);
     outline: none;
     line-height: 1em;
+    white-space: pre-line;
 }
 
 .dropzone 
@@ -324,29 +327,13 @@ a.selected
     width: 0%;
 }
 
-
-@media only screen and (max-width: 600px)
-{
-    #hero h1
-    {
-        font-size: 3em;
-    }
-    #hero h2
-    {
-        font-size: 1.5em;
-    }
-    #hero .mission
-    {
-        font-size: 1.2em;
-    }
-}
 @media only screen and (max-width: 1024px)
 {
-    #hero h1
+    #hero .title
     {
         font-size: 4em;
     }
-    #hero h2
+    #hero .handle
     {
         font-size: 2em;
     }
@@ -355,6 +342,23 @@ a.selected
         font-size: 1.5em;
     }
 }
+
+@media only screen and (max-width: 736px)
+{
+    #hero .title
+    {
+        font-size: 3em;
+    }
+    #hero .handle
+    {
+        font-size: 1.75em;
+    }
+    #hero .mission
+    {
+        font-size: 1.2em;
+    }
+}
+
 
 .edit
 {

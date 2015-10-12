@@ -55,7 +55,7 @@ function doSearch() {
     return false;
 }
 
-function setTab(element) {
+function setTab(element, fn) {
     var $this = $(element);
     $('.tabButton').each(function (index, elem) {
         $(this).removeClass('selected');
@@ -63,6 +63,7 @@ function setTab(element) {
     });
     $this.addClass('selected');
     $($this.attr('name')).css('display', 'block');
+    fn();
 }
 
 function applyEditables() {
@@ -75,7 +76,7 @@ function applyEditables() {
         var $input = $('<div type="text" name="' + $elm.attr('sc-data') + '" contenteditable></div>');
         $input.data('view', $elm);
         
-        $input.text($elm[0].innerText.trim());
+        $input.html(elm.innerHTML.trim());
         $input.css({
             'line-height': $elm.css('line-height')
         });
@@ -93,7 +94,13 @@ function commitEditables(uri) {
     var data = {};
     $('[contenteditable]').each(function (i, elm) {
         var $elm = $(elm);
-        data[$elm.attr('name')] = $elm.text();
+        var content = elm.innerHTML;
+        content = content.replace(/<div>/g, '')
+            .replace(/<a>/g, '')
+            .replace(/<\/a>/g, '')
+            .replace(/<\/div>/g, '')
+            .replace(/<br>/g, '\r\n');
+        data[$elm.attr('name')] = content;
     });
 
     var jqxhr = $.ajax(
@@ -112,7 +119,7 @@ function commitEditables(uri) {
                 {
                     $last = $original;
                 }
-                $last.text(data[$original.attr('sc-data')]);
+                $last.html(data[$original.attr('sc-data')]);
                 $elm.replaceWith($original);
             });
 

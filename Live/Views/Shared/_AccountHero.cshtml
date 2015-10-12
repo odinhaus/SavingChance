@@ -4,11 +4,11 @@
     <div class="hero-background" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Boxer_puppy_fawn_portrai.jpg/1920px-Boxer_puppy_fawn_portrai.jpg')"></div>
     <div class="hero-body">
         <div class="banner">
-            <h1 class="title" sc-data="Title"><a href="@Model.User.PageUri">@Model.User.Title</a></h1>
-            <h2 class="handle"><a href="/?q=&#64;hbr">&#64;hbr</a></h2>
+            <a href="@Model.User.PageUri"><h1 class="title" sc-data="Title">@Model.User.Title</h1></a>
+            <a href="/?q=@Model.User.AtHandle"><h2 class="handle">@Model.User.AtHandle</h2></a>
         </div>
         <div class="mission" sc-data="Mission">
-            @Model.User.Mission
+            @(new HtmlString(Model.User.Mission))
         </div>
     </div>
 </div>

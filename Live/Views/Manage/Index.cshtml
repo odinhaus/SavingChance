@@ -9,8 +9,8 @@
 {
     <div class="tabHeader active">
         <ol>
-            <li><a href="" onclick="setTab(this)" class="tabButton selected" name="#hero">about</a></li>
-            <li><a href="" onclick="setTab(this)" class="tabButton" name="#settings">settings</a></li>
+            <li><a href="" onclick="setTab(this, function () { $('.edit').css('display', 'block'); })" class="tabButton selected" name="#hero">about</a></li>
+            <li><a href="" onclick="setTab(this, function () { $('.edit').css('display', 'none'); })" class="tabButton" name="#settings">settings</a></li>
         </ol>
     </div>
 
@@ -76,7 +76,7 @@
 
     <i class="hero fa fa-camera active" onclick="showHeroImageSelector()"></i>
     <div class="edit">
-        <a class="active" onclick="applyEditables()"><i class="fa fa-pencil tool"></i> edit</a>
+        <a class="showEdit active" onclick="applyEditables()"><i class="fa fa-pencil tool"></i> edit</a>
         <a class="commit" onclick="commitEditables('/api/Account/Update')"><i class="fa fa-check tool" ></i> commit</a>
         <a class="discard" onclick="discardEditables()"><i class="fa fa-times tool" ></i> discard</a>
     </div>
