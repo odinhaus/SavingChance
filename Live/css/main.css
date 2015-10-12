@@ -355,6 +355,7 @@ a.selected
     right: 0;
     color: #FFFDFC;
     top: 0;
+    padding: 0.1em;
 }
 
 .edit a
