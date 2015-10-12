@@ -316,6 +316,14 @@ a.selected
     color: #596D59;
 }
 
+.dz-upload
+{
+    display: block;
+    background-color: #648F64;
+    height: 10px;
+    width: 0%;
+}
+
 
 @media only screen and (max-width: 600px)
 {
@@ -361,7 +369,7 @@ a.selected
 .edit a
 {
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 0.7;
     transition:         all .1s linear;
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
@@ -376,6 +384,7 @@ a.selected
 .edit a.commit
 {
     opacity: 0.9;
+    color: #FFD7C0!important;
 }
 
 .edit a.active
@@ -392,7 +401,7 @@ a.selected
     -o-transition:      all .1s linear;
     -webkit-transition: all .1s linear;
     opacity: 1.0;
-    color: #FFFDFC!important;
+    color: #FFD7C0!important;
     text-decoration: none;
 }
 
