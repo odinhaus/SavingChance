@@ -51,5 +51,15 @@ namespace Live.Services
 
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<ApplicationUser> UpdateAccountAsync(ApplicationUser user)
+        {
+            var current = _dbContext.Users.Single(u => u.Email == _owin.Authentication.User.Identity.Name);
+            current.Title = user.Title;
+            current.Mission = user.Mission;
+            current.PageUri = user.PageUri;
+            await _dbContext.SaveChangesAsync();
+            return current;
+        }
     }
 }

@@ -1,7 +1,7 @@
-﻿@model Live.Models.ApplicationUser
+﻿@model Live.Models.IndexViewModel
 
 @{
-    ViewBag.Title = Model.AtHandle;
+    ViewBag.Title = Model.User.AtHandle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,5 +9,5 @@
 
 @if (Request.IsAuthenticated)
 {
-    <i class="hero fa fa-heart" title="Follow"></i>
+    <i class="hero fa fa-heart active" title="Follow"></i>
 }

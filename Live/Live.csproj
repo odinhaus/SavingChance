@@ -332,6 +332,10 @@
     <Compile Include="Migrations\201510051758432_ViewFilter_Index.Designer.cs">
       <DependentUpon>201510051758432_ViewFilter_Index.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510121413258_Hero_Props.cs" />
+    <Compile Include="Migrations\201510121413258_Hero_Props.Designer.cs">
+      <DependentUpon>201510121413258_Hero_Props.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -523,6 +527,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510051758432_ViewFilter_Index.resx">
       <DependentUpon>201510051758432_ViewFilter_Index.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510121413258_Hero_Props.resx">
+      <DependentUpon>201510121413258_Hero_Props.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

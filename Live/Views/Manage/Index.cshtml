@@ -7,7 +7,7 @@
 <div>
 @if (Request.IsAuthenticated && Model.User.UserType == Live.Models.UserType.Provider)
 {
-    <div class="tabHeader">
+    <div class="tabHeader active">
         <ol>
             <li><a href="" onclick="setTab(this)" class="tabButton selected" name="#hero">about</a></li>
             <li><a href="" onclick="setTab(this)" class="tabButton" name="#settings">settings</a></li>
@@ -74,11 +74,11 @@
         }
     </script>
 
-    <i class="hero fa fa-camera" onclick="showHeroImageSelector()"></i>
+    <i class="hero fa fa-camera active" onclick="showHeroImageSelector()"></i>
     <div class="edit">
         <a class="active" onclick="applyEditables()"><i class="fa fa-pencil tool"></i> edit</a>
-        <a><i class="fa fa-check tool" onclick="commitEditables('/api/Account/Update')"></i> commit</a>
-        <a><i class="fa fa-times tool" onclick="discardEditables()"></i> discard</a>
+        <a class="commit" onclick="commitEditables('/api/Account/Update')"><i class="fa fa-check tool" ></i> commit</a>
+        <a class="discard" onclick="discardEditables()"><i class="fa fa-times tool" ></i> discard</a>
     </div>
     <div id="heroImage" class="modal fade" role="dialog">
         <div class="modal-dialog">

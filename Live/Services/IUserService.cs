@@ -11,7 +11,7 @@ namespace Live.Services
     {
         Task UpdateStripeAccountAsync(string stripeAccountId);
         Task RemoveStripeAccountAsync();
-
         Task UpdateViewFilterAsync(ViewFilter filter);
+        Task<ApplicationUser> UpdateAccountAsync(ApplicationUser user);
     }
 }

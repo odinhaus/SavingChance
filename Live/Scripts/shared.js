@@ -67,39 +67,91 @@ function setTab(element) {
 
 function applyEditables() {
     $('.edit a').toggleClass('active');
+    $('.tabHeader').toggleClass('active');
+    $('.fa-camera').toggleClass('active');
+    var focus = false;
     $('[sc-data]').each(function (i, elm) {
         var $elm = $(elm);
         var $input = $('<div type="text" name="' + $elm.attr('sc-data') + '" contenteditable></div>');
         $input.data('view', $elm);
-        //$input.css($elm.css());
         
         $input.text($elm[0].innerText.trim());
         $input.css({
-            'background-color': 'transparent',
-            overflow: 'hidden',
-            outline: 0,
-            border: '0px solid black'
+            'line-height': $elm.css('line-height')
         });
         $input.attr('class', $elm.attr('class'));
         $elm.replaceWith($input);
-        //$elm.parent().append($input);
-        //$elm.remove();
+        if (!focus)
+        {
+            $input.focus();
+            focus = true;
+        }
     });
 }
 
 function commitEditables(uri) {
-    $('[sc-data]').each(function (i, elm) {
+    var data = {};
+    $('[contenteditable]').each(function (i, elm) {
         var $elm = $(elm);
-
+        data[$elm.attr('name')] = $elm.text();
     });
-    $('.edit a').toggleClass('active');
+
+    var jqxhr = $.ajax(
+    {
+        url: uri,
+        data: data,
+        type: 'post',
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+
+            $('[contenteditable]').each(function (i, elm) {
+                var $elm = $(elm);
+                var $original = $($elm.data().view[0]);
+                var $last = $original.find(':last-child');
+                if ($last.length == 0)
+                {
+                    $last = $original;
+                }
+                $last.text(data[$original.attr('sc-data')]);
+                $elm.replaceWith($original);
+            });
+
+            $('.edit a').toggleClass('active');
+            $('.tabHeader').toggleClass('active');
+            $('.fa-camera').toggleClass('active');
+        },
+        error: function (data, textStatus, jqXHR) {
+            var $error = $('<div class="error"><div class="close">&times;</div><i class="fa fa-exclamation-circle"></i><div class="message"></div></div>');
+            var $edit = $('.edit');
+            $error.find('.message').text(jqXHR.message);
+            $error.find('.close').click(function () {
+                $error.remove();
+            });
+            $error.css({
+                top: '-999999px',
+            });
+            $('body').append($error);
+            $error.css({
+                top: '-' + $error.height() + 'px'
+            });
+            $error.animate({
+                top: 0
+            }, 1000);
+        },
+        headers: {
+            Authorization: 'Bearer ' + window.sc_apiToken
+        }
+    });
 }
 
 function discardEditables() {
     $('.edit a').toggleClass('active');
-    $('[sc-data]').each(function (i, elm) {
+    $('.tabHeader').toggleClass('active');
+    $('.fa-camera').toggleClass('active');
+    $('[contenteditable]').each(function (i, elm) {
         var $elm = $(elm);
-
+        var $original = $elm.data();
+        $elm.replaceWith($($original.view[0]));
     });
 }
 

@@ -106,7 +106,7 @@ a.tabButton
 {
     /*text-shadow: 0 0 1px #FAFAFA;*/
     font-weight: bold;
-    color: #FFFDFC!important;
+    color: #648F64!important;
 }
 
 a.selected
@@ -123,8 +123,18 @@ a.selected
     position: absolute;
     width: 100%;
     text-align: center;
-    background-color: #0F0F0F;
     padding: 0.1em;
+    display: none;
+}
+
+.tabHeader
+{
+    display: none;
+}
+
+.tabHeader.active
+{
+    display: block;
 }
 
 .tabHeader ol
@@ -141,7 +151,7 @@ a.selected
 .tabHeader ol li:not(:first-child):before
 {
     content: '| ';
-    color: #FFFDFC;
+    color: #8C99A3;
 }
 
 #hero
@@ -206,6 +216,14 @@ a.selected
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
     -webkit-transition: all .1s linear;
+    text-shadow: 5px 5px 5px #0F0F0F;
+    display: none;
+}
+
+.hero.fa-camera.active,
+.hero.fa-heart.active
+{
+    display: block;
 }
 
 .hero.fa-heart.selected
@@ -281,6 +299,14 @@ a.selected
     padding-top: 1em;
 }
 
+[contenteditable]
+{
+    background-color: rgba(15,15,15,0.3);
+    border: 0px inset rgba(255,253,252,0.3);
+    outline: none;
+    line-height: 1em;
+}
+
 .dropzone 
 {
     background: #FAFAFA;
@@ -334,7 +360,7 @@ a.selected
 .edit a
 {
     cursor: pointer;
-    opacity: 0.6;
+    opacity: 0.4;
     transition:         all .1s linear;
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
@@ -342,6 +368,13 @@ a.selected
     color: #FFFDFC!important;
     display: none;
     margin-right: 1em;
+    float: right;
+    text-shadow: 5px 5px 5px #0F0F0F;
+}
+
+.edit a.commit
+{
+    opacity: 0.9;
 }
 
 .edit a.active
@@ -360,6 +393,41 @@ a.selected
     opacity: 1.0;
     color: #FFFDFC!important;
     text-decoration: none;
+}
+
+.error
+{
+    position: absolute;
+    width: 100%;
+    z-index: 9999999999;
+    background-color: #0F0F0F;
+    color: #F77224;
+    font-size: 1.5em;
+    box-shadow:         2px 2px 24px rgba(15, 15, 15, 0.75);
+    -moz-box-shadow:    2px 2px 24px rgba(15, 15, 15, 0.75);
+    -o-box-shadow:      2px 2px 24px rgba(15, 15, 15, 0.75);
+    -webkit-box-shadow: 2px 2px 24px rgba(15, 15, 15, 0.75);
+    line-height: 1em;
+}
+
+.error .fa
+{
+    display: block;
+    float: left;
+    margin: 1em 0 0 1em;
+}
+
+.error .close
+{
+    margin: 0.95em;
+    font-size: 0.75em;
+    color: #FFFDFC;
+}
+
+.error .message
+{
+    margin: 1em;
+    float: left;
 }
 
 .modal-dialog button,

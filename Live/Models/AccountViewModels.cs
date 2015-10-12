@@ -41,10 +41,7 @@ namespace Live.Models
 
         public string ProviderKey { get; set; }
     }
-}
 
-namespace Live.Models
-{
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -156,5 +153,11 @@ namespace Live.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class UpdateHeroViewModel
+    {
+        public string Title { get; set; }
+        public string Mission { get; set; }
     }
 }

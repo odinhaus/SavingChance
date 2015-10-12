@@ -427,6 +427,26 @@ namespace Live.Controllers.Api
             }
         }
 
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [Route("Update")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Update(UpdateHeroViewModel model)
+        {
+            try
+            {
+                var user = new ApplicationUser()
+                {
+                    Title = model.Title,
+                    Mission = model.Mission
+                };
+                return Request.CreateResponse<ApplicationUser>(await _userService.UpdateAccountAsync(user));
+            }
+            catch(Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

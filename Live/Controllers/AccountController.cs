@@ -75,7 +75,14 @@ namespace Live.Controllers
             }
             else
             {
-                return View(user);
+                return View(new IndexViewModel()
+                {
+                    Canine = user.ViewFilter.AnimalTypes.HasFlag(AnimalTypes.Canine),
+                    Equine = user.ViewFilter.AnimalTypes.HasFlag(AnimalTypes.Equine),
+                    Feline = user.ViewFilter.AnimalTypes.HasFlag(AnimalTypes.Feline),
+                    PhoneNumber = user.PhoneNumber,
+                    User = user
+                });
             }
         }
 

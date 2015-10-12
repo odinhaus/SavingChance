@@ -92,6 +92,9 @@ namespace Live.Models
         public virtual List<Chance> Chances { get; set; }
         public virtual List<Love> Loves { get; set; }
         public virtual ViewFilter ViewFilter { get; set; }
+        public string Title { get; set; }
+        public string Mission { get; set; }
+        public string PageUri { get; set; }
     }
 
     public class ViewFilter
