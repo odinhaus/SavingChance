@@ -44,6 +44,7 @@ h4
 a
 {
     text-decoration: none;
+    cursor: pointer!important;
 }
 
 textarea:focus, 
@@ -231,17 +232,18 @@ a.selected
     color: #F77224;
 }
 
-#hero h1,
-#hero h2,
-#hero h3,
-#hero h4
+#hero [sc-data]
+{
+    padding: 10px;
+}
+
+#hero .title,
+#hero .handle
 {
     text-shadow:         0 0 12px rgba(15, 15, 15, 0.95);
     -moz-text-shadow:    0 0 12px rgba(15, 15, 15, 0.95);
     -o-text-shadow:      0 0 12px rgba(15, 15, 15, 0.95);
     -webkit-text-shadow: 0 0 12px rgba(15, 15, 15, 0.95);
-    width: 100%;
-    display: block;
 }
 
 #hero .title
@@ -250,7 +252,6 @@ a.selected
     opacity: 1;
     position: relative;
     left: 0px;
-    width: 100%;
     white-space: pre-line;
 }
 
@@ -276,12 +277,12 @@ a.selected
     -webkit-transition: all .1s linear;
 }
 
-#hero .mission
+#hero .mission,
+#hero .contact-us
 {
     position: relative;
     width: 75%;
     padding-top: 1em;
-    padding-bottom: 4em;
     left: 50%;
     font-size: 1.5em;
     -ms-transform:      translateY(0%) translateX(-50%);
@@ -296,6 +297,11 @@ a.selected
     white-space: pre-line;
 }
 
+#hero .contact-us
+{
+    padding-bottom: 4em;
+}
+
 #hero .banner
 {
     padding-top: 1em;
@@ -308,6 +314,19 @@ a.selected
     outline: none;
     line-height: 1em;
     white-space: pre-line;
+    padding: 10px;
+}
+
+[contenteditable]:focus
+{
+    background-color: rgba(15,15,15,0.6);
+    outline: solid;
+}
+
+[contenteditable]:empty:not(:focus):before
+{
+    content:attr(sc-placeholder);
+    color: rgba(255,253,252,0.2);
 }
 
 .dropzone 
@@ -327,6 +346,12 @@ a.selected
     width: 0%;
 }
 
+.dz-success-mark,
+.dz-error-mark
+{
+    display: none;
+}
+
 @media only screen and (max-width: 1024px)
 {
     #hero .title
@@ -337,7 +362,8 @@ a.selected
     {
         font-size: 2em;
     }
-    #hero .mission
+    #hero .mission,
+    #hero .contact-us
     {
         font-size: 1.5em;
     }
@@ -353,7 +379,8 @@ a.selected
     {
         font-size: 1.75em;
     }
-    #hero .mission
+    #hero .mission,
+    #hero .contact-us
     {
         font-size: 1.2em;
     }
@@ -363,11 +390,23 @@ a.selected
 .edit
 {
     position: absolute;
-    z-index: 9999999;
+    z-index: 100;
     right: 0;
     color: #FFFDFC;
     top: 0;
     padding: 0.1em;
+}
+
+.edit.active
+{
+    background-color: #0F0F0F;
+    border-left: 1px solid #FFFDFC;
+    border-bottom: 1px solid #FFFDFC;
+    padding-left: 1em;
+    box-shadow:         2px 2px 24px rgba(15, 15, 15, 0.75);
+    -moz-box-shadow:    2px 2px 24px rgba(15, 15, 15, 0.75);
+    -o-box-shadow:      2px 2px 24px rgba(15, 15, 15, 0.75);
+    -webkit-box-shadow: 2px 2px 24px rgba(15, 15, 15, 0.75);
 }
 
 .edit a

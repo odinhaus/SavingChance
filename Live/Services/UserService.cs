@@ -55,9 +55,29 @@ namespace Live.Services
         public async Task<ApplicationUser> UpdateAccountAsync(ApplicationUser user)
         {
             var current = _dbContext.Users.Single(u => u.Email == _owin.Authentication.User.Identity.Name);
+            current.Title = user.Title ?? current.Title;
+            current.Mission = user.Mission ?? current.Mission;
+            current.PageUri = user.PageUri ?? current.PageUri;
+            current.HeroUri = user.HeroUri ?? current.HeroUri;
+            current.ContactUs = user.ContactUs ?? current.ContactUs;
+            await _dbContext.SaveChangesAsync();
+            return current;
+        }
+
+        public async Task<ApplicationUser> UpdateHeroImageAsync(ApplicationUser user)
+        {
+            var current = _dbContext.Users.Single(u => u.Email == _owin.Authentication.User.Identity.Name);
+            current.HeroUri = user.HeroUri;
+            await _dbContext.SaveChangesAsync();
+            return current;
+        }
+
+        public async Task<ApplicationUser> UpdateHeroAttributesAsync(ApplicationUser user)
+        {
+            var current = _dbContext.Users.Single(u => u.Email == _owin.Authentication.User.Identity.Name);
             current.Title = user.Title;
             current.Mission = user.Mission;
-            current.PageUri = user.PageUri;
+            current.ContactUs = user.ContactUs;
             await _dbContext.SaveChangesAsync();
             return current;
         }

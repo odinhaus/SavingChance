@@ -1,14 +1,17 @@
 ﻿@model Live.Models.IndexViewModel
 
 <div id="hero" class="tab">
-    <div class="hero-background" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Boxer_puppy_fawn_portrai.jpg/1920px-Boxer_puppy_fawn_portrai.jpg')"></div>
+    <div class="hero-background" style="background-image: url('@Model.User.HeroUri')"></div>
     <div class="hero-body">
         <div class="banner">
-            <a href="@Model.User.PageUri"><h1 class="title" sc-data="Title">@Model.User.Title</h1></a>
-            <a href="/?q=@Model.User.AtHandle"><h2 class="handle">@Model.User.AtHandle</h2></a>
+            <div><a href="@Model.User.PageUri" class="title" sc-data="Title" sc-placeholder="Page Title">@Model.User.Title</a></div>
+            <div><a href="/?q=@Model.User.AtHandle" class="handle">@Model.User.AtHandle</a></div>
         </div>
-        <div class="mission" sc-data="Mission">
+        <div class="mission" sc-data="Mission" sc-placeholder="Mission Statement...">
             @(new HtmlString(Model.User.Mission))
+        </div>
+        <div class="contact-us" sc-data="ContactUs" sc-placeholder="Contact Information...">
+            @(new HtmlString(Model.User.ContactUs))
         </div>
     </div>
 </div>

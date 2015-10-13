@@ -336,6 +336,14 @@
     <Compile Include="Migrations\201510121413258_Hero_Props.Designer.cs">
       <DependentUpon>201510121413258_Hero_Props.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510131219407_HeroUri.cs" />
+    <Compile Include="Migrations\201510131219407_HeroUri.Designer.cs">
+      <DependentUpon>201510131219407_HeroUri.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510131258428_ContactUs.cs" />
+    <Compile Include="Migrations\201510131258428_ContactUs.Designer.cs">
+      <DependentUpon>201510131258428_ContactUs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -530,6 +538,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510121413258_Hero_Props.resx">
       <DependentUpon>201510121413258_Hero_Props.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131219407_HeroUri.resx">
+      <DependentUpon>201510131219407_HeroUri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131258428_ContactUs.resx">
+      <DependentUpon>201510131258428_ContactUs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

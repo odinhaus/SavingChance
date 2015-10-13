@@ -159,5 +159,7 @@ namespace Live.Models
     {
         public string Title { get; set; }
         public string Mission { get; set; }
+        public string HeroUri { get; set; }
+        public string ContactUs { get; set; }
     }
 }

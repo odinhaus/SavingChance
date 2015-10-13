@@ -13,5 +13,7 @@ namespace Live.Services
         Task RemoveStripeAccountAsync();
         Task UpdateViewFilterAsync(ViewFilter filter);
         Task<ApplicationUser> UpdateAccountAsync(ApplicationUser user);
+        Task<ApplicationUser> UpdateHeroImageAsync(ApplicationUser user);
+        Task<ApplicationUser> UpdateHeroAttributesAsync(ApplicationUser user);
     }
 }

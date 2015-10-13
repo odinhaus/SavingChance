@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
@@ -21,6 +22,7 @@ using Live.Services;
 using System.Net;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace Live.Controllers.Api
 {
@@ -413,18 +415,30 @@ namespace Live.Controllers.Api
                 // Read the form data.
                 await Request.Content.ReadAsMultipartAsync(provider);
 
-                // This illustrates how to get the file names.
-                foreach (MultipartFileData file in provider.FileData)
+                var file = provider.FileData.First();
+                var newName = file.Headers.ContentDisposition.FileName.Replace("\"", "");
+                var newPath = Path.Combine(Path.GetDirectoryName(file.LocalFileName), newName);
+                if (File.Exists(newPath)) File.Delete(newPath);
+                File.Move(file.LocalFileName,  newPath);
+
+                var user = new ApplicationUser()
                 {
-                    Trace.WriteLine(file.Headers.ContentDisposition.FileName);
-                    Trace.WriteLine("Server file path: " + file.LocalFileName);
-                }
-                return Request.CreateResponse(HttpStatusCode.OK);
+                    HeroUri = VirtualPathUtility.ToAbsolute(MapVirtual(newPath))
+                };
+
+                return Request.CreateResponse<ApplicationUser>(await _userService.UpdateHeroImageAsync(user));
             }
             catch (System.Exception e)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.ToString());
             }
+        }
+
+        private string MapVirtual(string path)
+        {
+            string appPath = HttpContext.Current.Server.MapPath("~");
+            string res = string.Format("~/{0}", path.Replace(appPath, "").Replace("\\", "/"));
+            return res;
         }
 
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -437,9 +451,10 @@ namespace Live.Controllers.Api
                 var user = new ApplicationUser()
                 {
                     Title = model.Title,
-                    Mission = model.Mission
+                    Mission = model.Mission,
+                    ContactUs = model.ContactUs,
                 };
-                return Request.CreateResponse<ApplicationUser>(await _userService.UpdateAccountAsync(user));
+                return Request.CreateResponse<ApplicationUser>(await _userService.UpdateHeroAttributesAsync(user));
             }
             catch(Exception ex)
             {

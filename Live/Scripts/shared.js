@@ -67,6 +67,7 @@ function setTab(element, fn) {
 }
 
 function applyEditables() {
+    $('.edit').toggleClass('active');
     $('.edit a').toggleClass('active');
     $('.tabHeader').toggleClass('active');
     $('.fa-camera').toggleClass('active');
@@ -81,6 +82,7 @@ function applyEditables() {
             'line-height': $elm.css('line-height')
         });
         $input.attr('class', $elm.attr('class'));
+        $input.attr('sc-placeholder', $elm.attr('sc-placeholder'));
         $elm.replaceWith($input);
         if (!focus)
         {
@@ -95,7 +97,9 @@ function commitEditables(uri) {
     $('[contenteditable]').each(function (i, elm) {
         var $elm = $(elm);
         var content = elm.innerHTML;
-        content = content.replace(/<div>/g, '')
+        content = content
+            .replace(/<div><br>/g, '<br>')
+            .replace(/<div>/g, '\r\n')
             .replace(/<a>/g, '')
             .replace(/<\/a>/g, '')
             .replace(/<\/div>/g, '')
@@ -119,10 +123,11 @@ function commitEditables(uri) {
                 {
                     $last = $original;
                 }
-                $last.html(data[$original.attr('sc-data')]);
+                $last.text(data[$original.attr('sc-data')]);
                 $elm.replaceWith($original);
             });
 
+            $('.edit').toggleClass('active');
             $('.edit a').toggleClass('active');
             $('.tabHeader').toggleClass('active');
             $('.fa-camera').toggleClass('active');
@@ -152,6 +157,7 @@ function commitEditables(uri) {
 }
 
 function discardEditables() {
+    $('.edit').toggleClass('active');
     $('.edit a').toggleClass('active');
     $('.tabHeader').toggleClass('active');
     $('.fa-camera').toggleClass('active');
