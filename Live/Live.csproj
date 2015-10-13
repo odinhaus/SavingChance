@@ -344,6 +344,10 @@
     <Compile Include="Migrations\201510131258428_ContactUs.Designer.cs">
       <DependentUpon>201510131258428_ContactUs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510131533111_Following_Followers.cs" />
+    <Compile Include="Migrations\201510131533111_Following_Followers.Designer.cs">
+      <DependentUpon>201510131533111_Following_Followers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -544,6 +548,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510131258428_ContactUs.resx">
       <DependentUpon>201510131258428_ContactUs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131533111_Following_Followers.resx">
+      <DependentUpon>201510131533111_Following_Followers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

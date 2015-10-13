@@ -13,5 +13,13 @@
         <div class="contact-us" sc-data="ContactUs" sc-placeholder="Contact Information...">
             @(new HtmlString(Model.User.ContactUs))
         </div>
+        <div class="followers">
+            <div><i class="fa fa-share-alt"></i><span> @Convert.ToDecimal(Model.User.Followers.Count).ToString("#,##0")</span></div>
+            <div>followers</div>
+        </div>
+        <div class="following">
+            <div><i class="fa fa-share-alt mirrored"></i><span> @Convert.ToDecimal(Model.User.Following.Count).ToString("#,##0")</span></div>
+            <div>following</div>
+        </div>
     </div>
 </div>

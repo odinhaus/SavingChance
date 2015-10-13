@@ -97,6 +97,9 @@ namespace Live.Models
         public string PageUri { get; set; }
         public string HeroUri { get; set; }
         public string ContactUs { get; set; }
+
+        public virtual List<ApplicationUser> Followers { get; set; }
+        public virtual List<ApplicationUser> Following { get; set; }
     }
 
     public class ViewFilter
