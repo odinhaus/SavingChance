@@ -69,6 +69,12 @@ namespace Live.Controllers
                 user = UserManager.Context.Users.SingleOrDefault(u => u.AtHandle == handle);
             }
 
+            var amFollowing = false;
+            if (User.Identity.IsAuthenticated)
+            {
+                amFollowing = user.Followers.Any(u => u.Email == User.Identity.Name);
+            }
+
             if (user == null)
             {
                 return View("ItemNotFound");
@@ -81,7 +87,8 @@ namespace Live.Controllers
                     Equine = user.ViewFilter.AnimalTypes.HasFlag(AnimalTypes.Equine),
                     Feline = user.ViewFilter.AnimalTypes.HasFlag(AnimalTypes.Feline),
                     PhoneNumber = user.PhoneNumber,
-                    User = user
+                    User = user,
+                    AmFollowing = amFollowing
                 });
             }
         }

@@ -15,5 +15,6 @@ namespace Live.Services
         Task<ApplicationUser> UpdateAccountAsync(ApplicationUser user);
         Task<ApplicationUser> UpdateHeroImageAsync(ApplicationUser user);
         Task<ApplicationUser> UpdateHeroAttributesAsync(ApplicationUser user);
+        Task<ApplicationUser> FollowAsync(string atHandle, bool follow);
     }
 }

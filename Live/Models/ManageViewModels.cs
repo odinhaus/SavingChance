@@ -13,6 +13,7 @@ namespace Live.Models
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
         public ApplicationUser User { get; set; }
+        public bool AmFollowing { get; set; }
     }
 
     public class ManageLoginsViewModel

@@ -106,13 +106,13 @@ body, .bg {
 a.tabButton
 {
     /*text-shadow: 0 0 1px #FAFAFA;*/
-    font-weight: bold;
+    font-weight: normal;
     color: #648F64!important;
 }
 
 a.selected
 {
-    color: #F77224!important;
+    color: #FFFDFC!important;
     font-weight: bold;
 }
 
@@ -122,15 +122,25 @@ a.selected
 {
     z-index: 5;
     position: absolute;
-    width: 100%;
+    left: 50%;
     text-align: center;
     padding: 0.1em;
     display: none;
-}
-
-.tabHeader
-{
-    display: none;
+    -ms-transform:      translateX(-50%);
+    -webkit-transform:  translateX(-50%);
+    -moz-transform:     translateX(-50%);
+    -o-transform:       translateX(-50%);
+    transform:          translateX(-50%);
+    background-color: #0F0F0F;
+    border-right: 1px solid #FFFDFC;
+    border-left: 1px solid #FFFDFC;
+    border-bottom: 1px solid #FFFDFC;
+    padding-left: 1em;
+    padding-right: 1em;
+    box-shadow:         2px 2px 24px rgba(15, 15, 15, 0.75);
+    -moz-box-shadow:    2px 2px 24px rgba(15, 15, 15, 0.75);
+    -o-box-shadow:      2px 2px 24px rgba(15, 15, 15, 0.75);
+    -webkit-box-shadow: 2px 2px 24px rgba(15, 15, 15, 0.75);
 }
 
 .tabHeader.active
@@ -230,6 +240,7 @@ a.selected
 .hero.fa-heart.selected
 {
     color: #F77224;
+    opacity: 1.0;
 }
 
 #hero [sc-data]
@@ -238,12 +249,14 @@ a.selected
 }
 
 #hero .title,
-#hero .handle
+#hero .handle,
+#hero .contact-us
 {
     text-shadow:         0 0 12px rgba(15, 15, 15, 0.95);
     -moz-text-shadow:    0 0 12px rgba(15, 15, 15, 0.95);
     -o-text-shadow:      0 0 12px rgba(15, 15, 15, 0.95);
     -webkit-text-shadow: 0 0 12px rgba(15, 15, 15, 0.95);
+    line-height: 1em;
 }
 
 #hero .title
@@ -262,6 +275,7 @@ a.selected
     position: relative;
     left: 0px;
     padding: 10px;
+    line-height: 1em;
 }
 
 #hero .followers,
@@ -319,7 +333,7 @@ a.selected
 #hero .contact-us
 {
     position: relative;
-    width: 75%;
+    width: 65%;
     padding-top: 1em;
     left: 50%;
     font-size: 1.5em;
@@ -367,6 +381,17 @@ a.selected
     color: rgba(255,253,252,0.2);
 }
 
+[contenteditable].white-bg
+{
+    background-color: rgba(255, 215, 192, 0.7);
+}
+
+[contenteditable].white-bg:empty:not(:focus):before
+{
+    content:attr(sc-placeholder);
+    color: rgba(15,15,15,0.3);
+}
+
 .dropzone 
 {
     background: #FAFAFA;
@@ -405,6 +430,12 @@ a.selected
     {
         font-size: 1.5em;
     }
+
+    #hero .followers,
+    #hero .following
+    {
+        font-size: 1.75em;
+    }
 }
 
 @media only screen and (max-width: 736px)
@@ -421,6 +452,11 @@ a.selected
     #hero .contact-us
     {
         font-size: 1.2em;
+    }
+    #hero .followers,
+    #hero .following
+    {
+        font-size: 1em;
     }
 }
 
@@ -1386,7 +1422,7 @@ dl.settings dt
     transition: all 0.25s ease;
 
     overflow: hidden;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
 }
 
 .clearfix
@@ -1901,7 +1937,6 @@ dl.settings dt
     -moz-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
-    padding-bottom: 2.25em;
 }
 
 .wrapper .caro .caro-page.tags span
@@ -2152,10 +2187,11 @@ dl.settings dt
     content: "Feline";
 }
 
-.mirrored:before {
--webkit-transform: scale(-1, 1);
--moz-transform: scale(-1, 1);
--ms-transform: scale(-1, 1);
--o-transform: scale(-1, 1);
-transform: scale(-1, 1);
+.mirrored
+{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
 }

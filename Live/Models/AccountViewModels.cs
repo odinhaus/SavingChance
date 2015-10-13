@@ -161,5 +161,12 @@ namespace Live.Models
         public string Mission { get; set; }
         public string HeroUri { get; set; }
         public string ContactUs { get; set; }
+        public string PageUri { get; set; }
+    }
+
+    public class FollowViewModel
+    {
+        public bool Follow { get; set; }
+        public string AtHandle { get; set; }
     }
 }

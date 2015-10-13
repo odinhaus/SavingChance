@@ -8,6 +8,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Live.Models
 {
@@ -97,9 +98,24 @@ namespace Live.Models
         public string PageUri { get; set; }
         public string HeroUri { get; set; }
         public string ContactUs { get; set; }
-
+        [JsonIgnore]
         public virtual List<ApplicationUser> Followers { get; set; }
+        [JsonIgnore]
         public virtual List<ApplicationUser> Following { get; set; }
+        public int FollowerCount
+        {
+            get
+            {
+                return Followers?.Count ?? 0;
+            }
+        }
+        public int FollowingCount
+        {
+            get
+            {
+                return Following?.Count ?? 0;
+            }
+        }
     }
 
     public class ViewFilter

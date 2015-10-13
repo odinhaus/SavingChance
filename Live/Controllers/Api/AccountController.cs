@@ -453,12 +453,38 @@ namespace Live.Controllers.Api
                     Title = model.Title,
                     Mission = model.Mission,
                     ContactUs = model.ContactUs,
+                    PageUri = ToUri(model.PageUri)
                 };
                 return Request.CreateResponse<ApplicationUser>(await _userService.UpdateHeroAttributesAsync(user));
             }
             catch(Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [Route("Follow")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Follow(FollowViewModel model)
+        {
+            try
+            {
+                return Request.CreateResponse<ApplicationUser>(await _userService.FollowAsync(model.AtHandle, model.Follow));
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        private string ToUri(string uri)
+        {
+            if (uri.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase))
+                return uri;
+            else
+            {
+                return "http://" + uri;
             }
         }
 

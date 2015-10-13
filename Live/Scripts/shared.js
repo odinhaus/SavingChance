@@ -33,24 +33,10 @@ Number.prototype.toCurrency = function (n, x) {
 };
 
 function doSearch() {
-    //var $main = $('#main');
-    //var applied = false;
+
     var query = $('#search-form').serializeArray();
     var queryPath = query[0].value ? "/?" + query[0].name + "=" + encodeURIComponent(query[0].value) : "/";
-    //if ($main)
-    //{
-    //    // we're in an angular spa view that supports searching
-    //    var $scope = angular.element($main).scope();
-    //    if ($scope) {
-    //        $scope.search(query);
-    //        //history.pushState(query, "Home Page", queryPath);
-    //        applied = true;
-    //    }
-    //}
-    //if (!applied)
-    //{
     window.location.assign(queryPath);
-    //}
     event.preventDefault();
     return false;
 }
@@ -66,11 +52,8 @@ function setTab(element, fn) {
     fn();
 }
 
-function applyEditables() {
-    $('.edit').toggleClass('active');
+function applyEditables(callback) {
     $('.edit a').toggleClass('active');
-    $('.tabHeader').toggleClass('active');
-    $('.fa-camera').toggleClass('active');
     var focus = false;
     $('[sc-data]').each(function (i, elm) {
         var $elm = $(elm);
@@ -90,9 +73,11 @@ function applyEditables() {
             focus = true;
         }
     });
+
+    if (callback) callback();
 }
 
-function commitEditables(uri) {
+function commitEditables(uri, callback) {
     var data = {};
     $('[contenteditable]').each(function (i, elm) {
         var $elm = $(elm);
@@ -127,28 +112,13 @@ function commitEditables(uri) {
                 $elm.replaceWith($original);
             });
 
-            $('.edit').toggleClass('active');
+            applyUpdates(data);
+
             $('.edit a').toggleClass('active');
-            $('.tabHeader').toggleClass('active');
-            $('.fa-camera').toggleClass('active');
+            if (callback) callback();
         },
         error: function (data, textStatus, jqXHR) {
-            var $error = $('<div class="error"><div class="close">&times;</div><i class="fa fa-exclamation-circle"></i><div class="message"></div></div>');
-            var $edit = $('.edit');
-            $error.find('.message').text(jqXHR.message);
-            $error.find('.close').click(function () {
-                $error.remove();
-            });
-            $error.css({
-                top: '-999999px',
-            });
-            $('body').append($error);
-            $error.css({
-                top: '-' + $error.height() + 'px'
-            });
-            $error.animate({
-                top: 0
-            }, 1000);
+            showError(jqXHR.message);
         },
         headers: {
             Authorization: 'Bearer ' + window.sc_apiToken
@@ -156,16 +126,55 @@ function commitEditables(uri) {
     });
 }
 
-function discardEditables() {
-    $('.edit').toggleClass('active');
+function applyUpdates(data)
+{
+    $('[sc-data-attr]').each(function (i, elm) {
+        var $elm = $(elm);
+        var split = $elm.attr('sc-data-attr').split(':');
+        $elm.attr(split[0], data[split[1]]);
+    });
+
+    $('[sc-data-noedit]').each(function (i, elm) {
+        var $elm = $(elm);
+        var formatter = $elm.attr('sc-data-format');
+        if (!formatter)
+            formatter = 'function (data) { return data; }';
+        var value = data[$elm.attr('sc-data-noedit')];
+        if (value != undefined) {
+            value = eval('('+ formatter + ')')(value);
+            $elm.text(value);
+        }
+    });
+}
+
+function showError(message)
+{
+    var $error = $('<div class="error"><div class="close">&times;</div><i class="fa fa-exclamation-circle"></i><div class="message"></div></div>');
+    $error.find('.message').text(message);
+    $error.find('.close').click(function () {
+        $error.remove();
+    });
+    $error.css({
+        top: '-999999px',
+    });
+    $('body').append($error);
+    $error.css({
+        top: '-' + $error.height() + 'px'
+    });
+    $error.animate({
+        top: 0
+    }, 1000);
+}
+
+function discardEditables(callback) {
     $('.edit a').toggleClass('active');
-    $('.tabHeader').toggleClass('active');
-    $('.fa-camera').toggleClass('active');
     $('[contenteditable]').each(function (i, elm) {
         var $elm = $(elm);
         var $original = $elm.data();
         $elm.replaceWith($($original.view[0]));
     });
+
+    if (callback) callback();
 }
 
 $('#navButton').click(function () {

@@ -9,8 +9,8 @@
 {
     <div class="tabHeader active">
         <ol>
-            <li><a href="" onclick="setTab(this, function () { $('.edit').css('display', 'block'); $('.hero.fa-camera').addClass('active'); })" class="tabButton selected" name="#hero">about</a></li>
-            <li><a href="" onclick="setTab(this, function () { $('.edit').css('display', 'none'); $('.hero.fa-camera').removeClass('active'); })" class="tabButton" name="#settings">settings</a></li>
+            <li><a href="" onclick="setTab(this, function () { $('.hero.fa-camera').addClass('active'); })" class="tabButton selected" name="#hero">@Model.User.AtHandle</a></li>
+            <li><a href="" onclick="setTab(this, function () { $('.hero.fa-camera').removeClass('active'); })" class="tabButton" name="#settings">settings</a></li>
         </ol>
     </div>
 
@@ -66,19 +66,36 @@
                 });
             }
         };
+
         function showHeroImageSelector()
         {
             Dropzone.forElement("#heroImageForm").removeAllFiles(true);
             $('#heroImageForm')[0].reset();
             $('#heroImage').modal();
         }
+
+        function toggleElementsOff()
+        {
+            $('.tabHeader').removeClass('active');
+            $('.fa-camera').removeClass('active');
+        }
+
+        function toggleElementsOn() {
+            var $selectedTab = $('.tabButton.selected');
+            var tabName = $selectedTab.attr('name');
+            $('.tabHeader').addClass('active');
+            if (tabName == "#hero")
+            {
+                $('.fa-camera').addClass('active');
+            }
+        }
     </script>
 
     <i class="hero fa fa-camera active" onclick="showHeroImageSelector()"></i>
-    <div class="edit">
-        <a class="showEdit active" onclick="applyEditables()"><i class="fa fa-pencil tool"></i> edit</a>
-        <a class="commit" onclick="commitEditables('/api/Account/Update')"><i class="fa fa-check tool" ></i> commit</a>
-        <a class="discard" onclick="discardEditables()"><i class="fa fa-times tool" ></i> cancel</a>
+    <div class="edit active">
+        <a class="showEdit active" onclick="applyEditables(toggleElementsOff)"><i class="fa fa-pencil tool"></i> edit</a>
+        <a class="commit" onclick="commitEditables('/api/Account/Update', toggleElementsOn)"><i class="fa fa-check tool" ></i> commit</a>
+        <a class="discard" onclick="discardEditables(toggleElementsOn)"><i class="fa fa-times tool" ></i> cancel</a>
     </div>
     <div id="heroImage" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -115,7 +132,7 @@
                 }
                         <dl class="settings">
                             <dt>
-                                Account Login <i data-toggle="popover" data-html="true" data-placement="right" title="Account Handle" data-content="The email address used to login to your account." class="fa fa-question-circle help-icon"></i>
+                                Account Login <i data-toggle="popover" data-html="true" data-placement="right" title="Account Login" data-content="The email address used to login to your account." class="fa fa-question-circle help-icon"></i>
                             </dt>
                             <dd>
                                 @Model.User.Email
@@ -162,7 +179,7 @@
                                                 By following the link shown above, you authorize SavingChance.com to process payments via Stripe.com on your behalf.
                                                 In so doing, you also agree to accept our <a href="/Terms">Terms</a> and <a href="/Privacy">Privacy</a> agreements.
                                             </p>
-                                            <p>You will not be able to create Save Chances and accept payments until you complete this step.</p>
+                                            <p>You will not be able to create Saving Chances and accept payments until you complete this step.</p>
                             }
                             else
                             {
@@ -172,15 +189,23 @@
                                             <br />
                                             <p>Your account is currently registered to accept payments through your Stripe.com account.</p>
                                             <p>
-                                                <strong>Note</strong>, disabling payments will also disable all of your current Save Chances,
-                                                and prevent you from creating new Save Chances and accepting payments.  Any pending donations will also be immediately refunded to all donors.
+                                                <strong>Note</strong>, disabling payments will also disable all of your current Saving Chances,
+                                                and prevent you from creating new Saving Chances and accepting payments.  Any pending donations will also be immediately refunded to all donors.
                                             </p>
                             }
 
                                     </div>
                         }
                             </dd>
-
+                            @if (Model.User.UserType == Live.Models.UserType.Provider)
+                            {
+                                <dt>
+                                    Account Website <i data-toggle="popover" data-html="true" data-placement="right" title="Account Website" data-content="Users can browse to this Url by clicking on the title link on your @Model.User.AtHandle account page." class="fa fa-question-circle help-icon"></i>
+                                </dt>
+                                <dd sc-data="PageUri" sc-placeholder="Your Company Website..." class="white-bg">
+                                    @Model.User.PageUri
+                                </dd>
+                            }
                         </dl>
             }
 

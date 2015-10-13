@@ -4,7 +4,7 @@
     <div class="hero-background" style="background-image: url('@Model.User.HeroUri')"></div>
     <div class="hero-body">
         <div class="banner">
-            <div><a href="@Model.User.PageUri" class="title" sc-data="Title" sc-placeholder="Page Title">@Model.User.Title</a></div>
+            <div><a href="@Model.User.PageUri" sc-data-attr="href:PageUri" class="title" sc-data="Title" sc-placeholder="Page Title">@Model.User.Title</a></div>
             <div><a href="/?q=@Model.User.AtHandle" class="handle">@Model.User.AtHandle</a></div>
         </div>
         <div class="mission" sc-data="Mission" sc-placeholder="Mission Statement...">
@@ -14,11 +14,11 @@
             @(new HtmlString(Model.User.ContactUs))
         </div>
         <div class="followers">
-            <div><i class="fa fa-share-alt"></i><span> @Convert.ToDecimal(Model.User.Followers.Count).ToString("#,##0")</span></div>
+            <div><i class="fa fa-share-alt mirrored"></i> <span sc-data-noedit="FollowerCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.User.FollowerCount).ToString("#,##0")</span></div>
             <div>followers</div>
         </div>
         <div class="following">
-            <div><i class="fa fa-share-alt mirrored"></i><span> @Convert.ToDecimal(Model.User.Following.Count).ToString("#,##0")</span></div>
+            <div><i class="fa fa-share-alt"></i> <span sc-data-noedit="FollowerCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.User.FollowingCount).ToString("#,##0")</span></div>
             <div>following</div>
         </div>
     </div>

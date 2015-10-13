@@ -78,6 +78,41 @@ namespace Live.Services
             current.Title = user.Title;
             current.Mission = user.Mission;
             current.ContactUs = user.ContactUs;
+            current.PageUri = user.PageUri;
+            await _dbContext.SaveChangesAsync();
+            return current;
+        }
+
+        public async Task<ApplicationUser> FollowAsync(string atHandle, bool follow)
+        {
+            var current = _dbContext.Users.Single(u => u.Email == _owin.Authentication.User.Identity.Name);
+            var target = _dbContext.Users.Single(u => u.AtHandle == atHandle);
+
+            if (follow)
+            {
+                if (!current.Following.Any(u => u.AtHandle == atHandle))
+                {
+                    current.Following.Add(target);
+                }
+                if (!target.Followers.Any(u => u.AtHandle == current.AtHandle))
+                {
+                    target.Followers.Add(current);
+                }
+            }
+            else
+            {
+                var following = current.Following.SingleOrDefault(u => u.AtHandle == atHandle);
+                if (following != null)
+                {
+                    current.Following.Remove(following);
+                }
+                var follower = target.Followers.SingleOrDefault(u => u.AtHandle == current.AtHandle);
+                if (follower != null)
+                {
+                    target.Followers.Remove(follower);
+                }
+            }
+
             await _dbContext.SaveChangesAsync();
             return current;
         }
