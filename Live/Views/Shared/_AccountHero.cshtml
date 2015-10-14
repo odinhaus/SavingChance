@@ -14,11 +14,11 @@
             @(new HtmlString(Model.User.ContactUs))
         </div>
         <div class="followers">
-            <div><i class="fa fa-share-alt mirrored"></i> <span sc-data-noedit="FollowerCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.User.FollowerCount).ToString("#,##0")</span></div>
+            <div><i class="fa fa-share-alt mirrored"></i> <span sc-data-noedit="FollowerCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.FollowerCount).ToString("#,##0")</span></div>
             <div>followers</div>
         </div>
         <div class="following">
-            <div><i class="fa fa-share-alt"></i> <span sc-data-noedit="FollowerCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.User.FollowingCount).ToString("#,##0")</span></div>
+            <div><i class="fa fa-share-alt"></i> <span sc-data-noedit="FollowingCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.FollowingCount).ToString("#,##0")</span></div>
             <div>following</div>
         </div>
     </div>

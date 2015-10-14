@@ -90,7 +90,9 @@ namespace Live.Controllers
                 User = appUser,
                 Equine = filter.HasFlag(AnimalTypes.Equine),
                 Canine = filter.HasFlag(AnimalTypes.Canine),
-                Feline = filter.HasFlag(AnimalTypes.Feline)
+                Feline = filter.HasFlag(AnimalTypes.Feline),
+                FollowerCount = await _userService.GetFollowerCountAsync(appUser.AtHandle),
+                FollowingCount = await _userService.GetFollowingCountAsync(appUser.AtHandle)
             };
             return View(model);
         }

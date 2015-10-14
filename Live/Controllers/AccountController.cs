@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Live.Models;
 using Live.Managers;
 using Microsoft.Owin.Security.OAuth;
+using Live.Services;
 
 namespace Live.Controllers
 {
@@ -19,9 +20,11 @@ namespace Live.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IUserService _userService;
 
-        public AccountController()
+        public AccountController(IUserService userService)
         {
+            _userService = userService;
         }
 
         //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -55,7 +58,7 @@ namespace Live.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult ViewAccount(string handle)
+        public async Task<ActionResult> ViewAccount(string handle)
         {
             ApplicationUser user = null;
 
@@ -63,6 +66,7 @@ namespace Live.Controllers
                 && User.Identity.IsAuthenticated)
             {
                 user = UserManager.Context.Users.SingleOrDefault(u => u.Email == User.Identity.Name);
+                handle = user.AtHandle;
             }
             else
             {
@@ -70,7 +74,7 @@ namespace Live.Controllers
             }
 
             var amFollowing = false;
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated && user != null)
             {
                 amFollowing = user.Followers.Any(u => u.Email == User.Identity.Name);
             }
@@ -88,7 +92,9 @@ namespace Live.Controllers
                     Feline = user.ViewFilter.AnimalTypes.HasFlag(AnimalTypes.Feline),
                     PhoneNumber = user.PhoneNumber,
                     User = user,
-                    AmFollowing = amFollowing
+                    AmFollowing = amFollowing,
+                    FollowerCount = await _userService.GetFollowerCountAsync(handle),
+                    FollowingCount = await _userService.GetFollowingCountAsync(handle)
                 });
             }
         }

@@ -90,7 +90,9 @@ namespace Live.Models
         public string AtHandle { get; set; }
         [NotMapped]
         public string BearerToken { get; set; }
+        [JsonIgnore]
         public virtual List<Chance> Chances { get; set; }
+        [JsonIgnore]
         public virtual List<Love> Loves { get; set; }
         public virtual ViewFilter ViewFilter { get; set; }
         public string Title { get; set; }
@@ -102,20 +104,6 @@ namespace Live.Models
         public virtual List<ApplicationUser> Followers { get; set; }
         [JsonIgnore]
         public virtual List<ApplicationUser> Following { get; set; }
-        public int FollowerCount
-        {
-            get
-            {
-                return Followers?.Count ?? 0;
-            }
-        }
-        public int FollowingCount
-        {
-            get
-            {
-                return Following?.Count ?? 0;
-            }
-        }
     }
 
     public class ViewFilter

@@ -444,7 +444,7 @@ namespace Live.Controllers.Api
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("Update")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Update(UpdateHeroViewModel model)
+        public async Task<HttpResponseMessage> Update(UpdateHeroBindingModel model)
         {
             try
             {
@@ -466,11 +466,18 @@ namespace Live.Controllers.Api
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("Follow")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Follow(FollowViewModel model)
+        public async Task<HttpResponseMessage> Follow(FollowBindingModel model)
         {
             try
             {
-                return Request.CreateResponse<ApplicationUser>(await _userService.FollowAsync(model.AtHandle, model.Follow));
+                await _userService.FollowAsync(model.AtHandle, model.Follow);
+
+                return Request.CreateResponse<FollowBindingResponse>(new FollowBindingResponse()
+                {
+                    AtHandle = model.AtHandle,
+                    FollowerCount = await _userService.GetFollowerCountAsync(model.AtHandle),
+                    FollowingCount = await _userService.GetFollowingCountAsync(model.AtHandle)
+                });
             }
             catch (Exception ex)
             {
@@ -480,6 +487,7 @@ namespace Live.Controllers.Api
 
         private string ToUri(string uri)
         {
+            if (string.IsNullOrEmpty(uri)) return uri;
             if (uri.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase))
                 return uri;
             else

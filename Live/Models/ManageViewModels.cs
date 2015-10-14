@@ -14,6 +14,8 @@ namespace Live.Models
         public bool BrowserRemembered { get; set; }
         public ApplicationUser User { get; set; }
         public bool AmFollowing { get; set; }
+        public int FollowingCount { get; set; }
+        public int FollowerCount { get; set; }
     }
 
     public class ManageLoginsViewModel

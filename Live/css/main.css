@@ -541,7 +541,7 @@ a.selected
 {
     display: block;
     float: left;
-    margin: 1em 0 0 1em;
+    margin: 1em 1em 0 1em;
 }
 
 .error .close
@@ -554,7 +554,10 @@ a.selected
 .error .message
 {
     margin: 1em;
-    float: left;
+    max-width: 90%;
+    max-height: 16em;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .modal-dialog button,

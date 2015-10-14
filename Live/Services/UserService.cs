@@ -116,5 +116,15 @@ namespace Live.Services
             await _dbContext.SaveChangesAsync();
             return current;
         }
+
+        public async Task<int> GetFollowerCountAsync(string atHandle)
+        {
+            return await Task.Run(() => _dbContext.Users.Single(u => u.AtHandle == atHandle).Followers.Count);
+        }
+
+        public async Task<int> GetFollowingCountAsync(string atHandle)
+        {
+            return await Task.Run(() => _dbContext.Users.Single(u => u.AtHandle == atHandle).Following.Count);
+        }
     }
 }

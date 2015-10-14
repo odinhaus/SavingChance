@@ -155,18 +155,5 @@ namespace Live.Models
         public string Email { get; set; }
     }
 
-    public class UpdateHeroViewModel
-    {
-        public string Title { get; set; }
-        public string Mission { get; set; }
-        public string HeroUri { get; set; }
-        public string ContactUs { get; set; }
-        public string PageUri { get; set; }
-    }
-
-    public class FollowViewModel
-    {
-        public bool Follow { get; set; }
-        public string AtHandle { get; set; }
-    }
+    
 }

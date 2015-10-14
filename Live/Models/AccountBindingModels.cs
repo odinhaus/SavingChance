@@ -81,4 +81,26 @@ namespace Live.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class UpdateHeroBindingModel
+    {
+        public string Title { get; set; }
+        public string Mission { get; set; }
+        public string HeroUri { get; set; }
+        public string ContactUs { get; set; }
+        public string PageUri { get; set; }
+    }
+
+    public class FollowBindingModel
+    {
+        public bool Follow { get; set; }
+        public string AtHandle { get; set; }
+    }
+
+    public class FollowBindingResponse
+    {
+        public string AtHandle { get; set; }
+        public int FollowingCount { get; set; }
+        public int FollowerCount { get; set; }
+    }
 }

@@ -28,7 +28,19 @@
                         callback(data);
                 },
                 error: function (data, textStatus, jqXHR) {
-                    showError(jqXHR.message);
+                    var message = "An unexpected error occurred.";
+                    if (data.responseJSON != undefined)
+                    {
+                        message = data.responseJSON.Message;
+                    }
+                    else if (jqXHR.responseText != undefined)
+                    {
+                        message = jqXHR.responseText;
+                    }
+                    else if (data.statusText != undefined) {
+                        message = data.statusText;
+                    }
+                    showError(message);
                 },
                 headers: {
                     Authorization: 'Bearer ' + window.sc_apiToken

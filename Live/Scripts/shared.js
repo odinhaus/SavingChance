@@ -118,7 +118,17 @@ function commitEditables(uri, callback) {
             if (callback) callback();
         },
         error: function (data, textStatus, jqXHR) {
-            showError(jqXHR.message);
+            var message = "An unexpected error occurred.";
+            if (data.responseJSON != undefined) {
+                message = data.responseJSON.Message;
+            }
+            else if (jqXHR.responseText != undefined) {
+                message = jqXHR.responseText;
+            }
+            else if (data.statusText != undefined) {
+                message = data.statusText;
+            }
+            showError(message);
         },
         headers: {
             Authorization: 'Bearer ' + window.sc_apiToken
@@ -150,7 +160,7 @@ function applyUpdates(data)
 function showError(message)
 {
     var $error = $('<div class="error"><div class="close">&times;</div><i class="fa fa-exclamation-circle"></i><div class="message"></div></div>');
-    $error.find('.message').text(message);
+    $error.find('.message').text(message || "An unexpected error occurred.");
     $error.find('.close').click(function () {
         $error.remove();
     });
