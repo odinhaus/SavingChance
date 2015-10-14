@@ -2,10 +2,10 @@
 
 <script type="text/javascript">
             $(document).ready(function () {
-                var templateUrl = '/ng/areas/main/browse.html',
-                    controller = 'sc.Browse';
+                var templateUrl = '/ng/areas/details/details.html',
+                    controller = 'sc.Details';
                 var $items = $('#main');
-                var ngItems = angular.element('<div id="main-items" ng-controller="' + controller + '" ng-include="\'' + templateUrl + '\'"></div>');
+                var ngItems = angular.element('<div id="detail" ng-controller="' + controller + '" ng-include="\'' + templateUrl + '\'"></div>');
 
                 $items.append(ngItems);
 

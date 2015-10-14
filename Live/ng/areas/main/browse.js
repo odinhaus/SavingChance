@@ -167,7 +167,7 @@
                 title: 'Lorem epsum salts or something',
                 caption: 'E plurubus unum',
                 subTitle: 'All for one',
-                href: '/Chance/' + i,
+                href: '/' + i,
                 size: size,
                 actualSize: size,
                 id: last + i,
@@ -200,8 +200,8 @@
                     { url: 'http://www.dogwallpapers.net/wallpapers/winter-siberian-husky-dog-wallpaper.jpg' }
                 ],
                 tags: [
-                    '@HBR',
-                    '#' + last + i,
+                    '@sc',
+                    '' + last + i,
                     '#husky',
                     '#houston',
                 '#desparate'],

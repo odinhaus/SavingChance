@@ -12,7 +12,16 @@ namespace Live.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            ViewBag.QueryTerms = Request.QueryString["q"];
+            var terms = Request.RawUrl.Split(new char[] { '/' },StringSplitOptions.RemoveEmptyEntries);
+            if (terms.Length > 0 && terms[0].Equals("tags", StringComparison.CurrentCultureIgnoreCase))
+            {
+                var termsString = "";
+                foreach(var t in terms.Skip(1))
+                {
+                    termsString += "#" + t + " ";
+                }
+                ViewBag.QueryTerms = termsString;
+            }
             return View();
         }
 
@@ -24,9 +33,12 @@ namespace Live.Controllers
             return View();
         }
 
-        public ActionResult ViewChance(long chanceId)
+        public ActionResult Detail(long chanceId)
         {
-            return Redirect("/#/Chance/" + chanceId);
+            //return Redirect("/#/Chance/" + chanceId);
+            ViewBag.Title = "Detail Page";
+            ViewBag.ChanceId = chanceId;
+            return View();
         }
     }
 }

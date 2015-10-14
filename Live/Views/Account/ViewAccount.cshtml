@@ -53,6 +53,7 @@
             $('.hero.fa-heart.active').toggleClass('selected');
             applyUpdates(data);
         }
+        var heart = '<i class="hero fa fa-heart active @(Model.AmFollowing ? "selected" : "")" title="Follow" onclick="follow(\'@Model.User.AtHandle\', followCB)"></i>';
+        $('.hero-header').append(heart);
     </script>
-    <i class="hero fa fa-heart active @(Model.AmFollowing ? "selected" : "")" title="Follow" onclick="follow('@Model.User.AtHandle', followCB)"></i>
 }

@@ -497,6 +497,7 @@
     <Content Include="Views\Account\ViewAccount.cshtml" />
     <Content Include="Views\Account\ItemNotFound.cshtml" />
     <Content Include="Views\Shared\_AccountHero.cshtml" />
+    <Content Include="Views\Home\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

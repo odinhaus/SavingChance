@@ -32,10 +32,44 @@ Number.prototype.toCurrency = function (n, x) {
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
 };
 
+var isShortuctsOpen = false;
+function toggleShortcuts() {
+    var $search = $('#search-form');
+    var $popup = $('#shortcuts');
+    if (isShortuctsOpen) {
+        isShortuctsOpen = false;
+        $popup.css('display', 'none');
+    }
+    else {
+        var top = $search.offset().top + $search.height();
+        var left = 0;
+        var width = $search.width();
+        $popup.css({ display: 'block', top: top + 'px', left: left + 'px', width: width + 'px' });
+        isShortuctsOpen = true;
+    }
+}
+
+function addTerm(elm)
+{
+    $('#search').val($('#search').val() + ' ' + $(elm).text());
+    toggleShortcuts();
+    $('#search').focus();
+    event.preventDefault();
+}
+
 function doSearch() {
 
     var query = $('#search-form').serializeArray();
-    var queryPath = query[0].value ? "/?" + query[0].name + "=" + encodeURIComponent(query[0].value) : "/";
+    var queryPath = "/" + query[0].value.trim(); //query[0].value ? "/tags/" + query[0].name + "=" + encodeURIComponent(query[0].value) : "/";
+    if (query[0].value.trim().indexOf('#') === 0)
+    {
+        var tags = query[0].value.trim().replace(/,/g, ' ').split(' ');
+        queryPath = "/tags";
+        $(tags).each(function (i, elm) {
+            if(elm.length > 0)
+                queryPath += "/" + elm.replace('#','');
+        });
+    }
     window.location.assign(queryPath);
     event.preventDefault();
     return false;

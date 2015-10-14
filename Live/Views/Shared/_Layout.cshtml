@@ -77,14 +77,14 @@
                 <button type="button" class="close" onclick="toggleShortcuts()">&times;</button>
                 <p>In addition to user defined tags, you can choose from the tags below to apply special system filters to provide unique ways to find Chances.</p>
                 <ul>
-                    <li><a href="/?q=%23mine">#mine</a></li>
-                    <li><a href="/?q=%23following">#following</a></li>
-                    <li><a href="/?q=%23new">#new</a></li>
-                    <li><a href="/?q=%23expiring">#expiring</a></li>
-                    <li><a href="/?q=%23almostthere">#almostthere</a></li>
-                    <li><a href="/?q=%23adoption">#adoption</a></li>
-                    <li><a href="/?q=%23donation">#donation</a></li>
-                    <li><a href="/?q=%23trending">#trending</a></li>
+                    <li><a href="" onclick="addTerm(this)">#mine</a></li>
+                    <li><a href="" onclick="addTerm(this)">#following</a></li>
+                    <li><a href="" onclick="addTerm(this)">#new</a></li>
+                    <li><a href="" onclick="addTerm(this)">#expiring</a></li>
+                    <li><a href="" onclick="addTerm(this)">#almostthere</a></li>
+                    <li><a href="" onclick="addTerm(this)">#adoption</a></li>
+                    <li><a href="" onclick="addTerm(this)">#donation</a></li>
+                    <li><a href="" onclick="addTerm(this)">#trending</a></li>
                 </ul>
             </div>
         </form>
@@ -146,27 +146,6 @@
 
         window.appInsights=appInsights;
         appInsights.trackPageView();
-    </script>
-    <script type="text/javascript">
-        var isShortuctsOpen = false;
-        function toggleShortcuts()
-        {
-            var $search = $('#search-form');
-            var $popup = $('#shortcuts');
-            if (isShortuctsOpen)
-            {
-                isShortuctsOpen = false;
-                $popup.css('display', 'none');
-            }
-            else
-            {
-                var top = $search.offset().top + $search.height();
-                var left = 0;
-                var width = $search.width();
-                $popup.css({display: 'block', top: top + 'px', left: left + 'px', width: width + 'px'});
-                isShortuctsOpen = true;
-            }
-        }
     </script>
 </body>
 </html>

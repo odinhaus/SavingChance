@@ -3,16 +3,6 @@ var $masonry = null;
 
 sc.config(['$routeProvider', '$locationProvider',
   function ($routeProvider, $locationProvider) {
-      $routeProvider.
-        when('/Chance/:id', {
-            templateUrl: '/ng/areas/details/details.html',
-            controller: 'sc.Details'
-        }).
-        when('/', {
-            templateUrl: '/ng/areas/main/browse.html',
-            controller: 'sc.Browse',
-            reloadOnsearch: true
-        });
       $locationProvider.html5Mode({
           enabled: true,
           requireBase: false
