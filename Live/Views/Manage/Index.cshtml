@@ -89,6 +89,9 @@
                 $('.fa-camera').addClass('active');
             }
         }
+        $(document).ready(function(){
+            setTab($('[name="#hero"]')[0], function () { $('.hero.fa-camera').addClass('active'); })
+        });
     </script>
 
     <i class="hero fa fa-camera active" onclick="showHeroImageSelector()"></i>
@@ -117,7 +120,7 @@
         </div>
     </div>
 }
-    <div id="settings" class="tab" style="display:none">
+    <div id="settings" class="tab">
         <div class="content-center">
             <section id="registerForm">
                 <h2>Account Settings</h2>

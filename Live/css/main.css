@@ -168,7 +168,6 @@ a.selected
 #hero
 {
     color: #FFFDFC;
-    min-height: 30em;
 }
 
 #hero a
@@ -895,7 +894,6 @@ html
     width: 100%;
     background-color:#FFFDFC;
     border-bottom: 1px solid #fff;
-    min-height: 30em;
 }
 
 .btn
