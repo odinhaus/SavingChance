@@ -5,7 +5,7 @@
 
 @Html.Partial("_LoginPartial")
 <div>
-@if (Request.IsAuthenticated && Model.User.UserType == Live.Models.UserType.Provider)
+@if (Request.IsAuthenticated)
 {
     <div class="tabHeader active">
         <ol>
@@ -92,9 +92,9 @@
         $(document).ready(function(){
             setTab($('[name="#hero"]')[0], function () { $('.hero.fa-camera').addClass('active'); })
         });
+        $('.hero-header').append('<i class="hero fa fa-camera active" onclick="showHeroImageSelector()"></i>');
     </script>
 
-    <i class="hero fa fa-camera active" onclick="showHeroImageSelector()"></i>
     <div class="edit active">
         <a class="showEdit active" onclick="applyEditables(toggleElementsOff)"><i class="fa fa-pencil tool"></i> edit</a>
         <a class="commit" onclick="commitEditables('/api/Account/Update', toggleElementsOn)"><i class="fa fa-check tool" ></i> commit</a>

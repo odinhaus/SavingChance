@@ -1,25 +1,54 @@
 ﻿@model Live.Models.IndexViewModel
 
 <div id="hero" class="tab">
-    <div class="hero-background" style="background-image: url('@Model.User.HeroUri')"></div>
-    <div class="hero-body">
-        <div class="banner">
-            <div><a href="@Model.User.PageUri" sc-data-attr="href:PageUri" class="title" sc-data="Title" sc-placeholder="Page Title">@Model.User.Title</a></div>
-            <div><a href="/?q=@Model.User.AtHandle" class="handle">@Model.User.AtHandle</a></div>
+    <div class="hero-header">
+        <div class="hero-background" style="background-image: url('@Model.User.HeroUri')"></div>
+        <div class="hero-body">
+            <div class="banner">
+                @if (Model.User.UserType == Live.Models.UserType.Donor)
+                {
+                    <div class="title" sc-data="Title" sc-placeholder="Your Name...">@Model.User.Title</div>
+                    <div class="handle">@Model.User.AtHandle</div>
+                }
+                else
+                {
+                    <div><a href="@Model.User.PageUri" sc-data-attr="href:PageUri" class="title" sc-data="Title" sc-placeholder="Your Name...">@Model.User.Title</a></div>
+                    <div><a href="/?q=@Model.User.AtHandle" class="handle">@Model.User.AtHandle</a></div>
+                }
+            </div>
+            <div class="mission @(Model.User.UserType == Live.Models.UserType.Donor ? "hidden" : "")" sc-data="Mission" sc-placeholder="Mission Statement...">
+                @(new HtmlString(Model.User.Mission))
+            </div>
+            <div class="contact-us @(Model.User.UserType == Live.Models.UserType.Donor ? "hidden" : "")" sc-data="ContactUs" sc-placeholder="Contact Information...">
+                @(new HtmlString(Model.User.ContactUs))
+            </div>
+            <div class="followers @(Model.User.UserType == Live.Models.UserType.Donor ? "hidden" : "")">
+                <div><i class="fa fa-share-alt mirrored"></i> <span sc-data-noedit="FollowerCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.FollowerCount).ToString("#,##0")</span></div>
+                <div>followers</div>
+            </div>
+            <div class="following">
+                <div><i class="fa fa-share-alt"></i> <span sc-data-noedit="FollowingCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.FollowingCount).ToString("#,##0")</span></div>
+                <div>following</div>
+            </div>
         </div>
-        <div class="mission" sc-data="Mission" sc-placeholder="Mission Statement...">
-            @(new HtmlString(Model.User.Mission))
-        </div>
-        <div class="contact-us" sc-data="ContactUs" sc-placeholder="Contact Information...">
-            @(new HtmlString(Model.User.ContactUs))
-        </div>
-        <div class="followers">
-            <div><i class="fa fa-share-alt mirrored"></i> <span sc-data-noedit="FollowerCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.FollowerCount).ToString("#,##0")</span></div>
-            <div>followers</div>
-        </div>
-        <div class="following">
-            <div><i class="fa fa-share-alt"></i> <span sc-data-noedit="FollowingCount" sc-data-format="function(data){ return data.toLocaleString(); }">@Convert.ToDecimal(Model.FollowingCount).ToString("#,##0")</span></div>
-            <div>following</div>
-        </div>
+    </div>
+    <div class="hero-items">
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var templateUrl = '/ng/areas/main/browse.html',
+                    controller = 'sc.Browse';
+                var $items = $('.hero-items');
+                var ngItems = angular.element('<div id="hero-items" ng-controller="' + controller + '" ng-include="\'' + templateUrl + '\'"></div>');
+
+                $items.append(ngItems);
+
+                var scope = ngItems.scope();
+                var $compile = ngItems.injector().get('$compile');
+                var compiled = $compile(ngItems);
+                
+                compiled(scope);
+                scope.$apply();
+            });
+        </script>
     </div>
 </div>

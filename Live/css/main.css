@@ -47,6 +47,13 @@ a
     cursor: pointer!important;
 }
 
+div.hidden
+{
+    display: none!important;
+    height: 0;
+    width: 0;
+}
+
 textarea:focus, 
 input:focus,
 select:focus
@@ -168,6 +175,7 @@ a.selected
 #hero
 {
     color: #FFFDFC;
+    min-height: 20em;
 }
 
 #hero a
@@ -187,6 +195,10 @@ a.selected
     -moz-transition:    all .1s linear;
     -o-transition:      all .1s linear;
     -webkit-transition: all .1s linear;
+}
+#hero .hero-header
+{
+    position: relative;
 }
 
 #hero .hero-background
@@ -288,7 +300,7 @@ a.selected
 
 }
 
-#hero .following 
+#hero .followers 
 {
     bottom: 2em;
 }
@@ -389,6 +401,11 @@ a.selected
 {
     content:attr(sc-placeholder);
     color: rgba(15,15,15,0.3);
+}
+
+#donate
+{
+    color: #0F0F0F!important;
 }
 
 .dropzone 
