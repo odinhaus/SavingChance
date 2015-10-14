@@ -145,7 +145,8 @@ namespace Live.Controllers.Api
                 AnimalTypes =
                   (model.Equine ? AnimalTypes.Equine : AnimalTypes.None)
                 | (model.Canine ? AnimalTypes.Canine : AnimalTypes.None)
-                | (model.Feline ? AnimalTypes.Feline : AnimalTypes.None)
+                | (model.Feline ? AnimalTypes.Feline : AnimalTypes.None),
+                OnlyFollowing = model.OnlyFollowing
             };
             await _userService.UpdateViewFilterAsync(viewFilter);
             return Ok();

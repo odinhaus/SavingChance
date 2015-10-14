@@ -118,5 +118,6 @@ namespace Live.Models
         [Index]
         public AnimalTypes AnimalTypes { get; set; }
         public bool IsDefault { get; set; }
+        public bool OnlyFollowing { get; set; }
     }
 }

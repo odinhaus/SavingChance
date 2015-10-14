@@ -2106,7 +2106,7 @@ dl.settings dt
 
 .onoffswitch {
     position: relative; 
-    width: 6em;
+    width: 9.2em;
     -webkit-user-select:none; 
     -moz-user-select:none; 
     -ms-user-select: none;
@@ -2163,7 +2163,7 @@ dl.settings dt
     position: absolute; 
     top: 0; 
     bottom: 0;
-    right: 5em;
+    right: 8.2em;
     transition: all 0.3s ease-in 0s; 
 }
 .onoffswitch-checkbox:checked ~ .onoffswitch-label .onoffswitch-inner {
@@ -2186,6 +2186,16 @@ dl.settings dt
 .onoffswitch-inner.feline:after
 {
     content: "Feline";
+}
+
+.onoffswitch-inner.following:before
+{
+    content: "Only Following";
+}
+
+.onoffswitch-inner.following:after
+{
+    content: "All Sponsors";
 }
 
 .mirrored

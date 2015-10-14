@@ -48,6 +48,7 @@ namespace Live.Services
             }
 
             user.ViewFilter.AnimalTypes = filter.AnimalTypes;
+            user.ViewFilter.OnlyFollowing = filter.OnlyFollowing;
 
             await _dbContext.SaveChangesAsync();
         }

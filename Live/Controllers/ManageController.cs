@@ -92,7 +92,8 @@ namespace Live.Controllers
                 Canine = filter.HasFlag(AnimalTypes.Canine),
                 Feline = filter.HasFlag(AnimalTypes.Feline),
                 FollowerCount = await _userService.GetFollowerCountAsync(appUser.AtHandle),
-                FollowingCount = await _userService.GetFollowingCountAsync(appUser.AtHandle)
+                FollowingCount = await _userService.GetFollowingCountAsync(appUser.AtHandle),
+                OnlyFollowing = appUser.ViewFilter?.OnlyFollowing ?? false
             };
             return View(model);
         }
@@ -109,7 +110,8 @@ namespace Live.Controllers
             {
                 Equine = filter.HasFlag(AnimalTypes.Equine),
                 Canine = filter.HasFlag(AnimalTypes.Canine),
-                Feline = filter.HasFlag(AnimalTypes.Feline)
+                Feline = filter.HasFlag(AnimalTypes.Feline),
+                OnlyFollowing = user.ViewFilter?.OnlyFollowing ?? false
             });
         }
 
@@ -125,7 +127,8 @@ namespace Live.Controllers
                 AnimalTypes =
                   (model.Equine ? AnimalTypes.Equine : AnimalTypes.None)
                 | (model.Canine ? AnimalTypes.Canine : AnimalTypes.None)
-                | (model.Feline ? AnimalTypes.Feline : AnimalTypes.None)
+                | (model.Feline ? AnimalTypes.Feline : AnimalTypes.None),
+                OnlyFollowing = model.OnlyFollowing
             };
             await _userService.UpdateViewFilterAsync(viewFilter);
             return Redirect("/");

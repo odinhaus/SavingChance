@@ -75,6 +75,7 @@ namespace Live.Models
         public bool Equine { get; set; }
         public bool Canine { get; set; }
         public bool Feline { get; set; }
+        public bool OnlyFollowing { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel

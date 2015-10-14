@@ -348,6 +348,10 @@
     <Compile Include="Migrations\201510131533111_Following_Followers.Designer.cs">
       <DependentUpon>201510131533111_Following_Followers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510140114333_OnlyFollowing.cs" />
+    <Compile Include="Migrations\201510140114333_OnlyFollowing.Designer.cs">
+      <DependentUpon>201510140114333_OnlyFollowing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -551,6 +555,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510131533111_Following_Followers.resx">
       <DependentUpon>201510131533111_Following_Followers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510140114333_OnlyFollowing.resx">
+      <DependentUpon>201510140114333_OnlyFollowing.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

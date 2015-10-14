@@ -219,9 +219,16 @@
             {
                         @Html.AntiForgeryToken()
                         <dl class="settings">
-                            <dt>Filters <i data-toggle="popover" data-html="true" data-placement="right" title="Filters" data-content="Controls what types of animals are displayed in your Chance feed." class="fa fa-question-circle help-icon"></i></dt>
+                            <dt>Filters <i data-toggle="popover" data-html="true" data-placement="right" title="Filters" data-content="Controls what types of animals, and from which sponsors are displayed in your Saving Chance feed." class="fa fa-question-circle help-icon"></i></dt>
                             <dd>
                                 <div style="width: 12em; font-size: 0.75em; padding-top: 1em;">
+                                    <div class="onoffswitch">
+                                        @Html.CheckBoxFor(model => model.OnlyFollowing, new { id = "following", @class = "onoffswitch-checkbox" })
+                                        <label class="onoffswitch-label" for="following">
+                                            <span class="onoffswitch-inner following"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
                                     <div class="onoffswitch">
                                         @Html.CheckBoxFor(model => model.Equine, new { id = "equine", @class = "onoffswitch-checkbox" })
                                         <label class="onoffswitch-label" for="equine">
@@ -245,7 +252,7 @@
                                     </div>
                                 </div>
                                 <script type="text/javascript">
-                                    $('#equine, #canine, #feline').change(function () {
+                                    $('#equine, #canine, #feline, #following').change(function () {
                                         var json = $('#searchSettings').serialize();
                                         var jqxhr = $.ajax(
                                             {
