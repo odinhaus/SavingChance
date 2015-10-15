@@ -110,6 +110,13 @@ body, .bg {
     list-style: none;
 }
 
+#shortcuts li
+{
+    display: block;
+    float: left;
+    margin: 0 0.5em 0.5em 0em;
+}
+
 a.tabButton
 {
     /*text-shadow: 0 0 1px #FAFAFA;*/
@@ -1614,6 +1621,7 @@ dl.settings dt
     -webkit-transition: all 0.25s ease;
     -ms-transition: all 0.25s ease;
     transition: all 0.25s ease;
+    color: #FFFDFC !important;
 }
 
 #header .tool.selected a,
