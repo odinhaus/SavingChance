@@ -21,8 +21,8 @@ namespace Live
 
             routes.MapRoute(
                name: "Account",
-               url: "{handle}",
-               defaults: new { controller = "Account", action = "ViewAccount" },
+               url: "{handle}/{*query}",
+               defaults: new { controller = "Account", action = "ViewAccount", query = UrlParameter.Optional },
                constraints: new { handle = @"@\w+" });
 
             routes.MapRoute(

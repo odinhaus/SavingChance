@@ -32,12 +32,21 @@ Number.prototype.toCurrency = function (n, x) {
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
 };
 
-var isShortuctsOpen = false;
-function toggleShortcuts() {
+var isShortcutsOpen = false;
+function toggleShortcuts(state) {
     var $search = $('#search-form');
     var $popup = $('#shortcuts');
-    if (isShortuctsOpen) {
-        isShortuctsOpen = false;
+    state = state || 'toggle';
+    if (state == 'show')
+    {
+        isShortcutsOpen = false;
+    }
+    else if (state == 'hide')
+    {
+        isShortcutsOpen = true;
+    }
+    if (isShortcutsOpen) {
+        isShortcutsOpen = false;
         $popup.css('display', 'none');
     }
     else {
@@ -45,16 +54,35 @@ function toggleShortcuts() {
         var left = 0;
         var width = $search.width();
         $popup.css({ display: 'block', top: top + 'px', left: left + 'px', width: width + 'px' });
-        isShortuctsOpen = true;
+        isShortcutsOpen = true;
     }
 }
 
-function addTerm(elm)
+function addTerm(elm, term, doNav)
 {
-    $('#search').val($('#search').val() + ' ' + $(elm).text());
-    toggleShortcuts();
+    term = term || $(elm).text();
+    
+    if (doNav)
+    {
+        $('#search').val(term);
+    }
+    else
+    {
+        if ($('#search').val().indexOf(term) == -1)
+        {
+            $('#search').val($('#search').val() + ' ' + term);
+        }
+    }
+    toggleShortcuts('hide');
     $('#search').focus();
-    event.preventDefault();
+    if (doNav)
+    {
+        doSearch();
+    }
+    else
+    {
+        event.preventDefault();
+    }
 }
 
 function doSearch() {
@@ -68,6 +96,14 @@ function doSearch() {
         $(tags).each(function (i, elm) {
             if(elm.length > 0)
                 queryPath += "/" + elm.replace('#','');
+        });
+    }
+    else if (query[0].value.trim().indexOf('@') === 0) {
+        var tags = query[0].value.trim().replace(/,/g, ' ').split(' ');
+        queryPath = "";
+        $(tags).each(function (i, elm) {
+            if (elm.length > 0)
+                queryPath += "/" + elm.replace('#', '');
         });
     }
     window.location.assign(queryPath);

@@ -272,8 +272,8 @@
         $('[data-toggle="popover"]').popover();
     };
 
-    $('#donate-form').submit(function (event) {
-        var $form = $(this);
+    $scope.submitDonate = function (event) {
+        var $form = $('#donate-form');
         var $alert = $form.find('.modal-footer .alert');
         var validation = validateForm($form);
         if (validation.success) {
@@ -301,7 +301,7 @@
         }
 
         return false;
-    });
+    };
 
     function validateForm($form)
     {
@@ -394,7 +394,7 @@
             $('#success').css('display', 'none');
             $('#failure').css('display', 'block');
             $('#donateResult .modal-title span').html('An Error Occurred...');
-            $('#failure span').html(paymentResults.Message);
+            $('#failure span').html(paymentResults.Message || paymentResults.responseJSON.Message);
         }
         $dialog.modal('show');
     }
@@ -748,6 +748,7 @@
 .directive('tileRendered', function () {
     return function (scope, element, attrs) {
         var $element = $(element);
+        var $section = $('#thumbs');
         var tile = scope.tile;
         tile.element = $element;
         $element.css({
@@ -756,6 +757,10 @@
             width: tile.width,
             height: tile.height
         });
+        if ($section.height() < tile.top + tile.height)
+        {
+            $section.height(tile.top + tile.height);
+        }
         //updateStatus(tile, $element);
         $element.swipe({
             swipe: function (event, direction, distance, duration, fingerCount) {

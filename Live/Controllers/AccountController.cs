@@ -58,9 +58,13 @@ namespace Live.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> ViewAccount(string handle)
+        public async Task<ActionResult> ViewAccount(string handle, string query)
         {
+            if (!string.IsNullOrEmpty(query))
+                return RedirectToAction("Index", "Home", new { query = handle + "/" + query });
+
             ApplicationUser user = null;
+            ViewBag.QueryTerms = handle;
 
             if (handle.Equals("@me", StringComparison.CurrentCultureIgnoreCase)
                 && User.Identity.IsAuthenticated)

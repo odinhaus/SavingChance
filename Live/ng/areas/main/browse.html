@@ -79,7 +79,7 @@
     </div>
     <div id="donate" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <form action="/Api/Donate" method="POST" id="donate-form" enctype="application/x-www-form-urlencoded">
+            <form method="POST" id="donate-form" enctype="application/x-www-form-urlencoded">
                 <input type="hidden" id="chanceId" name="chanceId"/>
                 <input type="hidden" id="goal" name="goal" />
                 <input type="hidden" id="total" name="total" />
@@ -169,7 +169,7 @@
                     </div>
                     <div>
                         <button type="button" class="btn" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="button" class="btn btn-default" ng-click="submitDonate()">Submit</button>
                     </div>
                 </div>
             </form>

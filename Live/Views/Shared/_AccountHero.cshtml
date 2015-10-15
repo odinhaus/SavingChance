@@ -13,7 +13,7 @@
                 else
                 {
                     <div><a href="@Model.User.PageUri" sc-data-attr="href:PageUri" class="title" sc-data="Title" sc-placeholder="Your Name...">@Model.User.Title</a></div>
-                    <div><a href="/?q=@Model.User.AtHandle" class="handle">@Model.User.AtHandle</a></div>
+                    <div><a href="/@Model.User.AtHandle" class="handle">@Model.User.AtHandle</a></div>
                 }
             </div>
             <div class="mission @(Model.User.UserType == Live.Models.UserType.Donor ? "hidden" : "")" sc-data="Mission" sc-placeholder="Mission Statement...">

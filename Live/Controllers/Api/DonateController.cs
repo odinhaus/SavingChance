@@ -22,7 +22,8 @@ namespace Live.Controllers.Api
         [HttpPost]
         public async Task<HttpResponseMessage> Post(DonationRequest request)
         {
-            return Request.CreateResponse<DonationResponse>(await _paymentService.DonateAsync(request));
+            var result = await _paymentService.DonateAsync(request);
+            return Request.CreateResponse<DonationResponse>(result.Status == DonationStatus.Success ? HttpStatusCode.OK : HttpStatusCode.InternalServerError, result);
         }
     }
 }

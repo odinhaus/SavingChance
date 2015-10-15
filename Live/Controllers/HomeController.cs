@@ -18,7 +18,7 @@ namespace Live.Controllers
                 var termsString = "";
                 foreach(var t in terms.Skip(1))
                 {
-                    termsString += "#" + t + " ";
+                    termsString += (t.StartsWith("@") ? "" : "#") + t + " ";
                 }
                 ViewBag.QueryTerms = termsString;
             }
@@ -38,6 +38,7 @@ namespace Live.Controllers
             //return Redirect("/#/Chance/" + chanceId);
             ViewBag.Title = "Detail Page";
             ViewBag.ChanceId = chanceId;
+            ViewBag.QueryTerms = chanceId.ToString();
             return View();
         }
     }
